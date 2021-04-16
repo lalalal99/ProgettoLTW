@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="js/index.js"></script>
+    <script>
+      window.onload = inEvidenza;
+    </script>
     <title>Guida TV</title>
   </head>
   <body>
@@ -12,25 +16,35 @@
     <div></div>
     <hr />
     <!-- in evidenza -->
-    <div>
+    <div id="Evidenza">
       <h1>In Evidenza</h1>
       <br />
-      <img src="imgs/landscape.png" alt="test1" class="locandina" />
-      <img src="imgs/Trees.png" alt="test2" class="locandina" />
+      <ul id="Evidenza_Lista">
+        <!-- <li>
+          <img src="imgs/landscape.png" alt="test1" class="locandina" />
+        </li>
+        <li>
+          <img src="imgs/Trees.png" alt="test2" class="locandina" />
+        </li> -->
+      </ul>
     </div>
     <br />
     <hr />
     <!-- prima serata -->
     <div>
-      <h1>Prima serata</h1>
+      <select>
+        <option value="Prima">Prima serata</option>
+        <option value="Seconda">Seconda serata</option>
+        <option value="Unificata">Serata unificata</option>
+      </select>
       <br />
       <div>
         <h2>Rai 1</h2>
         <img src="imgs/Trees.png" alt="test2" class="locandina prima_serata" />
-        <div style="width: 600px">
-          <h4 class="testo1">Titolo</h4>
+        <div>
+          <h4>Titolo</h4>
           <h4>Ora</h4>
-          <p>
+          <p class="Trama">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi
             facilis, iure aliquam repellendus, dolore at suscipit qui, incidunt
             quae cumque nisi veniam quas similique! Eos magnam facilis inventore

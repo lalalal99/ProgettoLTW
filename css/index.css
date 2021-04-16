@@ -1,8 +1,23 @@
-p {
-  width: 600px;
-  text-justify: distribute;
+body {
+  background-color: #4c5454;
+  color: aliceblue;
   font-family: Arial, Helvetica, sans-serif;
   font-size: large;
+  margin: auto;
+  width: 80%;
+}
+
+p {
+  /* width: 600px; */
+  text-justify: distribute;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-size: large;
+  display: inline; */
+}
+
+.Trama {
+  width: 50%;
+  height: 50%;
 }
 
 .locandina {
@@ -11,7 +26,7 @@ p {
 }
 
 .prima_serata {
-  border: 2px;
+  border: 10px;
   margin-right: 20px;
   border-color: aqua;
   float: left;
@@ -20,14 +35,18 @@ p {
 img {
   margin-left: 10px;
   margin-right: 10px;
-}
-
-h1 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: large;
+  border-radius: 7px;
 }
 
 h4 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: large;
+  display: inline;
+}
+
+li {
+  display: inline;
+}
+
+ul {
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
