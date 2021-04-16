@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      lang="javascript"
+      src="registrazione.js"
+    ></script>
+    <title>Pagina di registrazione</title>
+  </head>
+  <body>
+    <form action="registrazione.js" id="registrazioneForm" method="POST">
+      <input type="email" id="txtEmailReg" placeholder="Email" pattern="[A-Za-z]*@[a-z]*" autofocus required/>
+      <input type="password" id="txtPassReg" placeholder="Password" required />
+      <input type="password" id="txtConfermaPassReg" placeholder="Conferma la tua password" onchange="return validaPsw();" required/>
+      <button type="submit" id="btnSubmitReg">Registrati</button>
+    </form>
+  </body>
+</html>
