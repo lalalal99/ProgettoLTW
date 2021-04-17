@@ -34,7 +34,7 @@ function getRandomTitle() {
 function getFilm() {
   //Ritorna un dizionario con le informazione del film src
   var value = $.ajax({
-    url: generaQuery(arguments[0]),
+    url: generaQuery(arguments[0], arguments[1]),
     async: false,
   }).responseText;
   return JSON.parse(value);
@@ -98,9 +98,11 @@ function aggiungiElementoSerata(canale) {
 
   var div1 = document.createElement("div");
   tmp = document.createElement("h4");
+  tmp.setAttribute("class", "Titolo");
   tmp.appendChild(document.createTextNode(film["Title"]));
   div1.appendChild(tmp);
   tmp = document.createElement("h4");
+  tmp.setAttribute("class", "Durata");
   tmp.appendChild(document.createTextNode(film["Runtime"]));
   div1.appendChild(tmp);
 
