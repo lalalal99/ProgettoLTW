@@ -1,6 +1,6 @@
 function validaPsw(){
-    if(document.getElementById("txtPassReg").value != document.getElementById("txtConfermaPassReg").value){
-        document.getElementById('errore').innerHTML="La password non corrisponde";
+    if(document.getElementById("txtPasswordReg1").value != document.getElementById("txtPasswordReg2").value){
+        document.getElementById('errore').innerHTML="Le password non corrispondono";
         return false;
     }else{
         document.getElementById("errore").innerHTML="";
@@ -8,3 +8,11 @@ function validaPsw(){
     }
     return true;
 }
+// function invalida(attr){
+//     alert(attr);
+//     document.getElementById(attr).style.border=none;
+//     document.getElementById(attr).style.boxShadow=none;
+//     document.getElementById(attr).style.borderBottom="2px solid #ff0000";
+//     document.getElementById(attr).style.borderTop="0px";
+//     document.getElementById(attr).style.marginBottom="10px";
+// }

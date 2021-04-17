@@ -1,0 +1,90 @@
+body {
+  background: #383a3d;
+  padding-top: 5%;
+  font-size: large;
+}
+
+form {
+  background: #fff;
+}
+
+.form-container {
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.login-title {
+  text-align: center;
+  font-family: serif;
+  /* font-size: 30px; */
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #000;
+}
+
+input[type="email"] {
+  border: none;
+  border-bottom: 2px solid #0db8de;
+  border-top: 0px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+input[type="password"] {
+  border: none;
+  border-bottom: 2px solid #0db8de;
+  border-top: 0px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 2px solid #0db8de;
+}
+
+.form-control:invalid {
+  border: none;
+  box-shadow: none;
+  border-bottom: 2px solid #ff0000;
+  border-top: 0px;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-bottom: 0px;
+}
+
+.form-control-label {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.div-submit {
+  text-align: center;
+}
+
+.btn-outline-primary {
+  border-color: #0db8de;
+  color: #fff;
+  align-content: center;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0d8bde;
+}
+
+.form-footer {
+  text-align: center;
+}
