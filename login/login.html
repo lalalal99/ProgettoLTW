@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" src="css/bootstrap.min.css">
     <title>Document</title>
   </head>
   <body>
-    <form id="loginForm" action="" method="POST">
+    <form id="loginForm" action="" method="POST" class="form-container">
       <!-- TODO: Aggiungere logo -->
-      <input type="email" id="txtEmailLog" placeholder="Email" autofocus />
-      <input type="password" id="txtPasswordLog" placeholder="Password" required />
+      <input type="email" id="txtEmailLog" placeholder="Email" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" autofocus required />
+      <input type="password" id="txtPasswordLog" placeholder="Password" maxlength="40" required />
       <button type="submit">Login</button>
       <a href="registrazione.html">Non hai un account? Registrati!</a>
     </form>

@@ -4,18 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      type="text/javascript"
-      lang="javascript"
-      src="registrazione.js"
-    ></script>
+    <link rel="stylesheet" type="text/css" src="css/bootstrap.min.css">
+    <script type="text/javascript" lang="javascript" src="registrazione.js"></script>
     <title>Pagina di registrazione</title>
   </head>
   <body>
-    <form action="registrazione.js" id="registrazioneForm" method="POST">
-      <input type="email" id="txtEmailReg" placeholder="Email" pattern="[A-Za-z]*@[a-z]*" autofocus required/>
-      <input type="password" id="txtPassReg" placeholder="Password" required />
-      <input type="password" id="txtConfermaPassReg" placeholder="Conferma la tua password" onchange="return validaPsw();" required/>
+    <form action="registrazione.js" id="registrazioneForm" method="POST" class="form-container">
+      <!-- TODO: Aggiungere alert figo e non il riquadro in sovraimpressione -->
+      <input type="email" id="txtEmailReg" placeholder="Email" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" autofocus required/>
+      <input type="password" id="txtPassReg" placeholder="Password" maxlength="40" required
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola"
+      />
+      <input type="password" id="txtConfermaPassReg" placeholder="Conferma la tua password" maxlength="40" oninput="return validaPsw();" required/>
+      <div id="errore" class="alert alert-danger" role="alert"></div>
       <button type="submit" id="btnSubmitReg">Registrati</button>
     </form>
   </body>
