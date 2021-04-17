@@ -18,29 +18,25 @@ p {
 }
 
 .Trama {
-  width: 50%;
+  width: 90%;
   height: 50%;
 }
 
 .locandina {
-  float: left;
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
   alt: "locandina";
+  height: 30vh;
 }
 
 .prima_serata {
-  border: 10px;
-  margin-right: 20px;
-  border-color: aqua;
-  float: left;
+  width: 85%;
 }
 
 img {
+  display: flex;
+  object-fit: cover;
   margin-left: 10px;
   margin-right: 10px;
-  border-radius: 7px;
+  border-radius: 10px;
 }
 
 h4 {
@@ -48,9 +44,9 @@ h4 {
   width: 50%;
 }
 
-h4 + h4 {
-  text-align: right;
+#div_evidenza {
 }
+
 .elementoEvidenza {
   display: inline;
 }
@@ -58,9 +54,58 @@ h4 + h4 {
 #Evidenza_Lista {
   display: flex;
   overflow-x: scroll;
+  margin: auto;
+  height: auto;
 }
 
-#Serata {
-  display: grid;
-  overflow-x: hidden;
+#Serata_Lista {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+}
+
+li {
+  list-style: none;
+}
+
+.card {
+  background-color: rgb(57, 50, 65);
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  /* border: 2px solid #0db8de; */
+  width: 50%;
+  align-content: center;
+  box-shadow: 2px solid #0db8de;
+}
+
+.card_titolo_immagine {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card_titolo_immagine h4 {
+  flex: 1;
+  padding-left: 10px;
+}
+.card_titolo_immagine img {
+  flex: 2;
+  padding-bottom: 10px;
+}
+
+.card_txt {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10%;
+  flex: 2;
+}
+
+.card_txt p {
+  flex: 2;
+}
+
+.card_txt h4 {
+  flex: 1;
 }

@@ -19,7 +19,7 @@ function startup() {
 }
 
 function generaEvidenza() {
-  evidenzaLenght = 10;
+  evidenzaLenght = 20;
   for (let i = 0; i < evidenzaLenght; i++) {
     film = getFilm(getRandomTitle());
     console.log(film);
@@ -83,20 +83,27 @@ function generaSerata() {
 
 function aggiungiElementoSerata(canale) {
   var film = getFilm(getRandomTitle());
-  var ul = document.getElementById("Serata");
+  var ul = document.getElementById("Serata_Lista");
   var li = document.createElement("li");
 
   var div = document.createElement("div");
+  div.setAttribute("class", "card");
+
+  var div2 = document.createElement("div");
+  div2.setAttribute("class", "card_titolo_immagine");
+
   var tmp = document.createElement("h2");
   tmp.appendChild(document.createTextNode(canale));
-  div.appendChild(tmp);
+  div2.appendChild(tmp);
 
   tmp = document.createElement("img");
   tmp.setAttribute("src", film["Poster"]);
-  tmp.setAttribute("class", "locandina prima_serata");
-  div.appendChild(tmp);
+  tmp.setAttribute("class", "prima_serata");
+  div2.appendChild(tmp);
+  div.appendChild(div2);
 
   var div1 = document.createElement("div");
+  div1.setAttribute("class", "card_txt");
   tmp = document.createElement("h4");
   tmp.setAttribute("class", "Titolo");
   tmp.appendChild(document.createTextNode(film["Title"]));
@@ -108,6 +115,7 @@ function aggiungiElementoSerata(canale) {
 
   tmp = document.createElement("p");
   tmp.appendChild(document.createTextNode(film["Plot"]));
+  tmp.setAttribute("class", "Trama");
   div1.appendChild(tmp);
 
   div.appendChild(div1);
