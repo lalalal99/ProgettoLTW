@@ -21,7 +21,10 @@ p {
 }
 
 .locandina {
+  float: left;
   width: 200px;
+  height: 300px;
+  object-fit: cover;
   alt: "locandina";
 }
 
@@ -39,7 +42,8 @@ img {
 }
 
 h4 {
-  display: inline;
+  display: flex;
+  width: 50%;
 }
 
 li {
@@ -47,6 +51,6 @@ li {
 }
 
 ul {
+  display: flex;
   overflow-x: scroll;
-  overflow-y: hidden;
 }
