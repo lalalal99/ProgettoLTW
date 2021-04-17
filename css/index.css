@@ -46,11 +46,16 @@ h4 {
   width: 50%;
 }
 
-li {
+.elementoEvidenza {
   display: inline;
 }
 
-ul {
+#Evidenza_Lista {
   display: flex;
   overflow-x: scroll;
+}
+
+#Serata {
+  display: grid;
+  overflow-x: hidden;
 }
