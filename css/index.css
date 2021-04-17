@@ -9,8 +9,10 @@ body {
 
 p {
   /* width: 600px; */
-  text-justify: distribute;
+  text-align: justify;
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  width: 50%;
   /* font-size: large;
   display: inline; */
 }
@@ -46,11 +48,19 @@ h4 {
   width: 50%;
 }
 
-li {
+h4 + h4 {
+  text-align: right;
+}
+.elementoEvidenza {
   display: inline;
 }
 
-ul {
+#Evidenza_Lista {
   display: flex;
   overflow-x: scroll;
+}
+
+#Serata {
+  display: grid;
+  overflow-x: hidden;
 }
