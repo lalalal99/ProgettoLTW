@@ -21,7 +21,7 @@ generare palinsesto e salvarlo da qualche parte (JSON) ogni volta che viene sett
         ...
     },
     ...,
-    +7 gg (?)
+    +5 gg (?)
 }
 
 i film di un giorno devono rimanere gli stessi anche dopo che hai cambiato giorno e sei tornato indietro
@@ -31,6 +31,7 @@ dati salvati di una registrazione (dove?)
 lista preferiti (sempre un json associato a nome utente (?))
     aggiungere ai preferiti direttamente da locandina
     rimuovere " " "
+    notifica show in onda
 
 cliccando su film porta a pagina dedicata (ora porta a sito imdb del film tramite id)
 
