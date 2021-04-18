@@ -4,31 +4,17 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: large;
   margin: auto;
-  width: 80%;
+  width: 90%;
 }
 
 p {
   /* width: 600px; */
   text-align: justify;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
   display: flex;
   width: 50%;
   /* font-size: large;
   display: inline; */
-}
-
-.Trama {
-  width: 90%;
-  height: 50%;
-}
-
-.locandina {
-  alt: "locandina";
-  height: 30vh;
-}
-
-.prima_serata {
-  width: 85%;
 }
 
 img {
@@ -37,11 +23,23 @@ img {
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 10px;
+
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+
+  cursor: pointer;
 }
 
-h4 {
+/* Evidenza */
+
+#Evidenza_Lista {
   display: flex;
-  width: 50%;
+  overflow-x: scroll;
+  margin: auto;
+  height: auto;
 }
 
 #div_evidenza {
@@ -51,33 +49,39 @@ h4 {
   display: inline;
 }
 
-#Evidenza_Lista {
-  display: flex;
-  overflow-x: scroll;
-  margin: auto;
-  height: auto;
+.locandina {
+  alt: "locandina";
+  height: 30vh;
 }
+
+/* Serata */
 
 #Serata_Lista {
   display: flex;
   flex-direction: column;
-  height: 70%;
+  /* height: 70%; */
+  justify-content: space-between;
 }
 
 li {
   list-style: none;
 }
 
+h4 {
+  display: flex;
+  width: 50%;
+}
+
 .card {
   background-color: rgb(57, 50, 65);
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin: 10px 0px 10px 0px;
   border-radius: 10px;
   /* border: 2px solid #0db8de; */
   width: 50%;
   align-content: center;
-  box-shadow: 2px solid #0db8de;
+  /* box-shadow: 2px solid #0db8de;*/
 }
 
 .card_titolo_immagine {
@@ -86,26 +90,41 @@ li {
   flex: 1;
 }
 
-.card_titolo_immagine h4 {
-  flex: 1;
-  padding-left: 10px;
-}
-.card_titolo_immagine img {
-  flex: 2;
-  padding-bottom: 10px;
-}
+/* .card_titolo_immagine h4 {
+} */
+/* .card_titolo_immagine img {
+} */
 
 .card_txt {
   display: flex;
   flex-direction: column;
   padding-top: 10%;
   flex: 2;
+  justify-content: space-evenly;
 }
 
-.card_txt p {
-  flex: 2;
+.Trama {
+  flex: 3fr;
+  width: 90%;
+  height: 50%;
 }
 
-.card_txt h4 {
+.Titolo {
+  flex: 1fr;
+}
+
+.Durata {
+  flex: 1fr;
+}
+
+.txt_canale {
   flex: 1;
+  padding: 10px 0px 10px 10px;
+  width: 30%;
+}
+
+.prima_serata {
+  width: 85%;
+  flex: 2;
+  padding-bottom: 10px;
 }

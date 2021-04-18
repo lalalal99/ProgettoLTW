@@ -19,10 +19,9 @@ function startup() {
 }
 
 function generaEvidenza() {
-  evidenzaLenght = 20;
+  evidenzaLenght = 10;
   for (let i = 0; i < evidenzaLenght; i++) {
     film = getFilm(getRandomTitle());
-    console.log(film);
     aggiungiEvidenza(film);
   }
 }
@@ -68,13 +67,13 @@ function generaSerata() {
   listaCanali = [
     "Rai 1",
     "Rai 2",
-    "Rai 3",
-    "Rete 4",
-    "Canale 5",
-    "Italia Uno",
-    "La Sette",
-    "tv8",
-    "nove",
+    // "Rai 3",
+    // "Rete 4",
+    // "Canale 5",
+    // "Italia Uno",
+    // "La Sette",
+    // "tv8",
+    // "nove",
   ];
   for (let i = 0; i < listaCanali.length; i++) {
     aggiungiElementoSerata(listaCanali[i]);
@@ -85,6 +84,7 @@ function aggiungiElementoSerata(canale) {
   var film = getFilm(getRandomTitle());
   var ul = document.getElementById("Serata_Lista");
   var li = document.createElement("li");
+  li.setAttribute("class", "elem_lista");
 
   var div = document.createElement("div");
   div.setAttribute("class", "card");
@@ -92,18 +92,32 @@ function aggiungiElementoSerata(canale) {
   var div2 = document.createElement("div");
   div2.setAttribute("class", "card_titolo_immagine");
 
-  var tmp = document.createElement("h2");
-  tmp.appendChild(document.createTextNode(canale));
+  var tmp = document.createElement("img");
+  tmp.setAttribute(
+    "src",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rai_1_-_Logo_2016.svg/1200px-Rai_1_-_Logo_2016.svg.png"
+  );
+  tmp.setAttribute("class", "txt_canale");
+  // tmp.appendChild(document.createTextNode(canale));
   div2.appendChild(tmp);
+
+  var link = document.createElement("a");
+  link.setAttribute(
+    "href",
+    "https://www.imdb.com/title/" + film["imdbID"] + "/"
+  );
 
   tmp = document.createElement("img");
   tmp.setAttribute("src", film["Poster"]);
   tmp.setAttribute("class", "prima_serata");
-  div2.appendChild(tmp);
+
+  link.appendChild(tmp);
+  div2.appendChild(link);
   div.appendChild(div2);
 
   var div1 = document.createElement("div");
   div1.setAttribute("class", "card_txt");
+
   tmp = document.createElement("h4");
   tmp.setAttribute("class", "Titolo");
   tmp.appendChild(document.createTextNode(film["Title"]));
