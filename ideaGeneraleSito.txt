@@ -31,7 +31,8 @@ dati salvati di una registrazione (su database)
 notifica show in onda
 lista preferiti memorizzata in db con associazione utente->titolo film (prestare attenzione all'inserimento nuovo film)
     aggiungere ai preferiti direttamente da locandina
-    rimuovere   dai  "          "         "      "
+    rimuovere " " "
+    notifica show in onda
 
 cliccando su film porta a pagina dedicata (ora porta a sito imdb del film tramite id)
 
