@@ -1,7 +1,7 @@
-creare un file locale dove ci sono canale => link immagine
+creare un file locale dove ci sono canale => link immagine (logo)
 generare palinsesto e salvarlo da qualche parte (JSON) ogni volta che viene settato un giorno (onload?)
 {
-    -7 gg(?),
+    -7 gg,
     ...,
     oggi: {
         rai 1: { //minuti fissi con offset casuale, ora del programma successivo variabile a seconda della durata del film prima
@@ -21,16 +21,17 @@ generare palinsesto e salvarlo da qualche parte (JSON) ogni volta che viene sett
         ...
     },
     ...,
-    +7 gg (?)
+    +7 gg
 }
 
 i film di un giorno devono rimanere gli stessi anche dopo che hai cambiato giorno e sei tornato indietro
-possibilita mantenere login con cookies (?) 
-dati salvati di una registrazione (dove?)
+possibilita mantenere login con cookies
+dati salvati di una registrazione (su database)
 
-lista preferiti (sempre un json associato a nome utente (?))
+notifica show in onda
+lista preferiti memorizzata in db con associazione utente->titolo film (prestare attenzione all'inserimento nuovo film)
     aggiungere ai preferiti direttamente da locandina
-    rimuovere " " "
+    rimuovere   dai  "          "         "      "
 
 cliccando su film porta a pagina dedicata (ora porta a sito imdb del film tramite id)
 
