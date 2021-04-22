@@ -137,3 +137,23 @@ function aggiungiElementoSerata(canale) {
   li.appendChild(div);
   ul.appendChild(li);
 }
+
+function uguali(n,o){
+  if ((n.u==o.u))
+      return true;
+  return false;
+}
+
+function gestisciLinkLogin(){
+  var x = JSON.parse(localStorage.utenti);
+  var nextpos = x.length;
+  alert(nextpos);
+  for (i=0;i<nextpos;i++){
+    alert(x);
+    if(uguali(x[i],o)) {
+      alert("Loggato");
+      document.getElementById("linkLogin").innerHTML.value="Loggato";
+    }
+  }
+  return true;
+}
