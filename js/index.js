@@ -13,24 +13,26 @@ items = [
   "Fight Club",
 ];
 
+var palinsesto;
+
 function startup() {
+  getData();
   generaEvidenza();
   generaSerata();
-  console.log(test());
 }
 
-function test() {
-  var value = $.ajax({
-    url: "http://www.omdbapi.com/?apikey=" + OMDb_API + "&i=" + "tt0910534",
-    async: false,
-  }).responseText;
-  return JSON.parse(value);
+function getData() {
+  //47046  elementi
+  $.getScript("js/palinsesto_generator.js", function () {
+    generaPalinsesto();
+  });
+  palinsesto = JSON.parse(localStorage.palinsesto);
 }
 
 function generaEvidenza() {
   evidenzaLenght = 10;
   // for (let i = 0; i < evidenzaLenght; i++) {
-  //   film = getFilm(getRandomTitle());
+  //   film = getFilm("t", getRandomTitle());
   //   aggiungiEvidenza(film);
   // }
 }
@@ -42,17 +44,22 @@ function getRandomTitle() {
 function getFilm() {
   //Ritorna un dizionario con le informazione del film src
   var value = $.ajax({
-    url: generaQuery(arguments[0], arguments[1]),
+    url: generaQuery(arguments[0], arguments[1], arguments[2]),
     async: false,
   }).responseText;
   return JSON.parse(value);
 }
 
 function generaQuery() {
-  //genere link con titolo e eventuale true or false per trama lunga
+  //genere link con t o i e eventuale true or false per trama lunga
   var string =
-    "http://www.omdbapi.com/?apikey=" + OMDb_API + "&t=" + arguments[0];
-  if (arguments[1] == true) {
+    "http://www.omdbapi.com/?apikey=" +
+    OMDb_API +
+    "&" +
+    arguments[0] +
+    "=" +
+    arguments[1];
+  if (arguments[2] == true) {
     string += "&plot=full";
   }
 
@@ -74,8 +81,8 @@ function aggiungiEvidenza(film) {
 
 function generaSerata() {
   listaCanali = [
-    "Rai 1",
-    "Rai 2",
+    // "Rai 1",
+    // "Rai 2",
     // "Rai 3",
     // "Rete 4",
     // "Canale 5",
@@ -90,7 +97,7 @@ function generaSerata() {
 }
 
 function aggiungiElementoSerata(canale) {
-  var film = getFilm(getRandomTitle());
+  var film = getFilm("t", getRandomTitle());
   var ul = document.getElementById("Serata_Lista");
   var li = document.createElement("li");
   li.setAttribute("class", "elem_lista");
