@@ -20,10 +20,10 @@ function startup() {
 
 function generaEvidenza() {
   evidenzaLenght = 10;
-  for (let i = 0; i < evidenzaLenght; i++) {
-    film = getFilm(getRandomTitle());
-    aggiungiEvidenza(film);
-  }
+  // for (let i = 0; i < evidenzaLenght; i++) {
+  //   film = getFilm(getRandomTitle());
+  //   aggiungiEvidenza(film);
+  // }
 }
 
 function getRandomTitle() {
