@@ -16,6 +16,15 @@ items = [
 function startup() {
   generaEvidenza();
   generaSerata();
+  console.log(test());
+}
+
+function test() {
+  var value = $.ajax({
+    url: "http://www.omdbapi.com/?apikey=" + OMDb_API + "&i=" + "tt0910534",
+    async: false,
+  }).responseText;
+  return JSON.parse(value);
 }
 
 function generaEvidenza() {
@@ -138,21 +147,20 @@ function aggiungiElementoSerata(canale) {
   ul.appendChild(li);
 }
 
-function uguali(n,o){
-  if ((n.u==o.u))
-      return true;
+function uguali(n, o) {
+  if (n.u == o.u) return true;
   return false;
 }
 
-function gestisciLinkLogin(){
+function gestisciLinkLogin() {
   var x = JSON.parse(localStorage.utenti);
   var nextpos = x.length;
   alert(nextpos);
-  for (i=0;i<nextpos;i++){
+  for (i = 0; i < nextpos; i++) {
     alert(x);
-    if(uguali(x[i],o)) {
+    if (uguali(x[i], o)) {
       alert("Loggato");
-      document.getElementById("linkLogin").innerHTML.value="Loggato";
+      document.getElementById("linkLogin").innerHTML.value = "Loggato";
     }
   }
   return true;
