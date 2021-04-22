@@ -15,47 +15,30 @@
     <section class="container-fluid">
       <section class="row justify-content-center">
         <section class="col-12 col-sm-6 col-md-4">
-          <form class="form-container" action="registrazione.js" method="POST">
+          <form class="form-container" action="registrazione.js" method="POST" onsubmit="return validaForm()">
             <!-- TODO: aggiungere logo  -->
             <div class="form-group">
               <h2 class="login-title"> NUOVA ISCRIZIONE </h2>
               <label class="form-control-label" for="txtEmailReg">Indirizzo Email</label>
-              <input type="email" id="txtEmailReg" class="form-control" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+              <input type="email" id="txtEmailReg" class="form-control" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$">
             </div>
             <div class="form-group">
               <label class="form-control-label" for="txtPasswordReg1">Password</label>
               <input type="password" id="txtPasswordReg1" class="form-control" maxlength="40"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola" required> <!-- Magari facciamo comparire il triangolino su onkeyup-->
+              title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola">
             </div>
             <div class="form-group">
               <label class="form-control-label" for="txtPasswordReg2">Conferma Password</label>
-              <input type="password" id="txtPasswordReg2" class="form-control" maxlength="40" oninput="return validaPsw();" required> <!-- Magari facciamo comparire il triangolino su onkeyup-->
+              <input type="password" id="txtPasswordReg2" class="form-control" maxlength="40" oninput="return validaPsw();">
             </div>
             <div id="errore" class="alert-danger" role="alert"></div>
             <div class="div-submit">
               <button type="submit" class="btn btn-primary btn-block btn-outline-primary">Iscriviti</button>
             </div>
-            <!-- <div class="form-footer">
-              <p> Non hai un account? <a href="registrazione.html">Registrati ora!</a></p>
-            </div> -->
           </form>
         </section>
       </section>
 
     </section>
-    
-    
-    <!-- <form action="registrazione.js" id="registrazioneForm" method="POST" class="form-container">
-
-       TODO: Aggiungere alert figo e non il riquadro in sovraimpressione 
-      <input type="email" id="txtEmailReg" placeholder="Email" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" autofocus required/>
-      <input type="password" id="txtPassReg" placeholder="Password" maxlength="40" required
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-        title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola"
-      />
-      <input type="password" id="txtConfermaPassReg" placeholder="Conferma la tua password" maxlength="40" oninput="return validaPsw();" required/>
-      <div id="errore" class="alert alert-danger" role="alert"></div>
-      <button type="submit" id="btnSubmitReg">Registrati</button>
-    </form> -->
   </body>
 </html>
