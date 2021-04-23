@@ -27,6 +27,7 @@ function getData() {
     generaPalinsesto();
   });
   palinsesto = JSON.parse(localStorage.palinsesto);
+  console.log(palinsesto);
 }
 
 function generaEvidenza() {
