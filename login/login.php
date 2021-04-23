@@ -1,5 +1,5 @@
 <?php
-
+    
     
 
     // if(!empty($_POST["chkRicordami"])) {
@@ -10,7 +10,7 @@
     //     setcookie("username","");
     //     setcookie("password","");
     //     echo "Cookies Not Set";
-    //     echo "<script type='text/javascript'>alert('$msg');</script>";
+    //     echo "< type='text/javascript'>alert('$msg');</>";
     // }
     
 ?>
