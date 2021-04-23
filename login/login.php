@@ -18,8 +18,13 @@
             $res = mysqli_query($dbconn, $q);
             if($res->num_rows <= 0)
                 echo "<h3>Password errata</h3>";
-            else
-            echo "<h3>Accesso effettuato</h3>";
+            else{
+                if(isset($_POST['chkRicordami']))
+                    setcookie('email', $email, strtotime("+1 week"));
+                session_start();
+                $_SESSION['email'] = $email;
+                header("Location: ../index.html");
+            }
         }
     }
     mysqli_close($dbconn);
