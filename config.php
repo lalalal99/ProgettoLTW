@@ -1,7 +1,7 @@
 <?php
 $_CONFIG['host'] = "localhost";
 $_CONFIG['user'] = "root";
-$_CONFIG['pass'] = "n0nEntrereteMa!";
+$_CONFIG['pass'] = "";
 $_CONFIG['dbname'] = "GuidaTV_DB";
 
 $_CONFIG['table_sessioni'] = "Sessioni";
