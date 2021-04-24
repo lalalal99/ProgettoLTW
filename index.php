@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script type="text/javascript" src="js/date-it-IT.js"></script>
     <script src="js/index.js"></script>
     <script>
       window.onload = startup;
