@@ -23,7 +23,7 @@
                     setcookie('email', $email, strtotime("+1 week"));
                 session_start();
                 $_SESSION['email'] = $email;
-                header("Location: ../index.html");
+                header("Location: ../index.php");
             }
         }
     }

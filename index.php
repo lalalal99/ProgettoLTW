@@ -14,14 +14,18 @@
     <title>Guida TV</title>
   </head>
   <body>
+  <?php
+      session_start();
+      echo $_SESSION["email"];
+    ?>
     <!-- barra sopra -->
     <div>
-      <a
-        href="login/login.html"
-        style="color: aliceblue"
-        id="linkLogin"
-        >Login</a
-      >
+      <?php
+      if($_SESSION["email"])
+        echo "<a href='login/logout.php' style='color: aliceblue'>Logout</a>";
+      else
+        echo "<a href='login/login.html' style='color: aliceblue' id='linkLogin'>Login</a>";
+      ?>
     </div>
     <hr />
 
