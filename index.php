@@ -22,7 +22,7 @@
     <!-- barra sopra -->
     <div>
       <?php
-      if($_SESSION["email"])
+      if($_SESSION["email"] || $_COOKIE['email'])
         echo "<a href='login/logout.php' style='color: aliceblue'>Logout</a>";
       else
         echo "<a href='login/login.html' style='color: aliceblue' id='linkLogin'>Login</a>";
