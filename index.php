@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="js/js.cookie.js"></script>
     <script type="text/javascript" src="js/date-it-IT.js"></script>
+    <script src="js/palinsesto_generator.js"></script>
     <script src="js/index.js"></script>
     <script>
       window.onload = startup;

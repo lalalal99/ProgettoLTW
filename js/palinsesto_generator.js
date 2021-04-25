@@ -1,3 +1,4 @@
+// var fs = require("fs");
 canali = [
   "Rai 1",
   "Rai 2",
@@ -27,111 +28,86 @@ canali = [
 ];
 
 function generaPalinsesto() {
-  $.getJSON("../data.txt", function (film) {
-    IDs = IDsSpecifici(film);
-    palinsesto = assemblaPalinsesto(IDs, film);
-    // writeOnLocalStorage(film["tt0035423"]);
-    writeOnLocalStorage(palinsesto);
+  let palinsesto = {};
+  $.ajax({
+    url: "../data.txt",
+    async: false,
+    dataType: "json",
+    success: function (film) {
+      IDs = IDsSpecifici(film);
+      palinsesto = assemblaPalinsesto(IDs, film);
+    },
   });
+  return palinsesto;
 }
 //["tt0035423"];
 
 function IDsSpecifici(film) {
-  var IDs = {};
   //serve avere un dizionario solo film, uno solo serie, uno solo documentari, uno solo sport, uno solo crime
-  function getFilmSpecifici(chiave, predicato, lista = film) {
-    // "tt5716848": {"title": "Dove Sono I Soldi", "year": "2017", "type": "movie", "genre": "Comedy", "runtime": "86"}
-    //primo argomento title, year, type, genre, runtime
-    //secondo argomento movie, 2000
-    validi = {};
-    for (const [key, value] of Object.entries(lista)) {
-      if (value["runtime"] != "\\N") {
-        switch (typeof predicato) {
-          case "number":
-            if (parseInt(value[chiave]) >= predicato) {
-              validi[key] = value;
-            }
-            break;
-          case "string":
-            if (value[chiave].includes(predicato)) {
-              validi[key] = value;
-            }
-            break;
-          default:
-            console.error("Predicato errato.");
-            break;
-        }
-      }
+  var organized = [];
+  Object.keys(film).forEach((key) => {
+    if (film[key].runtime != "\\N") {
+      organized.push({ id: key, data: film[key] });
     }
-    return validi;
+  });
+  // let organized = _organized.filter((word) => word.data.runtime != "\\N");
+  async function test() {
+    function tmp() {
+      x = 0;
+      for (let i = 0; i < 10000000; i++) {
+        x = x + 1;
+      }
+      return x;
+    }
+
+    console.log("prima");
+    console.log(tmp());
+    console.log("mid");
+    console.log(tmp());
+    console.log("dopo");
   }
 
+  test();
+
+  let IDs = {};
   IDs["film"] = {};
-  IDs["film"]["tutti"] = getFilmSpecifici("type", "movie");
-  IDs["film"]["documentari"] = getFilmSpecifici(
-    "genre",
-    "Documentary",
-    IDs["film"]["tutti"]
+  IDs["film"]["tutti"] = organized.filter((word) => word.data.type == "movie");
+  IDs["film"]["documentari"] = IDs["film"]["tutti"].filter((word) =>
+    word.data.genre.includes("Documentary")
   );
-  IDs["film"]["crime"] = getFilmSpecifici(
-    "genre",
-    "Crime",
-    IDs["film"]["tutti"]
+  IDs["film"]["crime"] = IDs["film"]["tutti"].filter((word) =>
+    word.data.genre.includes("Crime")
   );
-  IDs["film"]["animazione"] = getFilmSpecifici(
-    "genre",
-    "Animation",
-    IDs["film"]["tutti"]
+  IDs["film"]["animazione"] = IDs["film"]["tutti"].filter((word) =>
+    word.data.genre.includes("Animation")
   );
-  IDs["film"]["sport"] = getFilmSpecifici(
-    "genre",
-    "Sport",
-    IDs["film"]["tutti"]
+  IDs["film"]["sport"] = IDs["film"]["tutti"].filter((word) =>
+    word.data.genre.includes("Sport")
   );
-  IDs["film"]["2000"] = getFilmSpecifici("year", "2000", IDs["film"]["tutti"]);
+  IDs["film"]["2000"] = IDs["film"]["tutti"].filter(
+    (word) => parseInt(word.data.year) >= 2000
+  );
 
   IDs["serie"] = {};
-  IDs["serie"]["tutti"] = getFilmSpecifici("type", "tvSeries");
-  IDs["serie"]["documentari"] = getFilmSpecifici(
-    "genre",
-    "Documentary",
-    IDs["serie"]["tutti"]
+  IDs["serie"]["tutti"] = organized.filter(
+    (word) => word.data.type == "tvSeries"
   );
-  IDs["serie"]["crime"] = getFilmSpecifici(
-    "genre",
-    "Crime",
-    IDs["serie"]["tutti"]
+  IDs["serie"]["documentari"] = IDs["serie"]["tutti"].filter((word) =>
+    word.data.genre.includes("Documentary")
   );
-  IDs["serie"]["animazione"] = getFilmSpecifici(
-    "genre",
-    "Animation",
-    IDs["serie"]["tutti"]
+  IDs["serie"]["crime"] = IDs["serie"]["tutti"].filter((word) =>
+    word.data.genre.includes("Crime")
   );
-  IDs["serie"]["sport"] = getFilmSpecifici(
-    "genre",
-    "Sport",
-    IDs["serie"]["tutti"]
+  IDs["serie"]["animazione"] = IDs["serie"]["tutti"].filter((word) =>
+    word.data.genre.includes("Animation")
   );
-  IDs["serie"]["2000"] = getFilmSpecifici(
-    "year",
-    "2000",
-    IDs["serie"]["tutti"]
+  IDs["serie"]["sport"] = IDs["serie"]["tutti"].filter((word) =>
+    word.data.genre.includes("Sport")
+  );
+  IDs["serie"]["2000"] = IDs["serie"]["tutti"].filter(
+    (word) => parseInt(word.data.year) >= 2000
   );
 
-  // IDs["documentari"] = getFilmSpecifici("genre", "Documentary");
-  // IDs["sport"] = getFilmSpecifici("genre", "Sport");
-  // IDs["crime"] = getFilmSpecifici("genre", "Crime");
-  // IDs["animazione"] = getFilmSpecifici("genre", "Animation");
-  // IDs["film_2000"] = getFilmSpecifici("type", "movie").getFilmSpecifici(
-  //   "year",
-  //   "2000"
-  // );
-  // IDs["serie_2000"] = getFilmSpecifici("type", "tvSeries").getFilmSpecifici(
-  //   "year",
-  //   "2000"
-  // );
-  // console.log(IDs);
-  // getFilmSpecifici("genre", "Sport");
   return IDs;
 }
 
@@ -158,13 +134,8 @@ function getListaGiorni() {
 }
 
 function aggiungiPubblicita(ora, intervallo = 5) {
-  // tmp = Date.today();
-  // ora.add(146).minute();
-  // console.log(ora);
   if (ora.getMinutes() % intervallo != 0) {
-    //torna i minuti
-    //se non è multiplo di 5
-    //aggiungi pubblicita fino ad arrivarci
+    //torna i minuti se non è multiplo di 5 aggiungi pubblicita fino ad arrivarci
     pubblicità = 0;
     for (let minuto = 1; minuto < intervallo; minuto++) {
       if ((ora.getMinutes() + minuto) % intervallo == 0) {
@@ -177,12 +148,9 @@ function aggiungiPubblicita(ora, intervallo = 5) {
   return ora;
 }
 
-function randomID(dizionario) {
-  var IDs = Object.keys(dizionario);
-  // console.log("IDs", IDs);
-  var ID = IDs[Math.floor(Math.random() * IDs.length)];
-  // console.log("ID", ID);
-  return ID;
+function randomID(lista) {
+  // console.log(lista[Math.floor(Math.random() * lista.length)]);
+  return lista[Math.floor(Math.random() * lista.length)];
 }
 
 function assemblaPalinsesto(IDs, film) {
@@ -190,30 +158,12 @@ function assemblaPalinsesto(IDs, film) {
   var palinsesto = {};
   var giorni = getListaGiorni();
   // usati[3] = 1;
-  //-------------------------------- mostro sacro -------------------------------------------//
-  // var ora = Date.today();
-  // console.log(ora);
-  // var filmid = randomID();
-  // // console.log(filmid, film[filmid]);
-  // var runtime = parseInt(film[filmid]["runtime"]); //può uscire NaN
-  // console.log(parseInt(runtime));
-
-  // ora.add(runtime).minute();
-  // ora = aggiungiPubblicita(ora);
-  // console.log(ora);
-  // });
-  //-------------------------------- mostro sacro -------------------------------------------//
   function getGiornata(canale) {
     var giornata = {}; //giornata["00-01": filmID]
-    var usati = {};
     var mezzogiorno = Date.today().clearTime().at("12:30");
     var primaSerata = Date.today().clearTime().at("21:20");
     var ora = Date.today().at(primaSerata.toString("HH:mm"));
-    // console.log(ora.toString("HH:mm"));
-    // ora.clearTime();
-    // console.log(ora.toString("HH:mm"), mezzogiorno.toString("HH:mm"));
-    // console.log(ora.isAfter(mezzogiorno));
-    // console.log(ora.isBefore(mezzogiorno));
+
     var possibiliFilm;
     var possibiliSerie;
 
@@ -222,6 +172,7 @@ function assemblaPalinsesto(IDs, film) {
       case "Paramount Network":
         //prendi solo film
         possibiliFilm = IDs["film"]["tutti"];
+        possibiliSerie = IDs["film"]["tutti"];
         break;
       case "Rai Storia":
       case "Rai Scuola":
@@ -246,64 +197,98 @@ function assemblaPalinsesto(IDs, film) {
         possibiliFilm = IDs["film"]["crime"];
         possibiliSerie = IDs["serie"]["crime"];
         break;
+      case "Rai 1":
+      case "Rai 2":
+      case "Rai 3":
+      case "Rete 4":
+      case "Canale 5":
+      case "Italia 1":
+        possibiliFilm = IDs["film"]["2000"];
+        possibiliSerie = IDs["serie"]["2000"];
+        break;
       default:
-        if (ora.isBefore(mezzogiorno)) {
-          possibiliSerie = IDs["serie"]["tutti"];
-        } else if (ora.isAfter(mezzogiorno)) {
-          possibiliFilm = IDs["film"]["tutti"];
-        }
+        possibiliSerie = IDs["serie"]["tutti"];
+        possibiliFilm = IDs["film"]["tutti"];
+
         break;
     }
-    // console.log("possibiliFilm", possibiliFilm);
-    // console.log("chiavi", Object.keys(possibiliFilm));
-    // console.log("random id", randomID(possibiliFilm));
-    // console.log(film[]);
     for (let i = 0; i < 10; i++) {
-      id = randomID(possibiliFilm);
-      // console.log(possibiliFilm[id]);
+      var isPomeriggio = ora.isAfter(mezzogiorno);
+      if (isPomeriggio) {
+        randomid = randomID(possibiliFilm);
+      } else {
+        randomid = randomID(possibiliSerie);
+      }
       giornata[
         aggiungiPubblicita(ora, 10).toString("HH:mm") +
           " - " +
-          ora
-            .add(parseInt(possibiliFilm[id]["runtime"]))
-            .minutes()
-            .toString("HH:mm")
-      ] = id;
-      // console.log(canale, i, giornata);
-      //ora.isAfter(primaSerata.add(24).hours())) {
+          ora.add(parseInt(randomid.data.runtime)).minutes().toString("HH:mm")
+      ] = randomid.id; //crea elemento dizionario
+
       ora = aggiungiPubblicita(
         Date.today().at(
-          ora
-            .add(parseInt(possibiliFilm[id]["runtime"]))
-            .minutes()
-            .toString("HH:mm")
+          ora.add(parseInt(randomid.data.runtime)).minutes().toString("HH:mm")
         ),
         10
-      ); //funziona settando l'ora ma non va con add
-      // console.log(ora.toString("HH:mm"), ora.isAfter(mezzogiorno));
+      ); //aggiorna l'ora
+      //funziona settando l'ora ma non va con add
     }
-
-    // console.log(canale, giornata);
     return giornata;
   }
-
-  // getGiornata("Rai 1");
 
   //per ogni giorno in giorni crea un palinsesto per ogni canale che ha un film ogni x
   giorni.forEach((giorno) => {
     palinsesto[giorno] = {};
     canali.forEach((canale) => {
       palinsesto[giorno][canale] = getGiornata(canale);
-      // console.log(palinsesto);
     });
   });
 
   return palinsesto;
 }
 
-function writeOnLocalStorage(dizionario) {
-  //scrivi il palinsesto su localstorage
-  if (typeof localStorage.palinsesto == "undefined")
-    localStorage.palinsesto = "";
-  localStorage.palinsesto = JSON.stringify(dizionario);
-}
+// function writeOnLocalStorage(dizionario) {
+//   //scrivi il palinsesto su localstorage
+//   if (typeof localStorage.palinsesto == "undefined")
+//     localStorage.palinsesto = "";
+//   localStorage.palinsesto = JSON.stringify(dizionario);
+
+//   // createCookie("palinsesto", "JSON.stringify(dizionario)", 1);
+//   // console.log(`${JSON.stringify(dizionario)}`);
+//   // Cookies.set("palinsesto1", `${JSON.stringify(dizionario)}`);
+// }
+
+// function setCookie(cname, cvalue, exdays) {
+//   var d = new Date();
+//   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+//   var expires = "expires=" + d.toUTCString();
+//   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+// }
+
+// function getCookie(cname) {
+//   var name = cname + "=";
+//   var decodedCookie = decodeURIComponent(document.cookie);
+//   var ca = decodedCookie.split(";");
+//   for (var i = 0; i < ca.length; i++) {
+//     var c = ca[i];
+//     while (c.charAt(0) == " ") {
+//       c = c.substring(1);
+//     }
+//     if (c.indexOf(name) == 0) {
+//       return c.substring(name.length, c.length);
+//     }
+//   }
+//   return "";
+// }
+
+// function checkCookie() {
+//   var username = getCookie("username");
+//   if (username != "") {
+//     alert("Welcome again " + username);
+//   } else {
+//     username = prompt("Please enter your name:", "");
+//     if (username != "" && username != null) {
+//       setCookie("username", username, 365);
+//     }
+//   }
+// }
