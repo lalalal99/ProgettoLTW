@@ -12,22 +12,17 @@ items = [
   "The Lord of the Rings: The Return of the King",
   "Fight Club",
 ];
-
-var palinsesto;
+let palinsesto;
 
 function startup() {
-  getData();
+  var t0 = performance.now();
+  palinsesto = generaPalinsesto();
+  var t1 = performance.now();
+  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
+
+  // console.log(palinsesto);
   generaEvidenza();
   generaSerata();
-}
-
-function getData() {
-  //47046  elementi
-  $.getScript("js/palinsesto_generator.js", function () {
-    generaPalinsesto();
-  });
-  palinsesto = JSON.parse(localStorage.palinsesto);
-  console.log(palinsesto);
 }
 
 function generaEvidenza() {

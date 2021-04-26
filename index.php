@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE php>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script type="text/javascript" src="js/js.cookie.js"></script>
     <script type="text/javascript" src="js/date-it-IT.js"></script>
+    <script src="js/palinsesto_generator.js"></script>
     <script src="js/index.js"></script>
     <script>
       window.onload = startup;
@@ -15,14 +16,14 @@
     <title>Guida TV</title>
   </head>
   <body>
-  <?php
+    <?php
       session_start();
-      echo $_SESSION["email"];
+      echo $_SESSION['email'] ?? null;
     ?>
     <!-- barra sopra -->
     <div>
       <?php
-      if($_SESSION["email"] || $_COOKIE['email'])
+      if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null))
         echo "<a href='login/logout.php' style='color: aliceblue'>Logout</a>";
       else
         echo "<a href='login/login.html' style='color: aliceblue' id='linkLogin'>Login</a>";
