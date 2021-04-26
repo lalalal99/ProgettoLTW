@@ -5,21 +5,28 @@
         die("Connection failed: " . mysqli_connect_error());
 
     if(!(isset($_POST['btnIscrizione'])))
-        header("Location: ../index.html");
+        header("Location: ../index.php");
     else{
         $email = $_POST['txtEmailReg'];
-        $q = "SELECT * From Utenti where email='$email'";
-        $res = mysqli_query($dbconn, $q);
-        if($res->num_rows <= 0){
+        $stmt = mysqli_prepare($dbconn, "SELECT * From Utenti where email=?");
+        mysqli_stmt_bind_param($stmt, 's', $email);
+        $exec = mysqli_stmt_execute($stmt);
+        $res = mysqli_stmt_store_result($stmt);
+        //$q = "SELECT * From Utenti where email='$email'";
+        //$res = mysqli_query($dbconn, $q);
+        if(mysqli_stmt_num_rows($stmt) <= 0){
             $email = $_POST["txtEmailReg"];
             $password = enc_dec('encrypt', $_POST["txtPasswordReg1"]);
-            $q = "insert into Utenti (email, password) values ('$email', '$password')";
-            $res = mysqli_query($dbconn, $q);
-            if($res)
-                header("Location: ../index.html");
+            $stmt = mysqli_prepare($dbconn, "INSERT into Utenti (email, password) values (?, ?)");
+            mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
+            $exec = mysqli_stmt_execute($stmt);
+            //$q = "insert into Utenti (email, password) values ('$email', '$password')";
+            //$res = mysqli_query($dbconn, $q);
+            if($exec)
+                header("Location: ../index.php");
         }else{
             echo "<h1>Utente già registrato</h1>
-                <a href=../login(login.html>Effettua il login</a>";
+                <a href=../login/login.php>Effettua il login</a>";
         }
     }
     mysqli_close($dbconn);
