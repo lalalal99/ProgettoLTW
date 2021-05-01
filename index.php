@@ -31,6 +31,8 @@
     </div>
     <hr />
 
+    <div id="txtHint"></div>
+
     <!-- in evidenza -->
     <div id="div_evidenza">
       <h1>In Evidenza</h1>
