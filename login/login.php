@@ -28,13 +28,19 @@
             if(mysqli_stmt_num_rows($stmt) <= 0)
                 echo "<h3>Password errata</h3>";
             else{
-                if(isset($_POST['chkRicordami']))
-                    setcookie('email', $email, strtotime("+1 week"));
                 session_start();
+                mysqli_stmt_bind_result($stmt, $i, $e, $u, $p);
+                mysqli_stmt_fetch($stmt);
+                if(isset($_POST['chkRicordami'])){
+                    setcookie('email', $email, time()+(86400*7), "/"); //7 gg
+                    setcookie('username', $u, time()+(86400*7), "/");
+                }
                 $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                $_SESSION['username'] = $u;
                 header("Location: ../index.php");
             }
-            mysqli_free_result($res);
+            mysqli_stmt_free_result($stmt);
         }
     }
     mysqli_close($dbconn);

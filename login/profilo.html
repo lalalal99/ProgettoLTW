@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" lang="javascript" src="profilo.js"></script>
+    <title>Guida TV</title>
+  </head>
+  <body onload="popolaCampi()">
+    <a href="../index.php">Home</a>
+    <div>
+    </div>
+        <label for="txtEmailProf">Email: </label>
+        <input type="email" id="txtEmailProf"  size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" disabled>
+        <br>
+        <label for="txtUsernameProf">Username: </label>
+        <input type="text" id="txtUsernameProf"  size="40" maxlength="40" disabled>
+        <input type="button" id="btnSalvaUsername" value="Salva" style="display: none;" onclick="modificaUsername()">
+        <img src="../imgs/pencil.png" id="imgUsername" width="16" height="16" onclick="abilitaModificaUsername()">
+        <br>
+        <label for="txtPasswordProf">Password</label>
+        <input type="password" id="txtPasswordProf" maxlength="40" disabled>
+        <img src="../imgs/pencil.png" width="16" height="16">
+      
+  </body>
+</html>
+<!-- this.style.display='none' -->

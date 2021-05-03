@@ -18,14 +18,17 @@
   <body>
     <?php
       session_start();
-      echo $_SESSION['email'] ?? null;
+      if(isset($_SESSION['username']))
+        echo $_SESSION['username'];
+      elseif(isset($_COOKIE['username']))
+        echo $_COOKIE['username'];
     ?>
     <!-- barra sopra -->
     <div>
       <?php
       if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
         echo "<a href='login/logout.php' style='color: aliceblue'>Logout</a>";
-        echo "<a href='login/profilo.php' style='color: aliceblue'>Profilo</a>";
+        echo "<a href='login/profilo.html' style='color: aliceblue'>Profilo</a>";
       }
       else
         echo "<a href='login/login.html' style='color: aliceblue' id='linkLogin'>Login</a>";
