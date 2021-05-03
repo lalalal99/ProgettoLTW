@@ -23,8 +23,10 @@
     <!-- barra sopra -->
     <div>
       <?php
-      if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null))
+      if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
         echo "<a href='login/logout.php' style='color: aliceblue'>Logout</a>";
+        echo "<a href='login/profilo.php' style='color: aliceblue'>Profilo</a>";
+      }
       else
         echo "<a href='login/login.html' style='color: aliceblue' id='linkLogin'>Login</a>";
       ?>
