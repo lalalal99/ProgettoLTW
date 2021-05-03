@@ -27,88 +27,65 @@ canali = [
   "DMAX",
 ];
 
-function generaPalinsesto() {
-  let palinsesto = {};
-  $.ajax({
-    url: "../data.txt",
-    async: false,
-    dataType: "json",
-    success: function (film) {
-      IDs = IDsSpecifici(film);
-      palinsesto = assemblaPalinsesto(IDs, film);
-    },
-  });
-  return palinsesto;
-}
-//["tt0035423"];
+async function generaPalinsesto() {
+  let res = new Promise(function (success) {
+    queries = [];
+    let IDs = {};
 
-function IDsSpecifici(film) {
-  //serve avere un dizionario solo film, uno solo serie, uno solo documentari, uno solo sport, uno solo crime
-  var organized = [];
-  Object.keys(film).forEach((key) => {
-    if (film[key].runtime != "\\N") {
-      organized.push({ id: key, data: film[key] });
-    }
-  });
-  // let organized = _organized.filter((word) => word.data.runtime != "\\N");
-  async function test() {
-    function tmp() {
-      x = 0;
-      for (let i = 0; i < 10000000; i++) {
-        x = x + 1;
+    async function query(type, genre) {
+      let myPromise = new Promise(function (myResolve) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            myResolve(JSON.parse(this.responseText));
+          }
+        };
+
+        xmlhttp.open("POST", "../test.php", true);
+        xmlhttp.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        xmlhttp.send("type=" + type + "&genre=" + genre);
+      });
+
+      if (genre == "-") {
+        IDs[type] = {};
+        IDs[type]["tutti"] = await myPromise;
+      } else {
+        IDs[type][genre] = await myPromise;
       }
-      return x;
+      // console.log("finito", type, genre);
     }
 
-    console.log("prima");
-    console.log(tmp());
-    console.log("mid");
-    console.log(tmp());
-    console.log("dopo");
-  }
+    queries.push(
+      query("movie", "-"),
+      query("movie", "Documentary"),
+      query("movie", "Crime"),
+      query("movie", "Animation"),
+      query("movie", "Sport"),
+      query("movie", "2000"),
+      query("tvSeries", "-"),
+      query("tvSeries", "Documentary"),
+      query("tvSeries", "Crime"),
+      query("tvSeries", "Animation"),
+      query("tvSeries", "Sport"),
+      query("tvSeries", "2000")
+    );
 
-  test();
-
-  let IDs = {};
-  IDs["film"] = {};
-  IDs["film"]["tutti"] = organized.filter((word) => word.data.type == "movie");
-  IDs["film"]["documentari"] = IDs["film"]["tutti"].filter((word) =>
-    word.data.genre.includes("Documentary")
-  );
-  IDs["film"]["crime"] = IDs["film"]["tutti"].filter((word) =>
-    word.data.genre.includes("Crime")
-  );
-  IDs["film"]["animazione"] = IDs["film"]["tutti"].filter((word) =>
-    word.data.genre.includes("Animation")
-  );
-  IDs["film"]["sport"] = IDs["film"]["tutti"].filter((word) =>
-    word.data.genre.includes("Sport")
-  );
-  IDs["film"]["2000"] = IDs["film"]["tutti"].filter(
-    (word) => parseInt(word.data.year) >= 2000
-  );
-
-  IDs["serie"] = {};
-  IDs["serie"]["tutti"] = organized.filter(
-    (word) => word.data.type == "tvSeries"
-  );
-  IDs["serie"]["documentari"] = IDs["serie"]["tutti"].filter((word) =>
-    word.data.genre.includes("Documentary")
-  );
-  IDs["serie"]["crime"] = IDs["serie"]["tutti"].filter((word) =>
-    word.data.genre.includes("Crime")
-  );
-  IDs["serie"]["animazione"] = IDs["serie"]["tutti"].filter((word) =>
-    word.data.genre.includes("Animation")
-  );
-  IDs["serie"]["sport"] = IDs["serie"]["tutti"].filter((word) =>
-    word.data.genre.includes("Sport")
-  );
-  IDs["serie"]["2000"] = IDs["serie"]["tutti"].filter(
-    (word) => parseInt(word.data.year) >= 2000
-  );
-
-  return IDs;
+    Promise.allSettled(queries).then(function () {
+      palinsesto = assemblaPalinsesto(IDs);
+      // console.log(encodeURIComponent(JSON.stringify(palinsesto)));
+      setCookie(
+        "palinsesto",
+        encodeURIComponent(JSON.stringify(palinsesto)),
+        1
+      );
+      // document.cookie = "palinsesto=" + JSON.stringify(palinsesto);
+      success(palinsesto);
+    });
+  });
+  return await res;
 }
 
 function getListaGiorni() {
@@ -124,9 +101,10 @@ function getListaGiorni() {
     var today = new Date();
     today.setDate(today.getDate() + offset);
 
-    if (offset == 0) today = "Oggi";
-    else if (offset == 1) today = "Domani";
-    else today = stringaData(today);
+    // if (offset == 0) today = "Oggi";
+    // else if (offset == 1) today = "Domani";
+    // else
+    today = stringaData(today);
 
     listaGiorni.push(today);
   }
@@ -153,49 +131,51 @@ function randomID(lista) {
   return lista[Math.floor(Math.random() * lista.length)];
 }
 
-function assemblaPalinsesto(IDs, film) {
+function assemblaPalinsesto(IDs) {
   //serie di mattina film di sera, primi 6 canali film dal 2000 in poi, film non ripetuti, su canali specializzati programmi specializzati
   var palinsesto = {};
   var giorni = getListaGiorni();
-  // usati[3] = 1;
+
   function getGiornata(canale) {
+    // console.log(IDs, canale);
+    // console.log(IDs.movie["Animation"]);
     var giornata = {}; //giornata["00-01": filmID]
     var mezzogiorno = Date.today().clearTime().at("12:30");
     var primaSerata = Date.today().clearTime().at("21:20");
     var ora = Date.today().at(primaSerata.toString("HH:mm"));
 
-    var possibiliFilm;
-    var possibiliSerie;
+    var possibiliFilm = [];
+    var possibiliSerie = [];
 
     switch (canale) {
       case "Rai Movie":
       case "Paramount Network":
         //prendi solo film
-        possibiliFilm = IDs["film"]["tutti"];
-        possibiliSerie = IDs["film"]["tutti"];
+        possibiliFilm = IDs["movie"]["tutti"];
+        possibiliSerie = IDs["movie"]["tutti"];
         break;
       case "Rai Storia":
       case "Rai Scuola":
         //solo documentari
-        possibiliFilm = IDs["film"]["documentari"];
-        possibiliSerie = IDs["serie"]["documentari"];
+        possibiliFilm = IDs["movie"]["Documentary"];
+        possibiliSerie = IDs["tvSeries"]["Documentary"];
         break;
       case "Rai Sport":
         //solo sport
-        possibiliFilm = IDs["film"]["sport"];
-        possibiliSerie = IDs["serie"]["sport"];
+        possibiliFilm = IDs["movie"]["Sport"];
+        possibiliSerie = IDs["tvSeries"]["Sport"];
         break;
       case "Rai YoYo":
       case "Boing":
         //solo animazione
-        possibiliFilm = IDs["film"]["animazione"];
-        possibiliSerie = IDs["serie"]["animazione"];
+        possibiliFilm = IDs["movie"]["Animation"];
+        possibiliSerie = IDs["tvSeries"]["Animation"];
         break;
       case "Top Crime":
       case "Giallo":
         //solo crime
-        possibiliFilm = IDs["film"]["crime"];
-        possibiliSerie = IDs["serie"]["crime"];
+        possibiliFilm = IDs["movie"]["Crime"];
+        possibiliSerie = IDs["tvSeries"]["Crime"];
         break;
       case "Rai 1":
       case "Rai 2":
@@ -203,15 +183,16 @@ function assemblaPalinsesto(IDs, film) {
       case "Rete 4":
       case "Canale 5":
       case "Italia 1":
-        possibiliFilm = IDs["film"]["2000"];
-        possibiliSerie = IDs["serie"]["2000"];
+        //2000
+        possibiliFilm = IDs["movie"]["tutti"];
+        possibiliSerie = IDs["tvSeries"]["tutti"];
         break;
       default:
-        possibiliSerie = IDs["serie"]["tutti"];
-        possibiliFilm = IDs["film"]["tutti"];
-
+        possibiliFilm = IDs["movie"]["tutti"];
+        possibiliSerie = IDs["tvSeries"]["tutti"];
         break;
     }
+
     for (let i = 0; i < 10; i++) {
       var isPomeriggio = ora.isAfter(mezzogiorno);
       if (isPomeriggio) {
@@ -220,14 +201,14 @@ function assemblaPalinsesto(IDs, film) {
         randomid = randomID(possibiliSerie);
       }
       giornata[
-        aggiungiPubblicita(ora, 10).toString("HH:mm") +
-          " - " +
-          ora.add(parseInt(randomid.data.runtime)).minutes().toString("HH:mm")
+        aggiungiPubblicita(ora, 10).toString("HH:mm") // +
+        // " - " +
+        // ora.add(parseInt(randomid.runtime)).minutes().toString("HH:mm")
       ] = randomid.id; //crea elemento dizionario
 
       ora = aggiungiPubblicita(
         Date.today().at(
-          ora.add(parseInt(randomid.data.runtime)).minutes().toString("HH:mm")
+          ora.add(parseInt(randomid.runtime)).minutes().toString("HH:mm")
         ),
         10
       ); //aggiorna l'ora
@@ -258,37 +239,25 @@ function assemblaPalinsesto(IDs, film) {
 //   // Cookies.set("palinsesto1", `${JSON.stringify(dizionario)}`);
 // }
 
-// function setCookie(cname, cvalue, exdays) {
-//   var d = new Date();
-//   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-//   var expires = "expires=" + d.toUTCString();
-//   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-// }
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
-// function getCookie(cname) {
-//   var name = cname + "=";
-//   var decodedCookie = decodeURIComponent(document.cookie);
-//   var ca = decodedCookie.split(";");
-//   for (var i = 0; i < ca.length; i++) {
-//     var c = ca[i];
-//     while (c.charAt(0) == " ") {
-//       c = c.substring(1);
-//     }
-//     if (c.indexOf(name) == 0) {
-//       return c.substring(name.length, c.length);
-//     }
-//   }
-//   return "";
-// }
-
-// function checkCookie() {
-//   var username = getCookie("username");
-//   if (username != "") {
-//     alert("Welcome again " + username);
-//   } else {
-//     username = prompt("Please enter your name:", "");
-//     if (username != "" && username != null) {
-//       setCookie("username", username, 365);
-//     }
-//   }
-// }
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
