@@ -4,36 +4,82 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="login_style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="login_style.css" />
     <script type="text/javascript" lang="javascript" src="login.js"></script>
     <title>Login</title>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
     <section class="container-fluid">
       <section class="row justify-content-center">
         <section class="col-12 col-sm-6 col-md-4">
-          <form class="form-container" action="login.php" id="loginForm" name="loginForm" method="POST" onsubmit="return validaForm()">
+          <form
+            class="form-container"
+            action="login.php"
+            id="loginForm"
+            name="loginForm"
+            method="POST"
+            onsubmit="return validaForm()"
+          >
             <!-- TODO: aggiungere logo  -->
             <div class="form-group">
-              <h2 class="login-title"> LOGIN </h2>
-              <label class="form-control-label" for="txtEmail">Indirizzo Email</label>
-              <input type="email" id="txtEmail" name="txtEmail" class="form-control" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$" autofocus>
+              <h2 class="login-title">Login</h2>
+              <label class="form-control-label" for="txtEmail"
+                >Indirizzo Email</label
+              >
+              <input
+                type="email"
+                id="txtEmail"
+                name="txtEmail"
+                class="form-control"
+                size="40"
+                maxlength="40"
+                pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                autofocus
+              />
             </div>
             <div class="form-group">
-              <label class="form-control-label" for="txtPassword">Password</label>
-              <input type="password" id="txtPassword" name="txtPassword" class="form-control" maxlength="40">
+              <label class="form-control-label" for="txtPassword"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="txtPassword"
+                name="txtPassword"
+                class="form-control"
+                maxlength="40"
+              />
             </div>
             <div class="form-group">
-              <input type="checkbox" id="chkRicordami" name="chkRicordami">
-              <label class="form-control-label" for="chkRicordami">Ricordami</label>
+              <input type="checkbox" id="chkRicordami" name="chkRicordami" />
+              <label class="form-control-label" for="chkRicordami"
+                >Ricordami</label
+              >
             </div>
             <div class="div-submit">
-              <button type="submit" name="btnLogin" class="btn btn-primary btn-block btn-outline-primary">Login</button>
+              <button
+                type="submit"
+                name="btnLogin"
+                class="btn btn-primary btn-block btn-outline-light"
+              >
+                Login
+              </button>
             </div>
             <div class="form-footer">
-              <p> Non hai un account? <a href="../registrazione/registrazione.html">Iscriviti ora!</a></p>
+              <p>
+                Non hai un account?
+                <a href="../registrazione/registrazione.html">Iscriviti ora!</a>
+              </p>
             </div>
           </form>
         </section>
