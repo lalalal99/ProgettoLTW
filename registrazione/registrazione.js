@@ -1,8 +1,10 @@
 function validaPsw(){
+    
     if(document.getElementById("txtPasswordReg1").value != document.getElementById("txtPasswordReg2").value){
         document.getElementById('errore').innerHTML="Le password non corrispondono";
-        return false;
+        // return false;
     }else{
+        // alert("Ciao");
         document.getElementById("errore").innerHTML="";
         return true;
     }

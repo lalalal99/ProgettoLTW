@@ -8,7 +8,7 @@
         header("Location: ../index.php");
     else{
         $email = $_POST['txtEmail'];
-        $stmt = mysqli_prepare($dbconn, "SELECT * From Utenti where email=?");
+        $stmt = mysqli_prepare($dbconn, "SELECT * From utenti where email=?");
         mysqli_stmt_bind_param($stmt, 's', $email);
         $exec = mysqli_stmt_execute($stmt);
         $res = mysqli_stmt_store_result($stmt);
@@ -19,7 +19,7 @@
         else{
             mysqli_stmt_free_result($stmt);
             $password = enc_dec('encrypt', $_POST["txtPassword"]);
-            $stmt = mysqli_prepare($dbconn, "SELECT * From Utenti where email=? AND password=?");
+            $stmt = mysqli_prepare($dbconn, "SELECT * From utenti where email=? AND password=?");
             mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
             $exec = mysqli_stmt_execute($stmt);
             $res = mysqli_stmt_store_result($stmt);
