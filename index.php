@@ -24,34 +24,29 @@
         <img src="https://via.placeholder.com/150" alt="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">  
         Navbar
       </a>
-        <ul class="navbar-nav ">
-          <?php
-            session_start();
-            if(isset($_SESSION['username']))
-              echo "<li class='nav-item'>
-                      <a class='nav-link' href='profilo/profilo.html'>".$_SESSION['username']."</a>
-                    </li>";
-            elseif(isset($_COOKIE['username']))
-              echo "<li class='nav-item'>
-                      <a class='nav-link' href='profilo/profilo.html'>".$_COOKIE['username']."</a>
-                    </li>";
+      <ul class="navbar-nav mr-auto">
+        <?php
+          session_start();
+          if(isset($_SESSION['username']))
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='profilo/profilo.html'>".$_SESSION['username']."</a>
+                  </li>";
+          elseif(isset($_COOKIE['username']))
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='profilo/profilo.html'>".$_COOKIE['username']."</a>
+                  </li>";
 
-            if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
-              echo '<li class="nav-item">
-                      <a class="nav-link" href="profilo/profilo.html">Profilo</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="login/logout.php">Logout</a>
-                    </li>';
-              // echo "<a class='nav-link' href='profilo/profilo.html'>Profilo</a>";
-              // echo "<a class='nav-link' href='login/logout.php'>Logout</a>";
-            }
-            else
-              echo "<li class='nav-item'>
-                      <a class='nav-link' href='login/login.html'id='linkLogin'>Login</a>
-                    </li>";
-            ?>
-        </ul>
+          if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="login/logout.php">Logout</a>
+                  </li>';
+          }
+          else
+            echo "<li class='nav-item'>
+                    <a class='nav-link' href='login/login.html'id='linkLogin'>Login</a>
+                  </li>";
+          ?>
+      </ul>
     </nav>
     
 

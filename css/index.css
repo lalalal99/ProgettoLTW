@@ -1,30 +1,38 @@
+:root {
+  --background: #14213d;
+  --card: #e5e5e5;
+  --title: #fca311;
+  --text: #000000;
+  --hover: #f77f00;
+}
+
 body {
-  background: #14213d;
+  background: var(--background);
 }
 
 .card {
-  background-color: #e5e5e5;
+  background-color: var(--card);
 }
 
 .card-title {
-  color: #fca311;
+  color: var(--title);
 }
 
 .card-text {
-  color: #000000;
+  color: var(--text);
 }
 
 .btn-secondary {
-  background-color: #fca311;
+  background-color: var(--title);
 }
 
 .btn-secondary:hover {
-  background-color: #f77f00;
+  background-color: var(--hover);
 }
 
 .navbar {
-  background-color: #fca311;
-  color: #14213d;
+  background-color: var(--title);
+  color: var(--text);
 }
 
 .navbar-brand img {
