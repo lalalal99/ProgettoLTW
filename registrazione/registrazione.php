@@ -16,9 +16,10 @@
         //$res = mysqli_query($dbconn, $q);
         if(mysqli_stmt_num_rows($stmt) <= 0){
             $email = $_POST["txtEmailReg"];
+            $username = $_POST["txtUserReg"];
             $password = enc_dec('encrypt', $_POST["txtPasswordReg1"]);
-            $stmt = mysqli_prepare($dbconn, "INSERT into Utenti (email, password) values (?, ?)");
-            mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
+            $stmt = mysqli_prepare($dbconn, "INSERT into Utenti (email, username, password) values (?, ?, ?)");
+            mysqli_stmt_bind_param($stmt, 'sss', $email, $username, $password);
             $exec = mysqli_stmt_execute($stmt);
             //$q = "insert into Utenti (email, password) values ('$email', '$password')";
             //$res = mysqli_query($dbconn, $q);
