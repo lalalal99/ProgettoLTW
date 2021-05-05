@@ -68,7 +68,7 @@
           </div>
 
           <!-- </div> -->
-          <!-- <select class= "form-select w-25 mb-4"><!-- id = "sceltaSerata" onchange="startup()">
+          <!-- <select class= "form-select w-25 mb-4"> id = "sceltaSerata" onchange="startup()">
             <option value="Prima" selected>Prima serata</option>
             <option value="Seconda">Seconda serata</option>
             <option value="Unificata">Serata unificata</option>

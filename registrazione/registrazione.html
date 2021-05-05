@@ -78,16 +78,8 @@
               />
             </div>
             <div class="form-group">
-              <label class="form-control-label" for="txtPasswordReg2"
-                >Conferma Password</label
-              >
-              <input
-                type="password"
-                id="txtPasswordReg2"
-                class="form-control"
-                maxlength="40"
-                oninput="return validaPsw();"
-              />
+              <label class="form-control-label" for="txtPasswordReg2">Conferma Password</label>
+              <input type="password" id="txtPasswordReg2" class="form-control" maxlength="40" onkeydown="return validaPsw();">
             </div>
             <div id="errore" class="alert-danger" role="alert"></div>
             <div class="div-submit">

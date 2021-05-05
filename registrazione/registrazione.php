@@ -8,7 +8,7 @@
         header("Location: ../index.php");
     else{
         $email = $_POST['txtEmailReg'];
-        $stmt = mysqli_prepare($dbconn, "SELECT * From Utenti where email=?");
+        $stmt = mysqli_prepare($dbconn, "SELECT * From utenti where email=?");
         mysqli_stmt_bind_param($stmt, 's', $email);
         $exec = mysqli_stmt_execute($stmt);
         $res = mysqli_stmt_store_result($stmt);
@@ -18,7 +18,7 @@
             $email = $_POST["txtEmailReg"];
             $username = $_POST["txtUserReg"];
             $password = enc_dec('encrypt', $_POST["txtPasswordReg1"]);
-            $stmt = mysqli_prepare($dbconn, "INSERT into Utenti (email, username, password) values (?, ?, ?)");
+            $stmt = mysqli_prepare($dbconn, "INSERT into utenti (email, username, password) values (?, ?, ?)");
             mysqli_stmt_bind_param($stmt, 'sss', $email, $username, $password);
             $exec = mysqli_stmt_execute($stmt);
             //$q = "insert into Utenti (email, password) values ('$email', '$password')";
