@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
@@ -66,17 +66,6 @@
             <button type="button" class="btn btn-secondary">Seconda Serata</button>
             <button type="button" class="btn btn-secondary">Serata Unificata</button>
           </div>
-
-          <!-- </div> -->
-          <!-- <select class= "form-select w-25 mb-4"> id = "sceltaSerata" onchange="startup()">
-            <option value="Prima" selected>Prima serata</option>
-            <option value="Seconda">Seconda serata</option>
-            <option value="Unificata">Serata unificata</option>
-          </select> -->
-          <!-- <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-          </div>      -->
             <div class="row row-cols-1 row-cols-md-1" id="serata-lista"></div>         
           </div>
       <div class="p-2 flex-fill">ciao</div>

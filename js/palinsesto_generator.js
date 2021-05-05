@@ -33,15 +33,16 @@ async function generaPalinsesto() {
     let IDs = {};
 
     async function query(type, genre) {
-      let myPromise = new Promise(function (myResolve) {
+      let myPromise = new Promise(function (myResolve, err) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
+            if(err) console.log("ciao");
             myResolve(JSON.parse(this.responseText));
           }
         };
 
-        xmlhttp.open("POST", "../test.php", true);
+        xmlhttp.open("POST", "/../test.php", true);
         xmlhttp.setRequestHeader(
           "Content-type",
           "application/x-www-form-urlencoded"
