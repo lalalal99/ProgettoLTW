@@ -13,12 +13,16 @@ if(!$dbconn)
 // $q = "SELECT Film.titolo FROM Film as f,Film_Generi as fg,Generi as g WHERE Film.id=fg.film and g.id=fg.genere and g.genere='".$array."'";
 if ($genre === "-") {
     $q = "SELECT Film.id, Film.runtime FROM Film 
-    WHERE Film.type ='$type'";
+    JOIN Film_Generi ON Film.id=Film_Generi.film 
+    JOIN Generi ON Generi.id=Film_Generi.genere
+    WHERE Film.type = '$type' AND Generi.genere <> 'Adult'";
+} elseif ($genre == "2000") {
+    $q = "SELECT Film.id, Film.runtime FROM Film WHERE Film.type = '$type' AND Film.year > 2000";
 } else {    
     $q = "SELECT Film.id, Film.runtime FROM Film 
     JOIN Film_Generi ON Film.id=Film_Generi.film 
     JOIN Generi ON Generi.id=Film_Generi.genere
-    WHERE Film.type ='$type' AND Generi.genere='$genre'";
+    WHERE Film.type = '$type' AND Generi.genere='$genre' AND Generi.genere <> 'Adult'";
 }
 // $q = "SELECT Film.id FROM Film 
 // JOIN Film_Generi ON Film.id=Film_Generi.film 

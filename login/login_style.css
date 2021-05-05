@@ -1,7 +1,8 @@
 body {
-  background: #383a3d;
+  background: #14213d;
   padding-top: 5%;
   font-size: large;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 form {
@@ -11,11 +12,12 @@ form {
 .form-container {
   border-radius: 10px;
   padding: 40px;
+  /* background: #e5e5e5; */
 }
 
 .login-title {
   text-align: center;
-  font-family: serif;
+  /* font-family: serif; */
   /* font-size: 30px; */
   letter-spacing: 2px;
   font-weight: bold;
@@ -24,7 +26,7 @@ form {
 
 input[type="email"] {
   border: none;
-  border-bottom: 2px solid #0db8de;
+  border-bottom: 2px solid #14213d;
   border-top: 0px;
   margin-bottom: 10px;
   color: #000;
@@ -32,7 +34,7 @@ input[type="email"] {
 
 input[type="password"] {
   border: none;
-  border-bottom: 2px solid #0db8de;
+  border-bottom: 2px solid #14213d;
   border-top: 0px;
   margin-bottom: 10px;
   color: #000;
@@ -45,7 +47,7 @@ input[type="password"] {
 .form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-bottom: 2px solid #0db8de;
+  border-bottom: 2px solid #14213d;
 }
 
 .form-control:invalid {
@@ -69,8 +71,8 @@ label {
   text-align: center;
 }
 
-.btn-outline-primary {
-  border-color: #0db8de;
+.btn-outline-light {
+  /* border-color: #f77f00; */
   color: #fff;
   align-content: center;
   border-radius: 5px;
@@ -81,10 +83,19 @@ label {
   width: 100%;
 }
 
-.btn-outline-primary:hover {
-  background-color: #0d8bde;
+.btn {
+  background-color: #fca311;
+}
+
+.btn-outline-light:hover {
+  background-color: #f77f00;
+  color: #fff;
 }
 
 .form-footer {
   text-align: center;
 }
+
+/* .btn-primary {
+  background-color: #fca311;
+} */

@@ -2,29 +2,29 @@
 canali = [
   "Rai 1",
   "Rai 2",
-  "Rai 3",
-  "Rai 4",
-  "Rai 5",
-  "Rai Movie", //solo film
-  "Rai Premium",
-  "Rai Storia", //solo documentari
-  "Rai Scuola", //solo documentari
-  "Rai Sport", //genere sport
-  "Rai YoYo", //solo animazione
-  "Rete 4",
-  "Canale 5",
-  "Italia 1",
-  "Italia 2",
-  "IRIS",
-  "La 5",
-  "Top Crime", //genere crime
-  "Mediaset Extra",
-  "Boing", //solo animazione
-  "La7",
-  "Paramount Network", //solo film
-  "NOVE",
-  "Giallo", //genere crime
-  "DMAX",
+  // "Rai 3",
+  // "Rai 4",
+  // "Rai 5",
+  // "Rai Movie", //solo film
+  // "Rai Premium",
+  // "Rai Storia", //solo documentari
+  // "Rai Scuola", //solo documentari
+  // "Rai Sport", //genere sport
+  // "Rai YoYo", //solo animazione
+  // "Rete 4",
+  // "Canale 5",
+  // "Italia 1",
+  // "Italia 2",
+  // "IRIS",
+  // "La 5",
+  // "Top Crime", //genere crime
+  // "Mediaset Extra",
+  // "Boing", //solo animazione
+  // "La7",
+  // "Paramount Network", //solo film
+  // "NOVE",
+  // "Giallo", //genere crime
+  // "DMAX",
 ];
 
 async function generaPalinsesto() {
@@ -101,10 +101,9 @@ function getListaGiorni() {
     var today = new Date();
     today.setDate(today.getDate() + offset);
 
-    // if (offset == 0) today = "Oggi";
-    // else if (offset == 1) today = "Domani";
-    // else
-    today = stringaData(today);
+    if (offset == 0) today = "Oggi";
+    else if (offset == 1) today = "Domani";
+    else today = stringaData(today);
 
     listaGiorni.push(today);
   }
@@ -143,6 +142,7 @@ function assemblaPalinsesto(IDs) {
     var mezzogiorno = Date.today().clearTime().at("12:30");
     var primaSerata = Date.today().clearTime().at("21:20");
     var ora = Date.today().at(primaSerata.toString("HH:mm"));
+    primaSerata.addDays(1);
 
     var possibiliFilm = [];
     var possibiliSerie = [];
@@ -184,8 +184,8 @@ function assemblaPalinsesto(IDs) {
       case "Canale 5":
       case "Italia 1":
         //2000
-        possibiliFilm = IDs["movie"]["tutti"];
-        possibiliSerie = IDs["tvSeries"]["tutti"];
+        possibiliFilm = IDs["movie"]["2000"];
+        possibiliSerie = IDs["tvSeries"]["2000"];
         break;
       default:
         possibiliFilm = IDs["movie"]["tutti"];
@@ -193,7 +193,8 @@ function assemblaPalinsesto(IDs) {
         break;
     }
 
-    for (let i = 0; i < 10; i++) {
+    // console.log(ora, primaSerata);
+    while (ora.isBefore(primaSerata)) {
       var isPomeriggio = ora.isAfter(mezzogiorno);
       if (isPomeriggio) {
         randomid = randomID(possibiliFilm);
@@ -206,13 +207,12 @@ function assemblaPalinsesto(IDs) {
         // ora.add(parseInt(randomid.runtime)).minutes().toString("HH:mm")
       ] = randomid.id; //crea elemento dizionario
 
-      ora = aggiungiPubblicita(
-        Date.today().at(
-          ora.add(parseInt(randomid.runtime)).minutes().toString("HH:mm")
-        ),
-        10
-      ); //aggiorna l'ora
-      //funziona settando l'ora ma non va con add
+      ora.addMinutes(parseInt(randomid.runtime));
+      ora = Date.today().set({
+        day: parseInt(ora.toString("dd")),
+        hour: ora.getHours(),
+        minute: ora.getMinutes(),
+      });
     }
     return giornata;
   }
