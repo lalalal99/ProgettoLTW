@@ -17,50 +17,14 @@
     <title>Guida TV</title>
   </head>
   <body>
-    <!-- barra sopra -->
-    <nav class="navbar sticky-top">
-      <a class="navbar-brand">
-        <img src="https://via.placeholder.com/150" alt="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">  
-        Navbar
-      </a>
-      <ul class="navbar-nav mr-auto">
-        <?php
-          session_start();
-          if(isset($_SESSION['username']))
-            echo "<li class='nav-item'>
-                    <a class='nav-link' href='profilo/profilo.html'>".$_SESSION['username']."</a>
-                  </li>";
-          elseif(isset($_COOKIE['username']))
-            echo "<li class='nav-item'>
-                    <a class='nav-link' href='profilo/profilo.html'>".$_COOKIE['username']."</a>
-                  </li>";
-
-          if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
-            echo '<li class="nav-item">
-                    <a class="nav-link" href="login/logout.php">Logout</a>
-                  </li>';
-          }
-          else
-            echo "<li class='nav-item'>
-                    <a class='nav-link' href='login/login.html'id='linkLogin'>Login</a>
-                  </li>";
-          ?>
-      </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <a href='profilo/profilo.html' class="btn btn-border-secondary" role="button">
-          <?php
-            if(isset($_SESSION['username']))
-              echo "<li class='nav-item'>
-                      <a class='nav-link' href='profilo/profilo.html'>".$_SESSION['username']."</a>
-                    </li>";
-            elseif(isset($_COOKIE['username']))
-              echo "<li class='nav-item'>
-                      <a class='nav-link' href='profilo/profilo.html'>".$_COOKIE['username']."</a>
-                    </li>";
-          ?>
-        </a>
-      </form> -->
-    </nav>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+    <script>
+      $(function(){
+        $("#nav-placeholder").load("navbar/navbar.php");
+      });
+    </script>
+    <!--end of Navigation bar-->
     <!-- <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,7 +53,6 @@
         </ul>
       </div>
     </nav> -->
-    
 
     <!-- in evidenza -->
     <div id="div_evidenza">
