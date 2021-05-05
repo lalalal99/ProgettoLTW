@@ -37,7 +37,6 @@ async function generaPalinsesto() {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-            if(err) console.log("ciao");
             myResolve(JSON.parse(this.responseText));
           }
         };
@@ -48,7 +47,7 @@ async function generaPalinsesto() {
           "application/x-www-form-urlencoded"
         );
         xmlhttp.send("type=" + type + "&genre=" + genre);
-      });
+      }).catch((error) => alert(error.message));
 
       if (genre == "-") {
         IDs[type] = {};
