@@ -93,3 +93,6 @@ label {
 /* .btn-primary {
   background-color: #fca311;
 } */
+li {
+  display: inline !important;
+}

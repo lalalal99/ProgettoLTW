@@ -41,7 +41,7 @@ async function generaPalinsesto() {
           }
         };
 
-        xmlhttp.open("POST", "/../test.php", true);
+        xmlhttp.open("POST", "../query.php", true);
         xmlhttp.setRequestHeader(
           "Content-type",
           "application/x-www-form-urlencoded"

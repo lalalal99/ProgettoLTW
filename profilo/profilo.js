@@ -7,15 +7,28 @@ function popolaCampi() {
 function abilitaModifica(elem) {
     if(elem == 'username'){
         document.getElementById("txtUsernameProf").disabled = false;
-        document.getElementById("btnSalvaUsername").setAttribute("style", "display : true");
+        var e = document.getElementsByName("btnUsr");
+        for (i = 0; i < e.length; i++)
+            e[i].classList.remove("classe-nascosta");
     }else{
         var e = document.getElementsByName("txtPsw");
         for (i = 0; i < e.length; i++)
             e[i].classList.remove("classe-nascosta");
-        document.getElementById("btnSalvaPassword").classList.remove("classe-nascosta");
     }
 }
 
+function annullaModifica(elem) {
+    if (elem == 'username') {
+        document.getElementById("txtUsernameProf").disabled = true;
+        var e = document.getElementsByName("btnUsr");
+        for (i = 0; i < e.length; i++)
+            e[i].classList.add("classe-nascosta");
+    }else{
+        var e = document.getElementsByName("txtPsw");
+        for (i = 0; i < e.length; i++)
+            e[i].classList.add("classe-nascosta");
+    }
+}
 function modificaUsername(){
     var x = document.getElementById("txtUsernameProf").value;
     document.getElementById("btnSalvaUsername").setAttribute("style", "display : none;");

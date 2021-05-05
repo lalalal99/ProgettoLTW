@@ -18,7 +18,7 @@
   </head>
   <body>
     <!-- barra sopra -->
-    <!-- <nav class="navbar sticky-top">
+    <nav class="navbar sticky-top">
       <a class="navbar-brand">
         <img src="https://via.placeholder.com/150" alt="" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">  
         Navbar
@@ -46,7 +46,7 @@
                   </li>";
           ?>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <!-- <form class="form-inline my-2 my-lg-0">
         <a href='profilo/profilo.html' class="btn btn-border-secondary" role="button">
           <?php
             if(isset($_SESSION['username']))
@@ -59,9 +59,9 @@
                     </li>";
           ?>
         </a>
-      </form>
-    </nav> -->
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      </form> -->
+    </nav>
+    <!-- <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -88,7 +88,7 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
     
 
     <!-- in evidenza -->
