@@ -14,6 +14,9 @@ function abilitaModifica(elem) {
         var e = document.getElementsByName("txtPsw");
         for (i = 0; i < e.length; i++)
             e[i].classList.remove("classe-nascosta");
+        e = document.getElementsByName("collab");
+        for (i = 0; i < e.length; i++)
+            e[i].classList.replace("text-center", "text-end");
     }
 }
 
@@ -27,6 +30,9 @@ function annullaModifica(elem) {
         var e = document.getElementsByName("txtPsw");
         for (i = 0; i < e.length; i++)
             e[i].classList.add("classe-nascosta");
+        e = document.getElementsByName("collab");
+        for (i = 0; i < e.length; i++)
+            e[i].classList.replace("text-end", "text-center");
     }
 }
 function modificaUsername(){

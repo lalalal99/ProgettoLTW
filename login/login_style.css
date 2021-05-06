@@ -81,7 +81,8 @@ label {
   background-color: #fca311;
 }
 
-.btn-outline-light:hover {
+.btn-outline-light:hover,
+.btn-outline-light:focus {
   background-color: #f77f00;
   color: #fff;
 }
