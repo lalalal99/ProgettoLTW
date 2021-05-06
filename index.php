@@ -61,21 +61,20 @@
     </div>
     <hr />
     <!-- prima serata -->
-    <div class="container-fluid mt-5">    
-      <div class="d-flex w-75">
-        <div class="p-2 flex-grow-1">
-
+    <div class="container-fluid mt-5 d-flex">    
+      <div class="d-flex flex-grow">
+        <div class="p-2">
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary">Prima Serata</button>
             <button type="button" class="btn btn-secondary">Seconda Serata</button>
             <button type="button" class="btn btn-secondary">Serata Unificata</button>
           </div>
-            <div class="row row-cols-1 row-cols-md-1" id="serata-lista"></div>         
-          </div>
-      <div class="p-2 flex-fill">ciao</div>
-        </div>
-      
+          <div class="d-flex flex-column" id="serata-lista">
+          </div>         
+        </div>        
+      </div>   
+      <div class="container w-50 h-50 rounded" id="container-griglia-canali">    
+      </div>   
     </div>
-
   </body>
 </html>

@@ -14,6 +14,11 @@ body {
   font-family: var(--font);
 }
 
+.container {
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
 .classe-nascosta {
   display: none;
 }

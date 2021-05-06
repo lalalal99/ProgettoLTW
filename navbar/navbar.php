@@ -8,26 +8,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 bg-light p-2 gap-2">
         <?php
         session_start();
         
         if(isset($_SESSION['username']))
-          echo "<li class='nav-item'>
+          echo "<li class='nav-item shadow justify-content-center'>
                   <a class='nav-link' href='../profilo/profilo.html'>".$_SESSION['username']."</a>
                 </li>";
         elseif(isset($_COOKIE['username']))
-          echo "<li class='nav-item'>
+          echo "<li class='nav-item shadow justify-content-center'>
                   <a class='nav-link' href='../profilo/profilo.html'>".$_COOKIE['username']."</a>
                 </li>";
 
         if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
-          echo '<li class="nav-item">
+          echo '<li class="nav-item shadow justify-content-center">
                   <a class="nav-link" href="../login/logout.php">Logout</a>
                 </li>';
         }
         else
-          echo "<li class='nav-item'>
+          echo "<li class='nav-item shadow justify-content-center'>
                   <a class='nav-link' href='../login/login.html'id='linkLogin'>Login</a>
                 </li>";
         ?>
