@@ -4,10 +4,12 @@
   --title: #fca311;
   --text: #000000;
   --hover: #f77f00;
+  --font: Arial, sans-serif;
 }
 
 body {
   background: var(--background);
+  font-family: var(--font);
 }
 
 .card {
@@ -33,6 +35,8 @@ body {
 .navbar {
   background-color: var(--title);
   color: var(--text);
+  position: sticky;
+  top: 0;
 }
 
 .navbar-brand img {
@@ -46,8 +50,26 @@ body {
 
 #container-griglia-canali {
   background-color: var(--card);
-  margin: 5rem 2rem 2rem 5rem;
+  margin: 5rem 2rem 2rem 3rem;
   border: 2px solid var(--title);
+}
+
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 10%;
+}
+
+nav.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+#header-canali {
+  /* border: 2px solid var(--title); */
+  background-color: var(--title);
+  margin: 5px 10px 5px 10px;
 }
 
 /* ORDER STUFF */

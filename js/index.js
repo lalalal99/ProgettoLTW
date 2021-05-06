@@ -1,5 +1,5 @@
-// OMDb_API = "9e44c172";
-OMDb_API = "75cb83e8";
+OMDb_API = "9e44c172";
+// OMDb_API = "75cb83e8";
 
 function startup() {
   grigliaCanali();
@@ -13,13 +13,13 @@ function startup() {
 function grigliaCanali() {
   let container = document.getElementById("container-griglia-canali");
   let row = document.createElement("div");
-  row.setAttribute("class", "row row-cols-3 p-4 gap-3 justify-content-start");
+  row.setAttribute("class", "row row-cols-3 justify-content-start g-3");
 
   for (let i = 1; i < canali.length; i += 2) {
     let col = document.createElement("div");
     col.setAttribute(
       "class",
-      "col-auto p-2 d-flex justify-content-center align-items-center shadow rounded block"
+      "col p-2 d-flex justify-content-center align-items-center shadow-sm rounded"
     );
 
     let a = document.createElement("a");
@@ -28,7 +28,7 @@ function grigliaCanali() {
     let img = document.createElement("img");
     img.setAttribute("src", canali[i]);
     // img.setAttribute("width", 50);
-    img.setAttribute("height", 50);
+    img.setAttribute("height", 40);
 
     a.appendChild(img);
     col.appendChild(a);
