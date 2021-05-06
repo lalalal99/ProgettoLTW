@@ -45,7 +45,7 @@
         </div>        
       </div>   
       <div class="container w-50 h-50 rounded sticky" id="container-griglia-canali">    
-        <div class="row fs-1 fw-normal rounded d-flex justify-content-center align-items-center" id="header-canali">Lista Canali</div>
+        <div class="row fs-2 fw-normal rounded d-flex justify-content-center align-items-center mb-3" id="header-canali">Lista Canali</div>
       </div>   
     </div>
   </body>
