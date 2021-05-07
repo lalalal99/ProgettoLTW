@@ -3,10 +3,15 @@ OMDb_API = "9e44c172";
 
 function startup() {
   grigliaCanali();
-  document.getElementById("serata-lista").innerHTML = "";
+  serata("prima");
+}
+
+function serata(tipoSerata) {
   generaPalinsesto().then(function (palinsesto) {
+    // $("#serata-lista").html = "";
+    document.getElementById("serata-lista").innerHTML = "";
     generaEvidenza();
-    generaSerata(palinsesto);
+    generaSerata(tipoSerata, palinsesto);
   });
 }
 
@@ -79,96 +84,88 @@ function aggiungiEvidenza(film) {
   ul.appendChild(li);
 }
 
-function generaSerata(palinsesto) {
-  // console.log(canali);
-  // aggiungiElementoSerata(canali[0], palinsesto);
+function generaSerata(tipoSerata, palinsesto) {
+  let serata =
+    tipoSerata == "prima"
+      ? 0
+      : tipoSerata == "seconda"
+      ? 1
+      : tipoSerata == "unica"
+      ? "x"
+      : "";
+
+  //prima serata 0 seconda serata 1 unificata 0 e 1
+
   // for (let i = 0; i < canali.length; i += 2) {
   for (let i = 0; i < 6; i += 2) {
-    aggiungiElementoSerata(i, palinsesto);
+    aggiungiElementoSerata(i, palinsesto, serata);
   }
 }
 
-function aggiungiElementoSerata(indiceCanale, palinsesto) {
+function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
   //           palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
-  // <div class="card text-white bg-dark mb-3">
-  //   <div class="card-header">
-  //     <img
-  //     src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rai_1_-_Logo_2016.svg/1200px-Rai_1_-_Logo_2016.svg.png"
-  //     style="max-width: 4rem;">
-  //   </div>
-  //   <div class="row no-gutters">
-  //     <div class="col-md-4 mb-3">
-  //       <img src="imgs/landscape.png" class="card-img" alt="...">
-  //     </div>
-  //     <div class="col-md-8">
-  //       <div class="card-body">
-  //         <h5 class="card-title">Card title</h5>
-  //         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-  //         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div>
-  getFilm("i", palinsesto["Oggi"][canali[indiceCanale]]["21:20"], false).then(
-    (film) => {
-      let container = document.getElementById("serata-lista");
-      let card = document.createElement("div");
-      card.setAttribute("class", "card mb-3 order-" + indiceCanale / 2);
+  getFilm(
+    "i",
+    palinsesto["Oggi"][canali[indiceCanale]][serata]["id"],
+    false
+  ).then((film) => {
+    let container = document.getElementById("serata-lista");
+    let card = document.createElement("div");
+    card.setAttribute("class", "card mb-3 order-" + indiceCanale / 2);
 
-      let card_header = document.createElement("div");
-      card_header.setAttribute("class", "card-header");
-      let img = document.createElement("img");
-      Object.assign(img, {
-        src: canali[indiceCanale + 1],
-        style: "max-width: 4rem;",
-      });
-      card_header.appendChild(img);
-      card.appendChild(card_header);
+    let card_header = document.createElement("div");
+    card_header.setAttribute("class", "card-header");
+    let img = document.createElement("img");
+    Object.assign(img, {
+      src: canali[indiceCanale + 1],
+      style: "max-width: 4rem;",
+    });
+    card_header.appendChild(img);
+    card.appendChild(card_header);
 
-      let row = document.createElement("div");
-      row.setAttribute("class", "row no-gutters");
+    let row = document.createElement("div");
+    row.setAttribute("class", "row no-gutters");
 
-      let col = document.createElement("div");
-      col.setAttribute("class", "col-md-4 mb-3");
-      img = document.createElement("img");
-      Object.assign(img, {
-        src:
-          film["Poster"] != "N/A"
-            ? film["Poster"]
-            : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
-        class: "card-img embed-responsive-item",
-        alt: "...",
-        style: "width : 300px; height : 400px",
-      });
-      col.appendChild(img);
-      row.appendChild(col);
+    let col = document.createElement("div");
+    col.setAttribute("class", "col-md-4 mb-3");
+    img = document.createElement("img");
+    Object.assign(img, {
+      src:
+        film["Poster"] != "N/A"
+          ? film["Poster"]
+          : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
+      class: "card-img embed-responsive-item",
+      alt: "...",
+      style: "width : 300px; height : 400px",
+    });
+    col.appendChild(img);
+    row.appendChild(col);
 
-      col = document.createElement("div");
-      col.setAttribute("class", "col-md-8");
+    col = document.createElement("div");
+    col.setAttribute("class", "col-md-8");
 
-      let card_body = document.createElement("div");
-      card_body.setAttribute("class", "card-body text-success");
+    let card_body = document.createElement("div");
+    card_body.setAttribute("class", "card-body text-success");
 
-      let h4 = document.createElement("h2");
-      h4.setAttribute("class", "card-title");
-      h4.appendChild(document.createTextNode(film["Title"]));
-      card_body.appendChild(h4);
+    let h4 = document.createElement("h2");
+    h4.setAttribute("class", "card-title");
+    h4.appendChild(document.createTextNode(film["Title"]));
+    card_body.appendChild(h4);
 
-      let p = document.createElement("p");
-      p.setAttribute("class", "card-text");
-      p.appendChild(document.createTextNode(film["Runtime"]));
-      card_body.appendChild(p);
+    let p = document.createElement("p");
+    p.setAttribute("class", "card-text");
+    p.appendChild(document.createTextNode(film["Runtime"]));
+    card_body.appendChild(p);
 
-      p = document.createElement("p");
-      p.setAttribute("class", "card-text");
-      p.appendChild(document.createTextNode(film["Plot"]));
-      card_body.appendChild(p);
+    p = document.createElement("p");
+    p.setAttribute("class", "card-text");
+    p.appendChild(document.createTextNode(film["Plot"]));
+    card_body.appendChild(p);
 
-      col.appendChild(card_body);
-      row.appendChild(col);
-      card.appendChild(row);
+    col.appendChild(card_body);
+    row.appendChild(col);
+    card.appendChild(row);
 
-      container.appendChild(card);
-    }
-  );
+    container.appendChild(card);
+  });
 }

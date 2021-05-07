@@ -11,12 +11,9 @@
     <script type="text/javascript" src="js/date-it-IT.js"></script>
     <script src="js/palinsesto_generator.js"></script>
     <script src="js/index.js"></script>
-    <script>
-      window.onload = startup;
-    </script>
     <title>Guida TV</title>
   </head>
-  <body>
+  <body onload="startup()">
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
     <script>
@@ -36,9 +33,9 @@
       <div class="d-flex flex-grow">
         <div class="p-2">
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary">Prima Serata</button>
-            <button type="button" class="btn btn-secondary">Seconda Serata</button>
-            <button type="button" class="btn btn-secondary">Serata Unificata</button>
+            <button type="button" onclick="serata('prima')" class="btn btn-secondary">Prima Serata</button>
+            <button type="button" onclick="serata('seconda')" class="btn btn-secondary">Seconda Serata</button>
+            <button type="button" onclick="serata('unita')" class="btn btn-secondary">Serata Unificata</button>
           </div>
           <div class="d-flex flex-column" id="serata-lista">
           </div>         

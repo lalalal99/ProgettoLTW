@@ -1,5 +1,5 @@
-<nav class="navbar fixed-top">
-  <div class="container-fluid bg-light">
+<nav class="navbar navbar-expand fixed-top">
+  <div class="container-fluid">
     <a class="navbar-brand" href="../index.php">
       <img class="ms-1" src="https://via.placeholder.com/30"  alt="Logo">
       Navbar
@@ -7,10 +7,10 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse bg-primary" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 bg-light p-2 gap-2">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 p-2 gap-2">
         <?php
-        session_start();        
+        session_start();
         if(isset($_SESSION['username']))
           echo "<li class='nav-item'>
                   <a class='nav-link' href='../profilo/profilo.html'>".$_SESSION['username']."</a>

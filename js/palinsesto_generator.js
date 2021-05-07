@@ -53,6 +53,9 @@ canali = [
 ];
 
 async function generaPalinsesto() {
+  if (localStorage.getItem("palinsesto") != null) {
+    return JSON.parse(localStorage.getItem("palinsesto"));
+  }
   let res = new Promise(function (success) {
     queries = [];
     let IDs = {};
@@ -100,13 +103,7 @@ async function generaPalinsesto() {
 
     Promise.allSettled(queries).then(function () {
       palinsesto = assemblaPalinsesto(IDs);
-      // console.log(encodeURIComponent(JSON.stringify(palinsesto)));
-      setCookie(
-        "palinsesto",
-        encodeURIComponent(JSON.stringify(palinsesto)),
-        1
-      );
-      // document.cookie = "palinsesto=" + JSON.stringify(palinsesto);
+      writeOnLocalStorage(palinsesto);
       success(palinsesto);
     });
   });
@@ -163,7 +160,7 @@ function assemblaPalinsesto(IDs) {
   function getGiornata(canale) {
     // console.log(IDs, canale);
     // console.log(IDs.movie["Animation"]);
-    var giornata = {}; //giornata["00-01": filmID]
+    var giornata = []; //giornata["00-01": filmID]
     var mezzogiorno = Date.today().clearTime().at("12:30");
     var primaSerata = Date.today().clearTime().at("21:20");
     var ora = Date.today().at(primaSerata.toString("HH:mm"));
@@ -226,11 +223,10 @@ function assemblaPalinsesto(IDs) {
       } else {
         randomid = randomID(possibiliSerie);
       }
-      giornata[
-        aggiungiPubblicita(ora, 10).toString("HH:mm") // +
-        // " - " +
-        // ora.add(parseInt(randomid.runtime)).minutes().toString("HH:mm")
-      ] = randomid.id; //crea elemento dizionario
+      giornata.push({
+        ora: aggiungiPubblicita(ora, 10).toString("HH:mm"),
+        id: randomid.id,
+      }); //crea elemento dizionario
 
       ora.addMinutes(parseInt(randomid.runtime));
       ora = Date.today().set({
@@ -245,44 +241,18 @@ function assemblaPalinsesto(IDs) {
   //per ogni giorno in giorni crea un palinsesto per ogni canale che ha un film ogni x
   giorni.forEach((giorno) => {
     palinsesto[giorno] = {};
-    canali.forEach((canale) => {
-      palinsesto[giorno][canale] = getGiornata(canale);
-    });
+    for (let i = 0; i < canali.length; i += 2) {
+      palinsesto[giorno][canali[i]] = getGiornata(canali[i]);
+    }
   });
 
   return palinsesto;
 }
 
-// function writeOnLocalStorage(dizionario) {
-//   //scrivi il palinsesto su localstorage
-//   if (typeof localStorage.palinsesto == "undefined")
-//     localStorage.palinsesto = "";
-//   localStorage.palinsesto = JSON.stringify(dizionario);
-
-//   // createCookie("palinsesto", "JSON.stringify(dizionario)", 1);
-//   // console.log(`${JSON.stringify(dizionario)}`);
-//   // Cookies.set("palinsesto1", `${JSON.stringify(dizionario)}`);
-// }
-
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  var expires = "expires=" + d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+function writeOnLocalStorage(dizionario) {
+  //scrivi il palinsesto su localstorage
+  // if (typeof localStorage.palinsesto == "undefined")
+  //   localStorage.palinsesto = "";
+  localStorage.setItem("palinsesto", JSON.stringify(dizionario));
+  // localStorage.palinsesto = JSON.stringify(dizionario);
 }
