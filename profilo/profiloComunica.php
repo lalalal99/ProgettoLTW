@@ -8,6 +8,13 @@
         
     session_start();
     $x = $_POST['attr'];
+    if(!$_SESSION['email']){
+        if($_COOKIE['email']){
+            $_SESSION['email'] = $_COOKIE['email'];
+            $_SESSION['username'] = $_COOKIE['username'];
+            $_SESSION['password'] = $_COOKIE['password'];
+        }else echo -1;
+    }
     if($_SERVER['REMOTE_ADDR'] == '::1'){
         if ($x == 'email')
             echo $_SESSION['email'];

@@ -34,6 +34,7 @@
                 if(isset($_POST['chkRicordami'])){
                     setcookie('email', $email, time()+(86400*7), "/"); //7 gg
                     setcookie('username', $u, time()+(86400*7), "/");
+                    setcookie('password', $password, time()+(86400*7), "/");
                 }
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;

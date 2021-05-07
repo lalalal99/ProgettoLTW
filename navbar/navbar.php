@@ -12,11 +12,11 @@
         
         if(isset($_SESSION['username']))
           echo "<li class='nav-item'>
-                  <a class='nav-link fs-4' href='../profilo/profilo.html'>".$_SESSION['username']."</a>
+                  <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_SESSION['username']."</a>
                 </li>";
         elseif(isset($_COOKIE['username']))
           echo "<li class='nav-item'>
-                  <a class='nav-link fs-4' href='../profilo/profilo.html'>".$_COOKIE['username']."</a>
+                  <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_COOKIE['username']."</a>
                 </li>";
 
         if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
