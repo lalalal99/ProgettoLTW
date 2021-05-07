@@ -38,6 +38,7 @@ function annullaModifica(elem) {
 function modificaUsername(){
     var x = document.getElementById("txtUsernameProf").value;
     document.getElementById("btnSalvaUsername").setAttribute("style", "display : none;");
+    document.getElementById("btnAnnullaUsername").setAttribute("style", "display : none;");
     comunica("newName", x).then(data=>{
         if(data == -1)
             alert("Modifica non effettuata");
