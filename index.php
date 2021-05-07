@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <script type="text/javascript" src="js/js.cookie.js"></script>
     <script type="text/javascript" src="js/date-it-IT.js"></script>
     <script src="js/palinsesto_generator.js"></script>
@@ -41,7 +41,7 @@
           </div>         
         </div>        
       </div>   
-      <div class="container w-50 h-50 rounded" id="container-griglia-canali">    
+      <div class="container w-50 h-50 rounded sticky" id="container-griglia-canali">    
         <div class="row fs-2 fw-normal rounded d-flex justify-content-center align-items-center mb-3" id="header-canali">Lista Canali</div>
       </div>   
     </div>

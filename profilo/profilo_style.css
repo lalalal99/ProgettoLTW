@@ -86,3 +86,12 @@ input:disabled {
   background-color: var(--sfondo);
   width: auto;
 }
+
+#containerPrimo {
+  margin-top: 5%;
+}
+
+button {
+  height: 40px;
+  width: 40px;
+}
