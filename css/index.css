@@ -35,7 +35,7 @@ body {
 .navbar {
   background-color: var(--title);
   color: var(--text);
-  position: sticky;
+  /* position: sticky; */
   top: 0;
 }
 
@@ -62,7 +62,7 @@ div.sticky {
 
 nav.sticky {
   position: -webkit-sticky; /* Safari */
-  position: sticky;
+  /* position: sticky; */
   top: 0;
 }
 

@@ -1,4 +1,4 @@
-<nav class="navbar sticky">
+<nav class="navbar fixed-top sticky">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.php">
       <img src="https://via.placeholder.com/30"  alt="Logo">
