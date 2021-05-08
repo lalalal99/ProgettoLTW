@@ -8,10 +8,11 @@ function startup() {
 
 function serata(tipoSerata) {
   generaPalinsesto().then(function (palinsesto) {
+    console.log(palinsesto);
     // $("#serata-lista").html = "";
     document.getElementById("serata-lista").innerHTML = "";
-    generaEvidenza();
     generaSerata(tipoSerata, palinsesto);
+    generaEvidenza();
   });
 }
 
@@ -95,10 +96,14 @@ function generaSerata(tipoSerata, palinsesto) {
       : "";
 
   //prima serata 0 seconda serata 1 unificata 0 e 1
-
   // for (let i = 0; i < canali.length; i += 2) {
   for (let i = 0; i < 6; i += 2) {
-    aggiungiElementoSerata(i, palinsesto, serata);
+    if (serata == "x") {
+      aggiungiElementoSerata(i, palinsesto, 0);
+      aggiungiElementoSerata(i, palinsesto, 1);
+    } else {
+      aggiungiElementoSerata(i, palinsesto, serata);
+    }
   }
 }
 
@@ -109,40 +114,54 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     palinsesto["Oggi"][canali[indiceCanale]][serata]["id"],
     false
   ).then((film) => {
+    // console.log(film);
     let container = document.getElementById("serata-lista");
     let card = document.createElement("div");
     card.setAttribute("class", "card mb-3 order-" + indiceCanale / 2);
 
     let card_header = document.createElement("div");
-    card_header.setAttribute("class", "card-header");
+    card_header.setAttribute("class", "card-header d-flex align-items-center");
     let img = document.createElement("img");
     Object.assign(img, {
       src: canali[indiceCanale + 1],
       style: "max-width: 4rem;",
     });
     card_header.appendChild(img);
+
+    let ora = document.createElement("h3");
+    ora.setAttribute("class", "card-text ms-auto");
+    ora.appendChild(
+      document.createTextNode(
+        palinsesto["Oggi"][canali[indiceCanale]][serata]["ora"]
+      )
+    );
+    card_header.appendChild(ora);
+
     card.appendChild(card_header);
 
     let row = document.createElement("div");
-    row.setAttribute("class", "row no-gutters");
+    row.setAttribute("class", "row g-0");
 
     let col = document.createElement("div");
-    col.setAttribute("class", "col-md-4 mb-3");
+    col.setAttribute(
+      "class",
+      "col-lg-4 d-flex justify-content-start align-items-center p-3"
+    );
     img = document.createElement("img");
     Object.assign(img, {
       src:
         film["Poster"] != "N/A"
           ? film["Poster"]
           : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
-      class: "card-img embed-responsive-item",
+      class: "card-img",
       alt: "...",
-      style: "width : 300px; height : 400px",
+      style: "width : 250px; height : 350px",
     });
     col.appendChild(img);
     row.appendChild(col);
 
     col = document.createElement("div");
-    col.setAttribute("class", "col-md-8");
+    col.setAttribute("class", "col-lg-8");
 
     let card_body = document.createElement("div");
     card_body.setAttribute("class", "card-body text-success");
@@ -152,10 +171,39 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     h4.appendChild(document.createTextNode(film["Title"]));
     card_body.appendChild(h4);
 
+    info = document.createElement("div");
+    info.setAttribute("class", "d-flex");
+
     let p = document.createElement("p");
-    p.setAttribute("class", "card-text");
+    p.setAttribute("class", "card-text me-5");
     p.appendChild(document.createTextNode(film["Runtime"]));
-    card_body.appendChild(p);
+    info.appendChild(p);
+
+    div = document.createElement("div");
+    div.setAttribute("class", "d-flex gap-2");
+
+    img = document.createElement("img"); //logo imdb
+    Object.assign(img, {
+      src:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/640px-IMDB_Logo_2016.svg.png",
+      style: "height: 20px;",
+    });
+    div.appendChild(img);
+
+    p = document.createElement("p");
+    p.setAttribute("class", "card-text");
+    p.setAttribute("name", "rating");
+    if (film.Ratings.length > 0) {
+      p.appendChild(document.createTextNode(film.Ratings[0].Value));
+    } else {
+      p.appendChild(document.createTextNode("NaN"));
+    }
+    // console.log(film.Ratings[0].Value.slice(film.Ratings[0].Value.length - 3));
+    div.appendChild(p);
+
+    info.appendChild(div);
+
+    card_body.appendChild(info);
 
     p = document.createElement("p");
     p.setAttribute("class", "card-text");

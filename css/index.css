@@ -32,6 +32,10 @@ body {
   background-color: var(--hover);
 }
 
+.btn-secondary:focus {
+  background-color: var(--hover);
+}
+
 .navbar {
   background-color: var(--title);
   color: var(--text);
@@ -49,6 +53,9 @@ body {
   /* border: 2px solid var(--title); */
   background-color: var(--title);
   margin: 5px 10px 5px 10px;
+}
+
+#div-evidenza {
 }
 
 /* ORDER STUFF */

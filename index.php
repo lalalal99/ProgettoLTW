@@ -23,11 +23,10 @@
     </script>
     <!--end of Navigation bar-->
     <!-- in evidenza -->
-    <div id="div_evidenza">
+    <div class="bg-light mt-auto" id="div-evidenza">
       <h1>In Evidenza</h1>
       <ul id="Evidenza_Lista"></ul>
     </div>
-    <hr />
     <!-- prima serata -->
     <div class="container-fluid mt-5 d-flex">    
       <div class="d-flex flex-grow">
@@ -35,7 +34,7 @@
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
             <button type="button" onclick="serata('prima')" class="btn btn-secondary">Prima Serata</button>
             <button type="button" onclick="serata('seconda')" class="btn btn-secondary">Seconda Serata</button>
-            <button type="button" onclick="serata('unita')" class="btn btn-secondary">Serata Unificata</button>
+            <button type="button" onclick="serata('unica')" class="btn btn-secondary">Serata Unificata</button>
           </div>
           <div class="d-flex flex-column" id="serata-lista">
           </div>         
