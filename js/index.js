@@ -1,6 +1,3 @@
-OMDb_API = "9e44c172";
-// OMDb_API = "75cb83e8";
-
 function startup() {
   grigliaCanali();
   serata("prima");
@@ -50,26 +47,6 @@ function generaEvidenza() {
   //   film = getFilm("t", getRandomTitle());
   //   aggiungiEvidenza(film);
   // }
-}
-
-async function getFilm(key, value, fullPlot = false) {
-  //Ritorna un dizionario con le informazione del film src
-  var url =
-    "http://www.omdbapi.com/?apikey=" +
-    OMDb_API +
-    "&" +
-    key +
-    "=" +
-    value +
-    (fullPlot ? "&plot=full" : "");
-
-  var value = new Promise(function (success) {
-    $.ajax(url).then(function (res) {
-      success(res);
-    });
-  });
-
-  return await value;
 }
 
 function aggiungiEvidenza(film) {
@@ -147,6 +124,8 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
       "class",
       "col-lg-4 d-flex justify-content-start align-items-center p-3"
     );
+    let a = document.createElement("a");
+    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id="+film.imdbID);
     img = document.createElement("img");
     Object.assign(img, {
       src:
@@ -157,7 +136,8 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
       alt: "...",
       style: "width : 250px; height : 350px",
     });
-    col.appendChild(img);
+    a.appendChild(img)
+    col.appendChild(a);
     row.appendChild(col);
 
     col = document.createElement("div");
@@ -166,10 +146,15 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     let card_body = document.createElement("div");
     card_body.setAttribute("class", "card-body text-success");
 
-    let h4 = document.createElement("h2");
-    h4.setAttribute("class", "card-title");
-    h4.appendChild(document.createTextNode(film["Title"]));
-    card_body.appendChild(h4);
+    a = document.createElement("a");
+    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id="+film.imdbID);
+    a.setAttribute("style", "text-decoration : none;")
+    let h2 = document.createElement("h2");
+    h2.setAttribute("class", "card-title");
+    h2.appendChild(document.createTextNode(film["Title"]));
+    a.appendChild(h2);
+    card_body.appendChild(a);
+
 
     info = document.createElement("div");
     info.setAttribute("class", "d-flex");
