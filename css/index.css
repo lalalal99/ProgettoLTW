@@ -68,7 +68,8 @@ body {
   left: 0;
 }
 
-.bg {
+.dropdown {
+  border: 2px solid var(--card);
 }
 
 /* ORDER STUFF */

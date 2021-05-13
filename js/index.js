@@ -32,19 +32,10 @@ function grigliaCanali() {
 }
 
 function navbarDropdown() {
-  /*
-    
-  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton" id="dropdown-list">
-  </ul>
-      
-  */
   let div = document.getElementById("dropdown");
 
   let btn = document.createElement("button");
-  btn.setAttribute("class", "btn btn-primary dropdown-toggle");
+  btn.setAttribute("class", "btn dropdown-toggle");
   btn.setAttribute("type", "button");
   btn.setAttribute("id", "dropdownMenuButton");
   btn.setAttribute("data-bs-toggle", "dropdown");
@@ -57,7 +48,7 @@ function navbarDropdown() {
   ul.setAttribute("class", "dropdown-menu dropdown-menu-dark");
   ul.setAttribute("aria-labelledby", "dropdownMenuButton");
   ul.setAttribute("id", "dropdown-list");
-  
+
   let giorni = getListaGiorni();
   for (const giorno of giorni) {
     let li = document.createElement("li");
@@ -70,9 +61,7 @@ function navbarDropdown() {
 }
 
 function serata(tipoSerata, giorno = "Oggi") {
-  console.log(giorno);
   generaPalinsesto().then(function (palinsesto) {
-    console.log(giorno);
     console.log(palinsesto);
     // $("#serata-lista").html = "";
     document.getElementById("serata-lista").innerHTML = "";
@@ -136,7 +125,6 @@ function aggiungiEvidenza(film) {
 function generaSerata(tipoSerata, palinsesto, giorno) {
   //prima serata 0 seconda serata 1 unificata 0 e 1
   // for (let i = 0; i < canali.length; i += 2) {
-  console.log(giorno);
   for (let i = 0; i < 10; i += 2) {
     if (tipoSerata == "unica") {
       aggiungiElementoSerata(i, palinsesto, 0, giorno);
@@ -150,8 +138,7 @@ function generaSerata(tipoSerata, palinsesto, giorno) {
 }
 
 function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
-  //           palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
-  console.log(giorno);
+  // palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
   getFilm(
     "i",
     palinsesto[giorno][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][
