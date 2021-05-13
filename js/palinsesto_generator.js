@@ -1,5 +1,5 @@
 // var fs = require("fs");
-canali = [
+const canali = [
   "Rai 1",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rai_1_-_Logo_2016.svg/1200px-Rai_1_-_Logo_2016.svg.png",
   "Rai 2",

@@ -22,14 +22,16 @@
       });
     </script>
     <!--end of Navigation bar-->
-    <!-- in evidenza -->
-    <div class="bg-light mt-auto" id="div-evidenza">
-      <h1>In Evidenza</h1>
-      <ul id="Evidenza_Lista"></ul>
+    <!-- evidenza -->
+    <div class="d-flex justify-content-evenly align-items-center bg rounded p-2" id="div-evidenza">
+      <div class="spinner-border text-info" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
+        
     <!-- prima serata -->
-    <div class="container-fluid mt-5 d-flex">    
-      <div class="d-flex flex-grow">
+    <div class="container-fluid mt-5 d-flex" id="container-serata">    
+      <div class="d-flex flex-grow"> 
         <div class="p-2">
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
             <button type="button" onclick="serata('prima')" class="btn btn-secondary">Prima Serata</button>

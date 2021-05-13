@@ -56,6 +56,20 @@ body {
 }
 
 #div-evidenza {
+  position: absolute;
+  top: 12%;
+  left: 1%;
+  right: 1%;
+}
+
+#container-serata {
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.bg{
+  
 }
 
 /* ORDER STUFF */

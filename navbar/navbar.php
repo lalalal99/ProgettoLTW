@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand fixed-top">
+<nav class="navbar navbar-expand-md fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.php">
-      <img src="https://via.placeholder.com/30"  alt="Logo">Navbar</a>
+      <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" height="40px"  alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

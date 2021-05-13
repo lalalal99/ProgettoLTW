@@ -6,16 +6,6 @@ function startup() {
   serata("prima");
 }
 
-function serata(tipoSerata) {
-  generaPalinsesto().then(function (palinsesto) {
-    console.log(palinsesto);
-    // $("#serata-lista").html = "";
-    document.getElementById("serata-lista").innerHTML = "";
-    generaSerata(tipoSerata, palinsesto);
-    generaEvidenza();
-  });
-}
-
 function grigliaCanali() {
   let container = document.getElementById("container-griglia-canali");
   let row = document.createElement("div");
@@ -44,12 +34,50 @@ function grigliaCanali() {
   container.appendChild(row);
 }
 
-function generaEvidenza() {
-  evidenzaLenght = 10;
-  // for (let i = 0; i < evidenzaLenght; i++) {
-  //   film = getFilm("t", getRandomTitle());
-  //   aggiungiEvidenza(film);
-  // }
+function serata(tipoSerata) {
+  generaPalinsesto().then(function (palinsesto) {
+    console.log(palinsesto);
+    // $("#serata-lista").html = "";
+    document.getElementById("serata-lista").innerHTML = "";
+    generaSerata(tipoSerata, palinsesto);
+    generaEvidenza(palinsesto);
+  });
+}
+
+async function generaEvidenza(palinsesto) {
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  await sleep(500);
+
+  let div = document.getElementById("div-evidenza");
+  div.innerHTML = "";
+
+  //metti iconcina caricamento
+  let _best = []; //{id: "", poster: "", rating: ""}
+
+  let ratings = document.getElementsByName("rating");
+  let imgs = document.getElementsByName("card-img");
+
+  for (let i = 0; i < ratings.length; i++) {
+    let obj = {
+      id: imgs[i].alt,
+      rating: ratings[i].innerHTML != "N/A" ? ratings[i].innerHTML : "0",
+      poster: imgs[i].src,
+    };
+    _best.push(obj);
+  }
+  let best = _best.sort((a, b) => b.rating - a.rating).slice(0, 5);
+
+  for (let i = 0; i < 5; i++) {
+    let a = document.createElement("a");
+    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + best[i].id);
+    let img = document.createElement("img");
+    img.setAttribute("src", best[i].poster);
+    img.setAttribute("style", "width : 250px; height : 350px");
+    a.appendChild(img);
+    div.appendChild(a);
+  }
 }
 
 async function getFilm(key, value, fullPlot = false) {
@@ -79,7 +107,7 @@ function aggiungiEvidenza(film) {
 
   var elem = document.createElement("img");
   elem.setAttribute("src", film["Poster"]);
-  elem.setAttribute("class", "locandina");
+  elem.setAttribute("class", "img-thumbnail");
 
   li.appendChild(elem);
   ul.appendChild(li);
@@ -97,10 +125,10 @@ function generaSerata(tipoSerata, palinsesto) {
 
   //prima serata 0 seconda serata 1 unificata 0 e 1
   // for (let i = 0; i < canali.length; i += 2) {
-  for (let i = 0; i < 6; i += 2) {
+  for (let i = 0; i < 10; i += 2) {
     if (serata == "x") {
       aggiungiElementoSerata(i, palinsesto, 0);
-      aggiungiElementoSerata(i, palinsesto, 1);
+      aggiungiElementoSerata(i + 1, palinsesto, 1);
     } else {
       aggiungiElementoSerata(i, palinsesto, serata);
     }
@@ -111,19 +139,22 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
   //           palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
   getFilm(
     "i",
-    palinsesto["Oggi"][canali[indiceCanale]][serata]["id"],
+    palinsesto["Oggi"][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][
+      serata
+    ]["id"],
     false
   ).then((film) => {
     // console.log(film);
     let container = document.getElementById("serata-lista");
     let card = document.createElement("div");
-    card.setAttribute("class", "card mb-3 order-" + indiceCanale / 2);
+    card.setAttribute("class", "card mb-3");
+    card.setAttribute("style", "order:" + indiceCanale);
 
     let card_header = document.createElement("div");
     card_header.setAttribute("class", "card-header d-flex align-items-center");
     let img = document.createElement("img");
     Object.assign(img, {
-      src: canali[indiceCanale + 1],
+      src: canali[serata == 0 ? indiceCanale + 1 : indiceCanale],
       style: "max-width: 4rem;",
     });
     card_header.appendChild(img);
@@ -132,7 +163,9 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     ora.setAttribute("class", "card-text ms-auto");
     ora.appendChild(
       document.createTextNode(
-        palinsesto["Oggi"][canali[indiceCanale]][serata]["ora"]
+        palinsesto["Oggi"][
+          canali[serata == 0 ? indiceCanale : indiceCanale - 1]
+        ][serata]["ora"]
       )
     );
     card_header.appendChild(ora);
@@ -152,10 +185,13 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
       src:
         film["Poster"] != "N/A"
           ? film["Poster"]
-          : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
+          : "https://via.placeholder.com/300x500/FFFFFF/000000?text=" +
+            film.Title.replace(/ /g, "+"),
+      // : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
       class: "card-img",
-      alt: "...",
-      style: "width : 250px; height : 350px",
+      alt: film.imdbID,
+      style: "overflow:cover;", //width : 250px; height : 350px",
+      name: "card-img",
     });
     col.appendChild(img);
     row.appendChild(col);
@@ -184,8 +220,7 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
 
     img = document.createElement("img"); //logo imdb
     Object.assign(img, {
-      src:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/640px-IMDB_Logo_2016.svg.png",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/640px-IMDB_Logo_2016.svg.png",
       style: "height: 20px;",
     });
     div.appendChild(img);
@@ -193,13 +228,15 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     p = document.createElement("p");
     p.setAttribute("class", "card-text");
     p.setAttribute("name", "rating");
-    if (film.Ratings.length > 0) {
-      p.appendChild(document.createTextNode(film.Ratings[0].Value));
-    } else {
-      p.appendChild(document.createTextNode("NaN"));
-    }
-    // console.log(film.Ratings[0].Value.slice(film.Ratings[0].Value.length - 3));
+    p.appendChild(document.createTextNode(film.imdbRating));
     div.appendChild(p);
+
+    if (film.imdbRating != "N/A") {
+      p = document.createElement("p");
+      p.setAttribute("class", "card-text");
+      p.appendChild(document.createTextNode("/10"));
+      div.appendChild(p);
+    }
 
     info.appendChild(div);
 
