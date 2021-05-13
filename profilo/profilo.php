@@ -38,7 +38,7 @@
     </script>
     <!--end of Navigation bar-->
     
-    <div class="container rounded-3" id="containerPrimo">
+    <div class="container rounded-3 container-primo">
       <div class="row no-gutters">
         <div class="col-md-5 mb-3 text-center mt-4">
           <img

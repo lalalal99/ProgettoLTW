@@ -1,0 +1,58 @@
+:root {
+  --background: #14213d;
+  --card: #e5e5e5;
+  --title: #fca311;
+  --text: #000000;
+  --hover: #f77f00;
+  --font: Arial, sans-serif;
+}
+
+body {
+  background: var(--background);
+  font-family: var(--font);
+}
+
+.card {
+  background-color: var(--card);
+}
+
+.card-title {
+  color: var(--title);
+}
+
+.card-text {
+  color: var(--text);
+}
+
+.btn-secondary {
+  background-color: var(--title);
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover);
+}
+
+.btn-secondary:focus {
+  background-color: var(--hover);
+}
+
+.navbar {
+  background-color: var(--title);
+  color: var(--text);
+}
+
+.container {
+  background-color: var(--card);
+}
+
+.container-primo {
+  margin-top: 5%;
+}
+
+.classe-nascosta {
+  display: none;
+}
+
+#divSegui:hover {
+  cursor: pointer;
+}

@@ -10,14 +10,21 @@
         <?php
         session_start();
         
+        if(!$_SESSION['email']){
+          if($_COOKIE['email']){
+              $_SESSION['email'] = $_COOKIE['email'];
+              $_SESSION['username'] = $_COOKIE['username'];
+              $_SESSION['password'] = $_COOKIE['password'];
+          }
+        }
         if(isset($_SESSION['username']))
           echo "<li class='nav-item'>
                   <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_SESSION['username']."</a>
                 </li>";
-        elseif(isset($_COOKIE['username']))
-          echo "<li class='nav-item'>
-                  <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_COOKIE['username']."</a>
-                </li>";
+        // elseif(isset($_COOKIE['username']))
+        //   echo "<li class='nav-item'>
+        //           <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_COOKIE['username']."</a>
+        //         </li>";
 
         if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
           echo "<li class='nav-item'>
