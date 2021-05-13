@@ -45,7 +45,7 @@ async function generaEvidenza(palinsesto) {
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  await sleep(500);
+  await sleep(1000);
 
   let div = document.getElementById("div-evidenza");
   div.innerHTML = "";
@@ -72,6 +72,7 @@ async function generaEvidenza(palinsesto) {
     let img = document.createElement("img");
     img.setAttribute("src", best[i].poster);
     img.setAttribute("style", "width : 250px; height : 350px");
+    img.setAttribute("class", "rounded");
     a.appendChild(img);
     div.appendChild(a);
   }
@@ -158,7 +159,7 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
       "col-lg-4 d-flex justify-content-start align-items-center p-3"
     );
     let a = document.createElement("a");
-    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id="+film.imdbID);
+    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + film.imdbID);
     img = document.createElement("img");
     Object.assign(img, {
       src:
@@ -172,7 +173,7 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
       style: "overflow:cover;", //width : 250px; height : 350px",
       name: "card-img",
     });
-    a.appendChild(img)
+    a.appendChild(img);
     col.appendChild(a);
     row.appendChild(col);
 
@@ -183,14 +184,13 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     card_body.setAttribute("class", "card-body text-success");
 
     a = document.createElement("a");
-    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id="+film.imdbID);
-    a.setAttribute("style", "text-decoration : none;")
+    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + film.imdbID);
+    a.setAttribute("style", "text-decoration : none;");
     let h2 = document.createElement("h2");
     h2.setAttribute("class", "card-title");
     h2.appendChild(document.createTextNode(film["Title"]));
     a.appendChild(h2);
     card_body.appendChild(a);
-
 
     info = document.createElement("div");
     info.setAttribute("class", "d-flex");

@@ -220,10 +220,10 @@ function assemblaPalinsesto(IDs) {
       var isPomeriggio = ora.isAfter(mezzogiorno);
       if (isPomeriggio) {
         randomid = randomID(possibiliFilm);
-        console.log("Ciao1");
+        // console.log("Ciao1");
       } else {
         randomid = randomID(possibiliSerie);
-        console.log("Ciao2");
+        // console.log("Ciao2");
       }
       giornata.push({
         ora: aggiungiPubblicita(ora, 10).toString("HH:mm"),
