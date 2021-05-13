@@ -6,6 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="dropend ms-auto" id="dropdown"></div>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <?php
         session_start();

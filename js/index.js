@@ -31,21 +31,63 @@ function grigliaCanali() {
   container.appendChild(row);
 }
 
-function serata(tipoSerata) {
+function navbarDropdown() {
+  /*
+    
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton" id="dropdown-list">
+  </ul>
+      
+  */
+  let div = document.getElementById("dropdown");
+
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "btn btn-primary dropdown-toggle");
+  btn.setAttribute("type", "button");
+  btn.setAttribute("id", "dropdownMenuButton");
+  btn.setAttribute("data-bs-toggle", "dropdown");
+  btn.setAttribute("aria-expanded", "false");
+  btn.appendChild(document.createTextNode("Oggi"));
+
+  div.appendChild(btn);
+
+  let ul = document.createElement("ul");
+  ul.setAttribute("class", "dropdown-menu dropdown-menu-dark");
+  ul.setAttribute("aria-labelledby", "dropdownMenuButton");
+  ul.setAttribute("id", "dropdown-list");
+  
+  let giorni = getListaGiorni();
+  for (const giorno of giorni) {
+    let li = document.createElement("li");
+    li.setAttribute("class", "dropdown-item");
+    li.setAttribute("onclick", "serata('prima', '" + giorno + "')");
+    li.appendChild(document.createTextNode(giorno));
+    ul.appendChild(li);
+  }
+  div.appendChild(ul);
+}
+
+function serata(tipoSerata, giorno = "Oggi") {
+  console.log(giorno);
   generaPalinsesto().then(function (palinsesto) {
+    console.log(giorno);
     console.log(palinsesto);
     // $("#serata-lista").html = "";
     document.getElementById("serata-lista").innerHTML = "";
-    generaSerata(tipoSerata, palinsesto);
-    generaEvidenza(palinsesto);
+    document.getElementById("div-evidenza").innerHTML =
+      '<div class="spinner-border text-info" role="status"><span class="visually-hidden">Loading...</span></div>';
+    generaSerata(tipoSerata, palinsesto, giorno);
+    generaEvidenza();
   });
 }
 
-async function generaEvidenza(palinsesto) {
+async function generaEvidenza() {
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  await sleep(1000);
+  await sleep(1500);
 
   let div = document.getElementById("div-evidenza");
   div.innerHTML = "";
@@ -91,33 +133,28 @@ function aggiungiEvidenza(film) {
   ul.appendChild(li);
 }
 
-function generaSerata(tipoSerata, palinsesto) {
-  let serata =
-    tipoSerata == "prima"
-      ? 0
-      : tipoSerata == "seconda"
-      ? 1
-      : tipoSerata == "unica"
-      ? "x"
-      : "";
-
+function generaSerata(tipoSerata, palinsesto, giorno) {
   //prima serata 0 seconda serata 1 unificata 0 e 1
   // for (let i = 0; i < canali.length; i += 2) {
+  console.log(giorno);
   for (let i = 0; i < 10; i += 2) {
-    if (serata == "x") {
-      aggiungiElementoSerata(i, palinsesto, 0);
-      aggiungiElementoSerata(i + 1, palinsesto, 1);
-    } else {
-      aggiungiElementoSerata(i, palinsesto, serata);
+    if (tipoSerata == "unica") {
+      aggiungiElementoSerata(i, palinsesto, 0, giorno);
+      aggiungiElementoSerata(i + 1, palinsesto, 1, giorno);
+    } else if (tipoSerata == "prima") {
+      aggiungiElementoSerata(i, palinsesto, 0, giorno);
+    } else if (tipoSerata == "seconda") {
+      aggiungiElementoSerata(i + 1, palinsesto, 1, giorno);
     }
   }
 }
 
-function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
+function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
   //           palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
+  console.log(giorno);
   getFilm(
     "i",
-    palinsesto["Oggi"][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][
+    palinsesto[giorno][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][
       serata
     ]["id"],
     false
@@ -141,7 +178,7 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata) {
     ora.setAttribute("class", "card-text ms-auto");
     ora.appendChild(
       document.createTextNode(
-        palinsesto["Oggi"][
+        palinsesto[giorno][
           canali[serata == 0 ? indiceCanale : indiceCanale - 1]
         ][serata]["ora"]
       )

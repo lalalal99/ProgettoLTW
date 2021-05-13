@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/queryFilm.js"></script>
     <script type="text/javascript" src="js/date-it-IT.js"></script>
     <script src="js/palinsesto_generator.js"></script>
@@ -18,29 +19,36 @@
     <div id="nav-placeholder"></div>
     <script>
       $(function(){
-        $("#nav-placeholder").load("navbar/navbar.php");
+        $("#nav-placeholder").load("navbar/navbar.php", navbarDropdown);
       });
     </script>
     <!--end of Navigation bar-->
     <!-- evidenza -->
     <div class="d-flex justify-content-evenly align-items-center bg rounded p-2" id="div-evidenza">
+      <!-- spinner start -->
       <div class="spinner-border text-info" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
+      <!-- spinner end -->
     </div>
         
     <!-- prima serata -->
     <div class="container-fluid mt-5 d-flex" id="container-serata">    
-      <div class="d-flex flex-grow"> 
-        <div class="p-2">
+      <div class="d-flex flex-grow flex-column p-2"> 
+        <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
             <button type="button" onclick="serata('prima')" class="btn btn-secondary">Prima Serata</button>
             <button type="button" onclick="serata('seconda')" class="btn btn-secondary">Seconda Serata</button>
             <button type="button" onclick="serata('unica')" class="btn btn-secondary">Serata Unificata</button>
           </div>
-          <div class="d-flex flex-column" id="serata-lista">
-          </div>         
-        </div>        
+        </div>
+        <div class="d-flex flex-column" id="serata-lista">
+          <!-- spinner start -->
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <!-- spinner end -->
+        </div>          
       </div>   
       <div class="container w-50 h-50 rounded sticky" id="container-griglia-canali">    
         <div class="row fs-2 fw-normal rounded d-flex justify-content-center align-items-center mb-3" id="header-canali">Lista Canali</div>

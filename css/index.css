@@ -46,7 +46,7 @@ body {
   margin: 5rem 2rem 2rem 3rem;
   border: 2px solid var(--title);
   position: sticky;
-  top: 10%;
+  top: 15%;
 }
 
 #header-canali {
@@ -68,8 +68,7 @@ body {
   left: 0;
 }
 
-.bg{
-  
+.bg {
 }
 
 /* ORDER STUFF */
