@@ -19,7 +19,7 @@
                 $exec = mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
                 if(mysqli_num_rows($result) <= 0)
-                        echo -1;
+                    echo -1;
                 else{
                     $resid = mysqli_fetch_array($result);
                     mysqli_stmt_free_result($stmt);

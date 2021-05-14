@@ -6,12 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="//code.jquery.com/jquery-3.5.0.min.js"></script>
     <script type="text/javascript" lang="javascript" src="profilo.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-      crossorigin="anonymous"
-    />
+    <script type="text/javascript" src="../js/queryFilm.js"></script>
+    <!-- <script type="text/javascript" src="../utilities/utilities.js"></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="profilo_style.css" />
@@ -41,12 +38,14 @@
     <div class="container rounded-3 container-primo">
       <div class="row no-gutters">
         <div class="col-md-5 mb-3 text-center mt-4">
-          <img
-            src="../imgs/Trees.png"
-            class="rounded-circle shadow"
-            width="200px"
-            alt="immagine profilo"
-          />
+          <div class="d-flex align-items-baseline justify-content-center">
+            <img id="imgProfilo"
+              src=""
+              class="rounded-circle shadow"
+              width="200px"
+              alt="immagine profilo"
+            />
+          </div>
           <div class="d-flex justify-content-center align-items-center mt-4">
             <label for="txtUsernameProf" class="form-label">Username: </label>
             <input type="text" id="txtUsernameProf" class="form-control w-50" maxlength="40" disabled/>
@@ -188,8 +187,10 @@
     <div class="container rounded-3 mt-5 p-3">
       <div id="topSecondo" class="d-flex">
         <p class="fs-4 mt-2">Programmi seguiti</p>
-        <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" title="Popover Header" data-bs-content="Ciao">
+        <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
         <button class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2"><b>+</b></button>
+      </div>
+      <div id="divSeguiti" class="d-flex">
       </div>
     </div>
   </body>
