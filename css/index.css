@@ -69,7 +69,7 @@ body {
 }
 
 .dropdown {
-  border: 2px solid var(--card);
+  border: 2px solid var(--hover);
 }
 
 /* ORDER STUFF */

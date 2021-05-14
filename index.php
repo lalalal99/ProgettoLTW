@@ -19,7 +19,7 @@
     <div id="nav-placeholder"></div>
     <script>
       $(function(){
-        $("#nav-placeholder").load("navbar/navbar.php", navbarDropdown);
+        $("#nav-placeholder").load("navbar/navbar.php", () => navbarDropdown());
       });
     </script>
     <!--end of Navigation bar-->
@@ -37,9 +37,9 @@
       <div class="d-flex flex-grow flex-column p-2"> 
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group btn-group-lg mb-4" role="group" aria-label="Basic example">
-            <button type="button" onclick="serata('prima')" class="btn btn-secondary">Prima Serata</button>
-            <button type="button" onclick="serata('seconda')" class="btn btn-secondary">Seconda Serata</button>
-            <button type="button" onclick="serata('unica')" class="btn btn-secondary">Serata Unificata</button>
+            <button type="button" onclick="serata('prima')" id="btn-prima-serata" class="btn btn-secondary">Prima Serata</button>
+            <button type="button" onclick="serata('seconda')" id="btn-seconda-serata" class="btn btn-secondary">Seconda Serata</button>
+            <button type="button" onclick="serata('unica')" id="btn-unica-serata" class="btn btn-secondary">Serata Unificata</button>
           </div>
         </div>
         <div class="d-flex flex-column" id="serata-lista">
