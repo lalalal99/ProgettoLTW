@@ -16,7 +16,10 @@ function grigliaCanali() {
     );
 
     let a = document.createElement("a");
-    a.setAttribute("href", "#");
+    a.setAttribute(
+      "href",
+      "../dettaglioCanale/canale.html?id=" + canali[i - 1]
+    );
 
     let img = document.createElement("img");
     img.setAttribute("src", canali[i]);
@@ -125,19 +128,6 @@ async function generaEvidenza() {
     a.appendChild(img);
     div.appendChild(a);
   }
-}
-
-function aggiungiEvidenza(film) {
-  var ul = document.getElementById("Evidenza_Lista");
-  var li = document.createElement("li");
-  li.setAttribute("class", "elementoEvidenza");
-
-  var elem = document.createElement("img");
-  elem.setAttribute("src", film["Poster"]);
-  elem.setAttribute("class", "img-thumbnail");
-
-  li.appendChild(elem);
-  ul.appendChild(li);
 }
 
 function generaSerata(tipoSerata, palinsesto, giorno) {

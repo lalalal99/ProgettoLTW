@@ -1,0 +1,13 @@
+:root {
+  --background: #14213d;
+  --card: #e5e5e5;
+  --title: #fca311;
+  --text: #000000;
+  --hover: #f77f00;
+  --font: Arial, sans-serif;
+}
+
+#div-canale {
+  margin-top: 5%;
+  background-color: var(--card);
+}

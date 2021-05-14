@@ -11,8 +11,8 @@
         <?php
         session_start();
         
-        if(!$_SESSION['email']){
-          if($_COOKIE['email']){
+        if(!($_SESSION['email'] ?? null)){
+          if($_COOKIE['email'] ?? null){
               $_SESSION['email'] = $_COOKIE['email'];
               $_SESSION['username'] = $_COOKIE['username'];
               $_SESSION['password'] = $_COOKIE['password'];
