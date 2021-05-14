@@ -9,8 +9,7 @@ function popolaInfoFilm() {
         console.log(result);
         imgLocandina.setAttribute(
             "src",
-            result.Poster != "N/A" ? result.Poster
-            : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg");
+            result.Poster != "N/A" ? result.Poster : "https://via.placeholder.com/400x550/FFFFFF/000000?text=" + result.Title.replace(/ /g, "+"));
         pTitolo.appendChild(document.createTextNode(result.Title));
         if (result.Ratings.length > 0) 
             pValutazione.appendChild(document.createTextNode(result.Ratings[0].Value));

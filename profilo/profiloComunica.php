@@ -45,6 +45,21 @@
                 $_SESSION['password'] = $nuova;
                 echo $_SESSION['password'];
             }
+        }elseif ($x == 'seguiti') {
+            $stmt = mysqli_prepare($dbconn, "SELECT pu.film FROM preferenze_utenti AS pu JOIN utenti AS u ON pu.utente = u.id WHERE u.email = ?");
+            mysqli_stmt_bind_param($stmt, 's', $_SESSION['email']);
+            $exec = mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            if(mysqli_num_rows($result) <= 0)
+                    echo -1;
+            else{
+                // mysqli_stmt_bind_result($stmt, $f);
+                $lista = array();
+                while($row = mysqli_fetch_assoc($result)) {
+                    array_push($lista,$row);
+                }
+                echo json_encode($lista);
+            }
         }
     }else header("Location: ../index.php");
 

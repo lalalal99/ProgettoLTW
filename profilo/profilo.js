@@ -1,7 +1,19 @@
 function popolaCampi() {
     comunica("email").then(data=>{document.getElementById("txtEmailProf").value = data});
     comunica("password").then(data=>{document.getElementById("txtPasswordProf").value = data});
-    comunica("username").then(data=>{document.getElementById("txtUsernameProf").value = data});
+    comunica("username").then(data=>{
+        document.getElementById("txtUsernameProf").value = data
+        document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase());
+    });
+    popolaSeguiti();
+}
+
+function getColoreCasuale() {
+    var letters = '0123456789ABCDEF';
+    var color = '';
+    for (var i = 0; i < 6; i++)
+        color += letters[Math.floor(Math.random() * 16)];
+    return color;
 }
 
 function abilitaModifica(elem) {
@@ -10,7 +22,7 @@ function abilitaModifica(elem) {
         var e = document.getElementsByName("btnUsr");
         for (i = 0; i < e.length; i++)
             e[i].classList.remove("classe-nascosta");
-    }else{
+    }else if(elem == 'password'){
         var e = document.getElementsByName("txtPsw");
         for (i = 0; i < e.length; i++)
             e[i].classList.remove("classe-nascosta");
@@ -42,8 +54,10 @@ function modificaUsername(){
     comunica("newName", x).then(data=>{
         if(data == -1)
             alert("Modifica non effettuata");
-        else
+        else{
             document.getElementById("txtUsernameProf").value = data;
+            document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase());
+        }
     });
     document.getElementById("txtUsernameProf").disabled = true;
 }
@@ -64,6 +78,30 @@ function modificaPassword() {
     for (i = 0; i < e.length; i++)
         e[i].classList.add("classe-nascosta");
     document.getElementById("btnSalvaPassword").classList.add("classe-nascosta");
+}
+
+function popolaSeguiti() {
+    var div = document.getElementById("divSeguiti");
+    comunica("seguiti").then(data=>{
+        if (data == '-1') {
+            var p = document.createElement("p");
+            p.appendChild(document.createTextNode("La tua lista dei seguiti è vuota"));
+            div.appendChild(p);
+        }else{
+            var idf = JSON.parse(data);
+            for (const _id in idf) {
+                const id = idf[_id];
+                console.log(id);
+                getFilm('i', id.film).then((film) => {
+                    console.log(film);
+                    var img = document.createElement("img");
+                    img.setAttribute("src", film["Poster"] != "N/A" ? film.Poster
+                            : "https://via.placeholder.com/300x500/FFFFFF/000000?text=" + film.Title.replace(/ /g, "+"));
+                    div.appendChild(img);
+                });
+            }
+        }
+    });
 }
 
 async function comunica() {

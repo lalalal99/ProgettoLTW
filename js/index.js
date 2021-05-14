@@ -47,10 +47,9 @@ function changeDropdownDay(giorno) {
 
 function navbarDropdown(giorno = "Oggi") {
   let div = document.getElementById("dropdown");
-  console.log(giorno);
 
   let btn = document.createElement("button");
-  btn.setAttribute("class", "btn dropdown-toggle");
+  btn.setAttribute("class", "btn dropdown-toggle fs-4");
   btn.setAttribute("type", "button");
   btn.setAttribute("id", "dropdownMenuButton");
   btn.setAttribute("data-bs-toggle", "dropdown");

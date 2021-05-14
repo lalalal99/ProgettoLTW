@@ -6,13 +6,13 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="dropdown ms-auto" id="dropdown"></div>
+      <div class="dropdown ms-auto shadow-sm rounded" id="dropdown"></div>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <?php
         session_start();
         
-        if(!$_SESSION['email']){
-          if($_COOKIE['email']){
+        if(!($_SESSION['email'] ?? null)){
+          if($_COOKIE['email'] ?? null){
               $_SESSION['email'] = $_COOKIE['email'];
               $_SESSION['username'] = $_COOKIE['username'];
               $_SESSION['password'] = $_COOKIE['password'];
