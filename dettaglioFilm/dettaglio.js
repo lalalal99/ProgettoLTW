@@ -84,8 +84,3 @@ async function comunica() {
     return await res;
 }
 
-function getParameterByName(name, _url) {
-    if (!_url) urlString = window.location.href;
-    let url = new URL(urlString);
-    return url.searchParams.get("id");
-}
