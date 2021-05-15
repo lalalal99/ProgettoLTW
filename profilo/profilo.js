@@ -3,19 +3,13 @@ function popolaCampi() {
     comunica("password").then(data=>{document.getElementById("txtPasswordProf").value = data});
     comunica("username").then(data=>{
         document.getElementById("txtUsernameProf").value = data
-        document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase());
+        // document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase());
     });
     popolaSeguiti();
 }
-
-function getColoreCasuale() {
-    var letters = '0123456789ABCDEF';
-    var color = '';
-    for (var i = 0; i < 6; i++)
-        color += letters[Math.floor(Math.random() * 16)];
-    return color;
+function setColoreImmagine(){
+    document.getElementById("imgProfilo").setAttribute("src", $("#imgProfNav").attr("src"));
 }
-
 function abilitaModifica(elem) {
     if(elem == 'username'){
         document.getElementById("txtUsernameProf").disabled = false;
@@ -82,7 +76,10 @@ function modificaPassword() {
 
 function popolaSeguiti() {
     var div = document.getElementById("divSeguiti");
-    comunica("seguiti").then(data=>{
+    div.innerHTML = '';
+    var row = document.createElement("div"); //A
+    row.setAttribute("class", "row row-cols-4 justify-content-around g-3"); //A
+    comunica("seguiti").then(data=>{        
         if (data == '-1') {
             var p = document.createElement("p");
             p.appendChild(document.createTextNode("La tua lista dei seguiti è vuota"));
@@ -90,19 +87,52 @@ function popolaSeguiti() {
         }else{
             var idf = JSON.parse(data);
             for (const _id in idf) {
+                // var col = document.createElement("div");
+                // col.setAttribute("class", "col p-2 d-flex justify-content-center align-items-center shadow-sm rounded");
                 const id = idf[_id].film;
                 getFilm('i', id).then((film) => {
+                    var col = document.createElement("div");
+                    col.setAttribute("class", "col col-auto p-2 colonna rounded");
+                    var a = document.createElement("a");
+                    a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + id);
                     var img = document.createElement("img");
                     img.setAttribute("src", film["Poster"] != "N/A" ? film.Poster
-                            : "https://via.placeholder.com/300x500/FFFFFF/000000?text=" + film.Title.replace(/ /g, "+"));
-                    img.setAttribute("class", "d-flex ms-2 rounded");
-                    div.appendChild(img);
+                            : "https://via.placeholder.com/250x350/FFFFFF/000000?text=" + film.Title.replace(/ /g, "+"));
+                    img.setAttribute("class", "ms-2 image"); //A: image
+                    img.setAttribute("width", 250);
+                    img.setAttribute("height", 350);
+                    a.appendChild(img);
+                    col.appendChild(a);
+                    var dMiddle = document.createElement("div");
+                    dMiddle.setAttribute("class", "middle rounded");
+                    
+                    var dText = document.createElement("div");
+                    dText.setAttribute("class", "text rounded-bottom");
+                    dText.setAttribute("onclick", "smetti('" + id +"');");
+                    dText.innerHTML = "Smetti di seguire";
+                    dMiddle.appendChild(dText);
+                    col.appendChild(dMiddle);
+                    row.appendChild(col);
                 });
             }
+            div.appendChild(row);
         }
+    });
+    
+}
+function smetti(film) {
+    comunica("r", film).then(data=>{
+        if(data == -1)
+            alert("Qualcosa è andato storto...");
+        else
+            popolaSeguiti();
     });
 }
 
+function cercaDaSeguire() {
+    alert("Ciao");
+    document.getElementsByTagName("BODY")[0].style.op = "white";
+}
 async function comunica() {
     let res = new Promise((success) => {
     var xmlhttp = new XMLHttpRequest();

@@ -24,7 +24,7 @@
     <div id="nav-placeholder"></div>
     <script>
       $(function () {
-        $("#nav-placeholder").load("../navbar/navbar.php");
+        $("#nav-placeholder").load("../navbar/navbar.php", ()=>setColoreImmagine());
       });
       $(document).ready(function(){
           $('[data-toggle="popover"]').popover({
@@ -187,10 +187,9 @@
       <div id="topSecondo" class="d-flex">
         <p class="fs-4 mt-2">Programmi seguiti</p>
         <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
-        <button class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2"><b>+</b></button>
+        <button class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2" onclick="return cercaDaSeguire()"><b>+</b></button>
       </div>
-      <div id="divSeguiti" class="carousel slide" data-bs-ride="carousel">
-      </div>
+      <div id="divSeguiti" class="container rounded"></div>
     </div>
   </body>
 </html>

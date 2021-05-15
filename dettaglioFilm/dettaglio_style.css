@@ -4,7 +4,7 @@
   --title: #fca311;
   --text: #000000;
   --hover: #f77f00;
-  --font: Arial, sans-serif;
+  --font: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -55,4 +55,9 @@ body {
 
 #divSegui:hover {
   cursor: pointer;
+}
+
+#pCast {
+  letter-spacing: 1px;
+  font-weight: bold;
 }

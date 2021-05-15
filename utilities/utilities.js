@@ -101,3 +101,22 @@ function getParameterByName(name, _url) {
   let url = new URL(urlString);
   return url.searchParams.get("id");
 }
+
+function getColoreCasuale() {
+  var letters = '0123456789ABCDEF';
+  var color = '';
+  for (var i = 0; i < 6; i++)
+      color += letters[Math.floor(Math.random() * 16)];
+  return color;
+}
+
+function getBrightness(colore) {
+  if (colore[0] == '#')
+    colore = colore.substring(1);
+  var rgb = parseInt(colore, 16);
+  var r = (rgb >> 16) & 0xff;
+  var g = (rgb >> 8) & 0xff;
+  var b = (rgb >> 0) & 0xff;
+  return 0.2126*r + 0.7152*g + 0.0722*b;
+
+}
