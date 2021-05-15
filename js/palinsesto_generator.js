@@ -1,8 +1,10 @@
 // var fs = require("fs");
 
-
 async function generaPalinsesto() {
-  if (localStorage.getItem("palinsesto") != null) {
+  if (
+    localStorage.getItem("palinsesto") != null &&
+    Date.today().toString("dd/MM") == localStorage.getItem("giorno")
+  ) {
     return JSON.parse(localStorage.getItem("palinsesto"));
   }
   let res = new Promise(function (success) {
@@ -180,8 +182,6 @@ function assemblaPalinsesto(IDs) {
 
 function writeOnLocalStorage(dizionario) {
   //scrivi il palinsesto su localstorage
-  // if (typeof localStorage.palinsesto == "undefined")
-  //   localStorage.palinsesto = "";
+  localStorage.setItem("giorno", Date.today().toString("dd/MM"));
   localStorage.setItem("palinsesto", JSON.stringify(dizionario));
-  // localStorage.palinsesto = JSON.stringify(dizionario);
 }
