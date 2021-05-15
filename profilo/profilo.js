@@ -90,13 +90,12 @@ function popolaSeguiti() {
         }else{
             var idf = JSON.parse(data);
             for (const _id in idf) {
-                const id = idf[_id];
-                console.log(id);
-                getFilm('i', id.film).then((film) => {
-                    console.log(film);
+                const id = idf[_id].film;
+                getFilm('i', id).then((film) => {
                     var img = document.createElement("img");
                     img.setAttribute("src", film["Poster"] != "N/A" ? film.Poster
                             : "https://via.placeholder.com/300x500/FFFFFF/000000?text=" + film.Title.replace(/ /g, "+"));
+                    img.setAttribute("class", "d-flex ms-2 rounded");
                     div.appendChild(img);
                 });
             }

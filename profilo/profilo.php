@@ -190,7 +190,7 @@
         <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
         <button class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2"><b>+</b></button>
       </div>
-      <div id="divSeguiti" class="d-flex">
+      <div id="divSeguiti" class="carousel slide" data-bs-ride="carousel">
       </div>
     </div>
   </body>
