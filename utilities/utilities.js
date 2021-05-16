@@ -103,20 +103,66 @@ function getParameterByName(name, _url) {
 }
 
 function getColoreCasuale() {
-  var letters = '0123456789ABCDEF';
-  var color = '';
-  for (var i = 0; i < 6; i++)
-      color += letters[Math.floor(Math.random() * 16)];
+  var letters = "0123456789ABCDEF";
+  var color = "";
+  for (var i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)];
   return color;
 }
 
 function getBrightness(colore) {
-  if (colore[0] == '#')
-    colore = colore.substring(1);
+  if (colore[0] == "#") colore = colore.substring(1);
   var rgb = parseInt(colore, 16);
   var r = (rgb >> 16) & 0xff;
   var g = (rgb >> 8) & 0xff;
   var b = (rgb >> 0) & 0xff;
-  return 0.2126*r + 0.7152*g + 0.0722*b;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
 
+function changeDropdownDay(giorno, canale = false) {
+  let btn = document.getElementById("dropdownMenuButton");
+  btn.innerHTML = "";
+  btn.appendChild(document.createTextNode(giorno));
+
+  if (!canale) {
+    btn = document.getElementById("btn-prima-serata");
+    btn.setAttribute("onclick", "serata('prima','" + giorno + "')");
+    btn = document.getElementById("btn-seconda-serata");
+    btn.setAttribute("onclick", "serata('seconda','" + giorno + "')");
+    btn = document.getElementById("btn-unica-serata");
+    btn.setAttribute("onclick", "serata('unica','" + giorno + "')");
+  }
+}
+
+function navbarDropdown(giorno = "Oggi", canale = false) {
+  let div = document.getElementById("dropdown");
+
+  let btn = document.createElement("button");
+  btn.setAttribute("class", "btn dropdown-toggle fs-4");
+  btn.setAttribute("type", "button");
+  btn.setAttribute("id", "dropdownMenuButton");
+  btn.setAttribute("data-bs-toggle", "dropdown");
+  btn.setAttribute("aria-expanded", "false");
+  btn.appendChild(document.createTextNode(giorno));
+
+  div.appendChild(btn);
+
+  let ul = document.createElement("ul");
+  ul.setAttribute("class", "dropdown-menu dropdown-menu-dark");
+  ul.setAttribute("aria-labelledby", "dropdownMenuButton");
+  ul.setAttribute("id", "dropdown-list");
+
+  let giorni = getListaGiorni();
+  for (const giorno of giorni) {
+    let li = document.createElement("li");
+    li.setAttribute("class", "dropdown-item");
+    li.setAttribute(
+      "onclick",
+      canale
+        ? `serata('prima', '${giorno}');changeDropdownDay('${giorno}');`
+        : `programmi('${giorno}');changeDropdownDay('${giorno}', true);`
+    );
+    li.appendChild(document.createTextNode(giorno));
+    ul.appendChild(li);
+  }
+  div.appendChild(ul);
 }
