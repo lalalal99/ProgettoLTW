@@ -166,3 +166,43 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
   }
   div.appendChild(ul);
 }
+
+function cercaDaSeguire() {
+  // document.getElementById("srcInput").value.toLowerCase();
+  comunica("s", document.getElementById("srcInput").value).then((data) => {
+    if (data == -1) alert("Nessun risultato trovato...");
+    else{
+      var idf = JSON.parse(data);
+      console.log(idf);
+      for (const _film in idf) {
+        const id = idf[_film].id;
+        console.log(id);
+        // console.log(idf[_id].film);
+      }
+    }
+  });
+}
+
+async function comunica() {
+  let res = new Promise((success) => {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        success(this.responseText);
+        // document.getElementById("txtEmailProf").value = this.responseText;
+      }
+    };
+    xmlhttp.open("POST", "../profilo/profiloComunica.php", true);
+    xmlhttp.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlhttp.send(
+      "attr=" +
+        arguments[0] +
+        (arguments[1] != undefined ? "&value=" + arguments[1] : "") +
+        (arguments[2] != undefined ? "&newvalue=" + arguments[2] : "")
+    );
+  });
+  return await res;
+}

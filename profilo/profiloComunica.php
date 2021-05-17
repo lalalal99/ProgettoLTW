@@ -13,7 +13,7 @@
             $_SESSION['email'] = $_COOKIE['email'];
             $_SESSION['username'] = $_COOKIE['username'];
             $_SESSION['password'] = $_COOKIE['password'];
-        }else echo -1;
+        }
     }
     if($_SERVER['REMOTE_ADDR'] == '::1'){
         if ($x == 'email')
@@ -79,7 +79,8 @@
             }
         }elseif($x == 's'){
             $y = $_POST['value'];
-            $stmt = mysqli_prepare($dbconn, "SELECT id FROM film WHERE title LIKE concat('%', ? ,'%')");
+            $stmt = mysqli_prepare($dbconn, "SELECT film.id FROM film JOIN film_generi ON film.id=film_generi.film 
+                    JOIN generi ON generi.id=film_generi.genere WHERE generi.genere <> 'Adult' AND film.title LIKE concat('%', ? , '%') GROUP BY film.id");
             mysqli_stmt_bind_param($stmt, 's', $y);
             $exec = mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);

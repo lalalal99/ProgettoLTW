@@ -1,0 +1,24 @@
+.search-screen {
+  height: 0;
+  background-color: rgba(20, 33, 61, 0.5);
+  opacity: 1;
+  transform: translateY(-50%);
+  transition: 0.3s linear 0.3s;
+}
+
+.close-icon {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+  color: #fff;
+  font-size: 50px;
+}
+
+.search-screen.active {
+  transition-delay: 0s;
+  height: 100vh;
+}
+
+.btn-icon:hover {
+  cursor: pointer;
+}
