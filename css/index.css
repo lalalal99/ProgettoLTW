@@ -26,6 +26,7 @@ body {
 
 .btn-secondary {
   background-color: var(--title);
+  color: var(--text);
 }
 
 .btn-secondary:hover {

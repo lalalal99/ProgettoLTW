@@ -28,7 +28,9 @@
     <div id="nav-placeholder"></div>
     <script>
       $(function () {
-        $("#nav-placeholder").load("../navbar/navbar.php");
+        $("#nav-placeholder").load("../navbar/navbar.php", () =>
+          navbarDropdown()
+        );
       });
     </script>
     <!--end of Navigation bar-->
@@ -37,7 +39,7 @@
       <img class="me-auto" src="" alt="" id="logo-canale" />
     </div>
     <div
-      class="container container-fluid rounded p-2 mt-5"
+      class="container container-fluid d-flex flex-column rounded p-2 mt-5"
       id="div-programmi"
     ></div>
   </body>

@@ -34,52 +34,6 @@ function grigliaCanali() {
   container.appendChild(row);
 }
 
-function changeDropdownDay(giorno) {
-  let btn = document.getElementById("dropdownMenuButton");
-  console.log(btn);
-  btn.innerHTML = "";
-  btn.appendChild(document.createTextNode(giorno));
-
-  btn = document.getElementById("btn-prima-serata");
-  btn.setAttribute("onclick", "serata('prima','" + giorno + "')");
-  btn = document.getElementById("btn-seconda-serata");
-  btn.setAttribute("onclick", "serata('seconda','" + giorno + "')");
-  btn = document.getElementById("btn-unica-serata");
-  btn.setAttribute("onclick", "serata('unica','" + giorno + "')");
-}
-
-function navbarDropdown(giorno = "Oggi") {
-  let div = document.getElementById("dropdown");
-
-  let btn = document.createElement("button");
-  btn.setAttribute("class", "btn dropdown-toggle fs-4");
-  btn.setAttribute("type", "button");
-  btn.setAttribute("id", "dropdownMenuButton");
-  btn.setAttribute("data-bs-toggle", "dropdown");
-  btn.setAttribute("aria-expanded", "false");
-  btn.appendChild(document.createTextNode(giorno));
-
-  div.appendChild(btn);
-
-  let ul = document.createElement("ul");
-  ul.setAttribute("class", "dropdown-menu dropdown-menu-dark");
-  ul.setAttribute("aria-labelledby", "dropdownMenuButton");
-  ul.setAttribute("id", "dropdown-list");
-
-  let giorni = getListaGiorni();
-  for (const giorno of giorni) {
-    let li = document.createElement("li");
-    li.setAttribute("class", "dropdown-item");
-    li.setAttribute(
-      "onclick",
-      "serata('prima', '" + giorno + "');changeDropdownDay('" + giorno + "');"
-    );
-    li.appendChild(document.createTextNode(giorno));
-    ul.appendChild(li);
-  }
-  div.appendChild(ul);
-}
-
 function serata(tipoSerata, giorno = "Oggi") {
   generaPalinsesto().then(function (palinsesto) {
     console.log(palinsesto);
