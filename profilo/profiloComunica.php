@@ -77,6 +77,20 @@
                 if(mysqli_stmt_affected_rows($stmt) <= 0)
                     echo -1;
             }
+        }elseif($x == 's'){
+            $y = $_POST['value'];
+            $stmt = mysqli_prepare($dbconn, "SELECT id FROM film WHERE title LIKE concat('%', ? ,'%')");
+            mysqli_stmt_bind_param($stmt, 's', $y);
+            $exec = mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            if(mysqli_num_rows($result) <= 0)
+                echo -1;
+            else{
+                $lista = array();
+                while($row = mysqli_fetch_assoc($result))
+                    array_push($lista,$row);
+                echo json_encode($lista);
+            }
         }
     }else header("Location: ../index.php");
 

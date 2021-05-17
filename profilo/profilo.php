@@ -36,14 +36,11 @@
         // Add Active Class
         $("#btnCercaDaSeguire").click(function(){
             $(".search-screen").addClass("active");
-            $("[name='tsEl']").addClass("classe-nascosta");
-            // $("topSecondo").css("padding", "100px");
         });
 
         // Remove Active Class
         $(".close-icon").click(function(){
             $(".search-screen").removeClass("active");
-            $("#topSecondo").removeClass("classe-nascosta");
         });
       });
     </script>
@@ -51,8 +48,9 @@
 
     <div class="search-screen w-100 d-flex align-items-center justify-content-center position-fixed overflow-hidden top-50">
       <!-- <div class="divClickable"> -->
-        <i class="close-icon fas fa-times"></i>
-        <input type="search" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
+        <i class="close-icon fas fa-times btn-icon"></i>
+        <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
+        <img src="../imgs/search_white.png" id="imgSearch" width="55" height="45" class="ms-2 btn-icon" onclick="cercaDaSeguire()"/>
       <!-- </div> -->
     </div>
     
@@ -70,7 +68,7 @@
           <div class="d-flex justify-content-center align-items-center mt-4">
             <label for="txtUsernameProf" class="form-label">Username: </label>
             <input type="text" id="txtUsernameProf" class="form-control w-50" maxlength="40" disabled/>
-            <img src="../imgs/pencil.png" id="imgUsername" width="16" height="16" class="ms-2" onclick="abilitaModifica('username')"/>
+            <img src="../imgs/pencil.png" id="imgUsername" width="16" height="16" class="ms-2 btn-icon" onclick="abilitaModifica('username')"/>
             <input type="button" name="btnUsr" id="btnSalvaUsername" class="classe-nascosta btn btn-secondary m-2" value="Salva" onclick="modificaUsername()"/>
             <input type="button" name="btnUsr" id="btnAnnullaUsername" class="classe-nascosta btn btn-secondary m-2" value="Annulla" onclick="annullaModifica('username')"/>
           </div>
@@ -112,7 +110,7 @@
                   src="../imgs/pencil.png"
                   width="16"
                   height="16"
-                  class="mt-3"
+                  class="mt-3 btn-icon"
                   onclick="abilitaModifica('password')"
                 />
               </div>
@@ -206,13 +204,23 @@
       </div>
     </div>
     <div class="container rounded-3 mt-5 p-3">
-      <div id="topSecondo" class="d-flex">
-        <p class="fs-4 mt-2" name="tsEl">Programmi seguiti</p>
-        <img src="../imgs/hint.png" name="tsEl" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
-        <button id="btnCercaDaSeguire" name="tsEl" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2 search-icon" onclick="return cercaDaSeguire()"><b>+</b></button>
+      <div id="topSecondo" class="d-flex p-1">
+        <p class="fs-4 mt-2">Programmi seguiti</p>
+        <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
+        <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2 search-icon"><b>+</b></button>
       </div>
-      <div id="divSeguiti" class="container rounded"></div>
+      <div id="divSeguiti" class="container rounded mt-3"></div>
     </div>
+    <script> //Se lo metto su insieme a tutto il resto non funziona
+      //Invio dati su invio press in searchbox
+      document.getElementById("srcInput").addEventListener("keyup", function(event) {
+        if (event.keyCode == 13) { // 13 è il numero di "Invio" nella tastiera
+          event.preventDefault(); //Cancella, per sicurezza, le azioni di default associate a "Invio"
+          // Triggera con un click la lente di ricerca
+          document.getElementById("imgSearch").click();
+        }
+      });
+    </script>
   </body>
 </html>
 <!-- this.style.display='none' -->
