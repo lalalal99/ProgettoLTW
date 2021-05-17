@@ -20,7 +20,7 @@ body {
 }
 
 .classe-nascosta {
-  display: none;
+  display: none !important;
 }
 
 input[type="email"],
@@ -131,3 +131,45 @@ button {
   font-size: 16px;
   padding: 16px;
 }
+
+/* Parte per l'ovelay del body */
+.search-screen {
+  height: 0;
+  background-color: rgba(20, 33, 61, 0.5);
+  opacity: 0.5;
+  transform: translateY(-50%);
+  transition: 0.3s linear 0.3s;
+}
+
+.close-icon {
+  position: absolute;
+  top: 80px;
+  right: 40px;
+  color: #fff;
+  font-size: 50px;
+  cursor: pointer;
+}
+input[type="search"] {
+  /* max-width: 600px; */
+  background-color: rgba(160, 22, 214, 1);
+  height: 60px;
+  font: var(--font);
+  /* background: var(--background) !important; */
+  border: none;
+  overflow: visible !important;
+  /*outline: none; */
+  /* color: var(--background) !important; */
+  /* font-size: 60px; */
+}
+/* .divClickable:hover .topsec {
+  display: none;
+} */
+.search-screen.active {
+  transition-delay: 0s;
+  height: 100vh;
+}
+/* .search-screen.active .search-box,
+.search-screen.active .close-icon {
+  transition: 0.2s linear 0.4s;
+  opacity: 1;
+} */

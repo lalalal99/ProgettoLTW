@@ -1,10 +1,7 @@
 function popolaCampi() {
     comunica("email").then(data=>{document.getElementById("txtEmailProf").value = data});
     comunica("password").then(data=>{document.getElementById("txtPasswordProf").value = data});
-    comunica("username").then(data=>{
-        document.getElementById("txtUsernameProf").value = data
-        // document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase());
-    });
+    comunica("username").then(data=>{document.getElementById("txtUsernameProf").value = data});
     popolaSeguiti();
 }
 function setColoreImmagine(){
@@ -130,8 +127,7 @@ function smetti(film) {
 }
 
 function cercaDaSeguire() {
-    alert("Ciao");
-    document.getElementsByTagName("BODY")[0].style.op = "white";
+    document.getElementsByTagName("BODY").disabled = "true";
 }
 async function comunica() {
     let res = new Promise((success) => {

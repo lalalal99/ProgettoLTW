@@ -8,6 +8,7 @@
     <script type="text/javascript" lang="javascript" src="profilo.js"></script>
     <script type="text/javascript" src="../utilities/utilities.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="profilo_style.css" />
@@ -31,8 +32,29 @@
             trigger: 'hover'
           });   
       });
+      $(document).ready(function(){
+        // Add Active Class
+        $("#btnCercaDaSeguire").click(function(){
+            $(".search-screen").addClass("active");
+            $("[name='tsEl']").addClass("classe-nascosta");
+            // $("topSecondo").css("padding", "100px");
+        });
+
+        // Remove Active Class
+        $(".close-icon").click(function(){
+            $(".search-screen").removeClass("active");
+            $("#topSecondo").removeClass("classe-nascosta");
+        });
+      });
     </script>
     <!--end of Navigation bar-->
+
+    <div class="search-screen w-100 d-flex align-items-center justify-content-center position-fixed overflow-hidden top-50">
+      <!-- <div class="divClickable"> -->
+        <i class="close-icon fas fa-times"></i>
+        <input type="search" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
+      <!-- </div> -->
+    </div>
     
     <div class="container rounded-3 container-primo">
       <div class="row no-gutters">
@@ -185,9 +207,9 @@
     </div>
     <div class="container rounded-3 mt-5 p-3">
       <div id="topSecondo" class="d-flex">
-        <p class="fs-4 mt-2">Programmi seguiti</p>
-        <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
-        <button class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2" onclick="return cercaDaSeguire()"><b>+</b></button>
+        <p class="fs-4 mt-2" name="tsEl">Programmi seguiti</p>
+        <img src="../imgs/hint.png" name="tsEl" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
+        <button id="btnCercaDaSeguire" name="tsEl" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2 search-icon" onclick="return cercaDaSeguire()"><b>+</b></button>
       </div>
       <div id="divSeguiti" class="container rounded"></div>
     </div>
