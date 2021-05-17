@@ -158,8 +158,8 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
     li.setAttribute(
       "onclick",
       canale
-        ? `serata('prima', '${giorno}');changeDropdownDay('${giorno}');`
-        : `programmi('${giorno}');changeDropdownDay('${giorno}', true);`
+        ? `programmi('${giorno}');changeDropdownDay('${giorno}', true);`
+        : `serata('prima', '${giorno}');changeDropdownDay('${giorno}');`
     );
     li.appendChild(document.createTextNode(giorno));
     ul.appendChild(li);

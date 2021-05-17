@@ -59,8 +59,8 @@ function createCard(programma, order) {
       class: "card-img",
       alt: film.imdbID,
       style: "object-fit : cover;", //width : 250px; height : 350px",
-      width: 300,
-      height: 250,
+      width: 250,
+      height: 300,
       name: "card-img",
     });
     a.appendChild(img);

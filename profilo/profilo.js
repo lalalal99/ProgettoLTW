@@ -139,6 +139,22 @@ function smetti(film) {
 // function cercaDaSeguire() {
 //     document.getElementsByTagName("BODY").disabled = "true";
 // }
+
+function cercaDaSeguire() {
+  // document.getElementById("srcInput").value.toLowerCase();
+  comunica("s", document.getElementById("srcInput").value).then((data) => {
+    if (data == -1) alert("Nessun risultato trovato...");
+    else{
+      var idf = JSON.parse(data);
+      console.log(idf);
+      for (const _film in idf) {
+        const id = idf[_film].id;
+        console.log(id);
+        // console.log(idf[_id].film);
+      }
+    }
+  });
+}
 async function comunica() {
   let res = new Promise((success) => {
     var xmlhttp = new XMLHttpRequest();
