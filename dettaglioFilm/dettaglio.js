@@ -47,7 +47,6 @@ function popolaCast(film) {
         const nome = arrAct[i].toLowerCase().replace(/ /g, "_");
         const nomeOriginale = arrAct[i];
         const nomeWiki = arrAct[i].replace(/ /g, "_")
-        console.log("A: " + arrAct[i]);
         jQuery.ajax({
             url: "https://sg.media-imdb.com/suggests/" + nome[0] + "/" + nome + ".json",
             dataType: 'jsonp',
@@ -124,21 +123,21 @@ function smetti() {
     });
 }
 
-async function comunica() {
-    let res = new Promise((success) => {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            success (this.responseText);
-        }
-    };
-    xmlhttp.open("POST", "dettaglioComunica.php", true);
-    xmlhttp.setRequestHeader(
-        "Content-type",
-        "application/x-www-form-urlencoded"
-    );
-    xmlhttp.send("attr=" + arguments[0] + (arguments[1] != undefined ? "&value=" + arguments[1]: ''));
-    });
-    return await res;
-}
+// async function comunica() {
+//     let res = new Promise((success) => {
+//     var xmlhttp = new XMLHttpRequest();
+//     xmlhttp.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             success (this.responseText);
+//         }
+//     };
+//     xmlhttp.open("POST", "dettaglioComunica.php", true);
+//     xmlhttp.setRequestHeader(
+//         "Content-type",
+//         "application/x-www-form-urlencoded"
+//     );
+//     xmlhttp.send("attr=" + arguments[0] + (arguments[1] != undefined ? "&value=" + arguments[1]: ''));
+//     });
+//     return await res;
+// }
 

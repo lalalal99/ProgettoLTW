@@ -135,6 +135,7 @@ function popolaSeguiti() {
     }
   });
 }
+
 function smetti(film) {
   comunica("r", film).then((data) => {
     if (data == -1) alert("Qualcosa è andato storto...");
@@ -143,7 +144,19 @@ function smetti(film) {
 }
 
 // function cercaDaSeguire() {
-//     document.getElementsByTagName("BODY").disabled = "true";
+//   // document.getElementById("srcInput").value.toLowerCase();
+//   comunica("s", document.getElementById("srcInput").value).then((data) => {
+//     if (data == -1) alert("Nessun risultato trovato...");
+//     else{
+//       var idf = JSON.parse(data);
+//       console.log(idf);
+//       for (const _film in idf) {
+//         const id = idf[_film].id;
+//         console.log(id);
+//         // console.log(idf[_id].film);
+//       }
+//     }
+//   });
 // }
 
 function cercaDaSeguire() {

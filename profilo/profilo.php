@@ -208,7 +208,7 @@
       <div id="topSecondo" class="d-flex p-1">
         <p class="fs-4 mt-2">Programmi seguiti</p>
         <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
-        <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2 search-icon"><b>+</b></button>
+        <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2"><b>+</b></button>
       </div>
       <div id="divSeguiti" class="container rounded mt-3"></div>
     </div>

@@ -132,12 +132,12 @@ button {
   padding: 16px;
 }
 
-.btn-icon:hover {
+/* .btn-icon:hover {
   cursor: pointer;
-}
+} */
 
 /* Parte per l'ovelay del body */
-.search-screen {
+/* .search-screen {
   height: 0;
   background-color: rgba(20, 33, 61, 0.5);
   opacity: 1;
@@ -151,7 +151,7 @@ button {
   right: 40px;
   color: #fff;
   font-size: 50px;
-}
+} */
 
 /* input[type="search"] { */
 /* max-width: 600px; */
@@ -167,10 +167,10 @@ button {
 /* .divClickable:hover .topsec {
   display: none;
 } */
-.search-screen.active {
+/* .search-screen.active {
   transition-delay: 0s;
   height: 100vh;
-}
+} */
 /* .search-screen.active .search-box,
 .search-screen.active .close-icon {
   transition: 0.2s linear 0.4s;
