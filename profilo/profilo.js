@@ -1,8 +1,14 @@
 function popolaCampi() {
-    comunica("email").then(data=>{document.getElementById("txtEmailProf").value = data});
-    comunica("password").then(data=>{document.getElementById("txtPasswordProf").value = data});
-    comunica("username").then(data=>{document.getElementById("txtUsernameProf").value = data});
-    popolaSeguiti();
+  comunica("email").then((data) => {
+    document.getElementById("txtEmailProf").value = data;
+  });
+  comunica("password").then((data) => {
+    document.getElementById("txtPasswordProf").value = data;
+  });
+  comunica("username").then((data) => {
+    document.getElementById("txtUsernameProf").value = data;
+  });
+  popolaSeguiti();
 }
 function setColoreImmagine() {
   document
@@ -141,19 +147,30 @@ function smetti(film) {
 // }
 
 function cercaDaSeguire() {
-  // document.getElementById("srcInput").value.toLowerCase();
+  let div = document.getElementById("search-screen");
+  div.removeChild(div.lastChild);
+  let res = document.createElement("div");
+  res.setAttribute("id", "div-results");
+  res.setAttribute(
+    "class",
+    "container w-50 ms-auto me-auto mt-5 p-2"
+  );
   comunica("s", document.getElementById("srcInput").value).then((data) => {
-    if (data == -1) alert("Nessun risultato trovato...");
-    else{
-      var idf = JSON.parse(data);
+    if (data == -1)
+      res.appendChild(document.createTextNode("Nessun risultato trovato..."));
+    else {
+      var idf = JSON.parse(data).slice(0, 10);
       console.log(idf);
       for (const _film in idf) {
         const id = idf[_film].id;
-        console.log(id);
+        getFilm("i", id).then((film) => {
+          createCard({ ora: "21:20", id: film.imdbID }, 1, "div-results");
+        });
         // console.log(idf[_id].film);
       }
     }
   });
+  div.appendChild(res);
 }
 async function comunica() {
   let res = new Promise((success) => {
