@@ -34,6 +34,14 @@
       .btn-icon:hover {
         cursor: pointer;
       }
+
+      #div-results::-webkit-scrollbar {
+        display: none;
+      }
+
+      #div-results {
+        background-color: transparent;
+      }
     </style>
     <script>
       $(document).ready(function(){
@@ -106,7 +114,7 @@
   <div id="search-screen" class="search-screen w-100 d-flex flex-column align-items-center justify-content-center position-fixed overflow-hidden top-50">
       <div class=" w-100 d-flex justify-content-center align-items-center">
         <i class="close-icon fas fa-times btn-icon"></i>
-        <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
+        <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50 mt-2" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
         <img src="../imgs/search_white.png" id="imgSearch" width="55" height="45" class="ms-2 btn-icon" onclick="cercaDaSeguire()"/>
       </div>
     </div>

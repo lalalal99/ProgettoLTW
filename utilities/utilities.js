@@ -263,7 +263,7 @@ function cercaDaSeguire() {
     div.removeChild(div.lastChild);
   let res = document.createElement("div");
   res.setAttribute("id", "div-results");
-  res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2");
+  res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2 mb-4");
   res.setAttribute("style", "overflow-y: scroll;");
   comunica("s", document.getElementById("srcInput").value).then((data) => {
     document.getElementById("srcInput").value = '';
