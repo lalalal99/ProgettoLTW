@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="../index.php">
-      <img src="../imgs/logo.png" height="40px"  alt="Logo"></a>
+      <img src="../imgs/logo.png" height="60px"  alt="Logo"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -92,11 +92,13 @@
       </ul>
     </div>
   </div>
-  <div class="search-screen w-100 d-flex align-items-center justify-content-center position-fixed overflow-hidden top-50">
-    <i class="close-icon fas fa-times btn-icon"></i>
-    <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
-    <img src="../imgs/search_white.png" id="imgSearch" width="55" height="45" class="ms-2 btn-icon" onclick="cercaDaSeguire()"/>
-  </div>
+  <div id="search-screen" class="search-screen w-100 d-flex flex-column align-items-center justify-content-center position-fixed overflow-hidden top-50">
+      <div class=" w-100 d-flex justify-content-center align-items-center">
+        <i class="close-icon fas fa-times btn-icon"></i>
+        <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
+        <img src="../imgs/search_white.png" id="imgSearch" width="55" height="45" class="ms-2 btn-icon" onclick="cercaDaSeguire()"/>
+      </div>
+    </div>
   <script>
     var col = getColoreCasuale();
     var colScritta;

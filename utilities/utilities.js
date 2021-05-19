@@ -167,7 +167,13 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
   div.appendChild(ul);
 }
 
-function createCard(programma, order, divContainer) {
+function createCard(
+  programma,
+  order,
+  divContainer,
+  searchbar = false,
+  offset = 0
+) {
   const id = programma.id,
     ora = programma.ora;
 
@@ -176,6 +182,10 @@ function createCard(programma, order, divContainer) {
     let card = document.createElement("div");
     card.setAttribute("class", "card mb-3");
     card.setAttribute("style", "order:" + order);
+    // if (searchbar) {
+    //   _offset = 50 + offset;
+    //   card.setAttribute("style", "position:fixed; top:" + _offset + "px");
+    // }
 
     let row = document.createElement("div");
     row.setAttribute("class", "row g-0");
@@ -247,20 +257,37 @@ function createCard(programma, order, divContainer) {
     container.appendChild(card);
   });
 }
+
 function cercaDaSeguire() {
-  // document.getElementById("srcInput").value.toLowerCase();
+  offset = 0;
+  let div = document.getElementById("search-screen");
+  div.removeChild(div.lastChild);
+  let res = document.createElement("div");
+  res.setAttribute("id", "div-results");
+  res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2");
+  res.setAttribute("style", "position: fixed; overflow-y: scroll;");
   comunica("s", document.getElementById("srcInput").value).then((data) => {
-    if (data == -1) alert("Nessun risultato trovato...");
+    if (data == -1)
+      res.appendChild(document.createTextNode("Nessun risultato trovato..."));
     else {
-      var idf = JSON.parse(data);
-      console.log(idf);
+      var idf = JSON.parse(data).slice(0, 10);
       for (const _film in idf) {
         const id = idf[_film].id;
-        console.log(id);
+        getFilm("i", id).then((film) => {
+          offset += 10;
+          createCard(
+            { ora: "21:20", id: film.imdbID },
+            1,
+            "div-results",
+            true,
+            offset
+          );
+        });
         // console.log(idf[_id].film);
       }
     }
   });
+  div.appendChild(res);
 }
 
 async function comunica() {

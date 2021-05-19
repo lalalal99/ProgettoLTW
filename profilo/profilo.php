@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="profilo_style.css" />
-    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="../css/index.css" /> -->
     <title>GuidaTV | Profilo</title>
     <?php
       session_start();
@@ -46,14 +46,6 @@
       });
     </script>
     <!--end of Navigation bar-->
-
-    <div id="search-screen" class="search-screen w-100 d-flex flex-column align-items-center justify-content-center position-fixed overflow-hidden top-50">
-      <div class=" w-100 d-flex align-items-center justify-content-center">
-        <i class="close-icon fas fa-times btn-icon"></i>
-        <input type="search" id="srcInput" class="form-control rounded fs-1 border-0 w-50" length="50" maxlength="50" placeholder="Inserisci il nome di un programma da cercare">
-        <img src="../imgs/search_white.png" id="imgSearch" width="55" height="45" class="ms-2 btn-icon" onclick="cercaDaSeguire()"/>
-      </div>
-    </div>
     
     <div class="container rounded-3 container-primo">
       <div class="row no-gutters">
@@ -208,7 +200,7 @@
       <div id="topSecondo" class="d-flex p-1">
         <p class="fs-4 mt-2">Programmi seguiti</p>
         <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
-        <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2"><b>+</b></button>
+        <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2" style="color:white;"><b>+</b></button>
       </div>
       <div id="divSeguiti" class="container rounded mt-3"></div>
     </div>
