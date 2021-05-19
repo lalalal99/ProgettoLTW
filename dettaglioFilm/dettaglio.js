@@ -21,7 +21,7 @@ function popolaInfoFilm() {
         }
         pTrama.appendChild(document.createTextNode(result.Plot));
         //Controlla se esiste già associazione, se si seg già + funz else segui + altra funz
-        comunica("s", result.imdbID).then(data=>{
+        comunicaDettaglio("s", result.imdbID).then(data=>{
             if (data == 'seguito'){
                 pSegui.innerHTML = '';
                 pSegui.appendChild(document.createTextNode("Smetti di seguire"));
@@ -98,7 +98,7 @@ function popolaCast(film) {
 function segui() {
     var film = getParameterByName("id");
     pSegui = document.getElementById("pSegui");
-    comunica("l", film).then(data=>{
+    comunicaDettaglio("l", film).then(data=>{
         if (data == -1)
             alert("Non sei loggato...");
         else{
@@ -112,7 +112,7 @@ function segui() {
 function smetti() {
     var film = getParameterByName("id");
     pSegui = document.getElementById("pSegui");
-    comunica("r", film).then(data=>{
+    comunicaDettaglio("r", film).then(data=>{
         if(data == -1)
             alert("Qualcosa è andato storto...");
         else{
@@ -122,22 +122,4 @@ function smetti() {
         }
     });
 }
-
-// async function comunica() {
-//     let res = new Promise((success) => {
-//     var xmlhttp = new XMLHttpRequest();
-//     xmlhttp.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             success (this.responseText);
-//         }
-//     };
-//     xmlhttp.open("POST", "dettaglioComunica.php", true);
-//     xmlhttp.setRequestHeader(
-//         "Content-type",
-//         "application/x-www-form-urlencoded"
-//     );
-//     xmlhttp.send("attr=" + arguments[0] + (arguments[1] != undefined ? "&value=" + arguments[1]: ''));
-//     });
-//     return await res;
-// }
 

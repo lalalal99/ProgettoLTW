@@ -311,3 +311,21 @@ async function comunica() {
   });
   return await res;
 }
+
+async function comunicaDettaglio() {
+  let res = new Promise((success) => {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          success (this.responseText);
+      }
+  };
+  xmlhttp.open("POST", "dettaglioComunica.php", true);
+  xmlhttp.setRequestHeader(
+      "Content-type",
+      "application/x-www-form-urlencoded"
+  );
+  xmlhttp.send("attr=" + arguments[0] + (arguments[1] != undefined ? "&value=" + arguments[1]: ''));
+  });
+  return await res;
+}
