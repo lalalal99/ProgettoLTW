@@ -172,7 +172,6 @@ function createCard(
   order,
   divContainer,
   searchbar = false,
-  offset = 0
 ) {
   const id = programma.id,
     ora = programma.ora;
@@ -259,14 +258,15 @@ function createCard(
 }
 
 function cercaDaSeguire() {
-  offset = 0;
   let div = document.getElementById("search-screen");
-  div.removeChild(div.lastChild);
+  if(div.lastChild.id == 'div-results')
+    div.removeChild(div.lastChild);
   let res = document.createElement("div");
   res.setAttribute("id", "div-results");
   res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2");
-  res.setAttribute("style", "position: fixed; overflow-y: scroll;");
+  res.setAttribute("style", "overflow-y: scroll;");
   comunica("s", document.getElementById("srcInput").value).then((data) => {
+    document.getElementById("srcInput").value = '';
     if (data == -1)
       res.appendChild(document.createTextNode("Nessun risultato trovato..."));
     else {
@@ -274,13 +274,11 @@ function cercaDaSeguire() {
       for (const _film in idf) {
         const id = idf[_film].id;
         getFilm("i", id).then((film) => {
-          offset += 10;
           createCard(
             { ora: "21:20", id: film.imdbID },
             1,
             "div-results",
             true,
-            offset
           );
         });
         // console.log(idf[_id].film);

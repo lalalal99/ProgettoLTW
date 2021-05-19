@@ -12,7 +12,11 @@
         opacity: 1;
         transform: translateY(-50%);
         transition: 0.3s linear 0.3s;
+        position: fixed;
+        overflow-y: scroll;
       }
+
+      body.has-overlay{overflow: hidden;}
 
       .close-icon {
         position: absolute;
@@ -36,11 +40,18 @@
         // Add Active Class
         $("#imgSearchNav").click(function(){
             $(".search-screen").addClass("active");
+            // $("#search-screen").setAttribute('aria-hidden', true);
+            // body.classList.toggle('noscroll', true);
+            $(document.body).addClass("has-overlay");
         });
 
         // Remove Active Class
         $(".close-icon").click(function(){
             $(".search-screen").removeClass("active");
+            $(document.body).removeClass("has-overlay");
+            // document.getElementById("div-results").innerHTML = "";
+            // $("#div-results").html('');
+            $("#div-results").remove();
         });
       });
     </script>

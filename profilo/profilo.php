@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="profilo_style.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="../css/index.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
     <title>GuidaTV | Profilo</title>
     <?php
       session_start();
@@ -204,16 +204,5 @@
       </div>
       <div id="divSeguiti" class="container rounded mt-3"></div>
     </div>
-    <script> //Se lo metto su insieme a tutto il resto non funziona
-      //Invio dati su invio press in searchbox
-      document.getElementById("srcInput").addEventListener("keyup", function(event) {
-        if (event.keyCode == 13) { // 13 è il numero di "Invio" nella tastiera
-          event.preventDefault(); //Cancella, per sicurezza, le azioni di default associate a "Invio"
-          // Triggera con un click la lente di ricerca
-          document.getElementById("imgSearch").click();
-        }
-      });
-    </script>
   </body>
 </html>
-<!-- this.style.display='none' -->
