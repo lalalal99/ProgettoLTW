@@ -135,6 +135,7 @@ function changeDropdownDay(giorno, canale = false) {
 
 function navbarDropdown(giorno = "Oggi", canale = false) {
   let div = document.getElementById("dropdown");
+  div.setAttribute("style", "border: 2px solid var(--hover);");
 
   let btn = document.createElement("button");
   btn.setAttribute("class", "btn dropdown-toggle fs-4");
@@ -167,12 +168,7 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
   div.appendChild(ul);
 }
 
-function createCard(
-  programma,
-  order,
-  divContainer,
-  searchbar = false,
-) {
+function createCard(programma, order, divContainer, searchbar = false) {
   const id = programma.id,
     ora = programma.ora;
 
@@ -259,33 +255,34 @@ function createCard(
 
 function cercaDaSeguire() {
   let div = document.getElementById("search-screen");
-  if(div.lastChild.id == 'div-results')
-    div.removeChild(div.lastChild);
+  if (div.lastChild.id == "div-results") div.removeChild(div.lastChild);
   let res = document.createElement("div");
   res.setAttribute("id", "div-results");
   res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2 mb-4");
   res.setAttribute("style", "overflow-y: scroll;");
-  comunica("s", document.getElementById("srcInput").value).then((data) => {
-    document.getElementById("srcInput").value = '';
-    if (data == -1)
-      res.appendChild(document.createTextNode("Nessun risultato trovato..."));
-    else {
-      var idf = JSON.parse(data).slice(0, 10);
-      for (const _film in idf) {
-        const id = idf[_film].id;
-        getFilm("i", id).then((film) => {
-          createCard(
-            { ora: "21:20", id: film.imdbID },
-            1,
-            "div-results",
-            true,
-          );
-        });
-        // console.log(idf[_id].film);
+  if (document.getElementById("srcInput").value != null) {
+    comunica("s", document.getElementById("srcInput").value).then((data) => {
+      document.getElementById("srcInput").value = "";
+      if (data == -1)
+        res.appendChild(document.createTextNode("Nessun risultato trovato..."));
+      else {
+        var idf = JSON.parse(data).slice(0, 10);
+        for (const _film in idf) {
+          const id = idf[_film].id;
+          getFilm("i", id).then((film) => {
+            createCard(
+              { ora: "21:20", id: film.imdbID },
+              1,
+              "div-results",
+              true
+            );
+          });
+          // console.log(idf[_id].film);
+        }
       }
-    }
-  });
-  div.appendChild(res);
+    });
+    div.appendChild(res);
+  }
 }
 
 async function comunica() {
@@ -314,18 +311,22 @@ async function comunica() {
 
 async function comunicaDettaglio() {
   let res = new Promise((success) => {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-          success (this.responseText);
+        success(this.responseText);
       }
-  };
-  xmlhttp.open("POST", "dettaglioComunica.php", true);
-  xmlhttp.setRequestHeader(
+    };
+    xmlhttp.open("POST", "dettaglioComunica.php", true);
+    xmlhttp.setRequestHeader(
       "Content-type",
       "application/x-www-form-urlencoded"
-  );
-  xmlhttp.send("attr=" + arguments[0] + (arguments[1] != undefined ? "&value=" + arguments[1]: ''));
+    );
+    xmlhttp.send(
+      "attr=" +
+        arguments[0] +
+        (arguments[1] != undefined ? "&value=" + arguments[1] : "")
+    );
   });
   return await res;
 }

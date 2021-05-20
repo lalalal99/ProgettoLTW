@@ -115,12 +115,19 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
 
     let card_header = document.createElement("div");
     card_header.setAttribute("class", "card-header d-flex align-items-center");
+    let a = document.createElement("a");
+    a.setAttribute(
+      "href",
+      "dettaglioCanale/canale.html?id=" +
+        canali[serata == 0 ? indiceCanale : indiceCanale - 1]
+    );
     let img = document.createElement("img");
     Object.assign(img, {
       src: canali[serata == 0 ? indiceCanale + 1 : indiceCanale],
       style: "max-width: 4rem;",
     });
-    card_header.appendChild(img);
+    a.appendChild(img);
+    card_header.appendChild(a);
 
     let ora = document.createElement("h3");
     ora.setAttribute("class", "card-text ms-auto");
@@ -143,7 +150,7 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
       "class",
       "col-lg-4 d-flex justify-content-start align-items-center p-3"
     );
-    let a = document.createElement("a");
+    a = document.createElement("a");
     a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + film.imdbID);
     img = document.createElement("img");
     Object.assign(img, {

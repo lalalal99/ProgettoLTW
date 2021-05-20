@@ -5,9 +5,28 @@
   --text: #000000;
   --hover: #f77f00;
   --font: Arial, sans-serif;
+  --sfondo: #d6d6d6;
 }
 
 #div-canale {
   margin-top: 5%;
   background-color: var(--card);
 }
+
+.scrollable-menu {
+  height: auto;
+  max-height: 500px;
+  overflow-x: hidden;
+}
+
+/* .dropdown-canali {
+  border: 2px solid var(--hover);
+} */
+
+.border {
+  border: 2px solid var(--title) !important;
+}
+
+/* .border-logo-dropdown {
+  border-right: 2px solid var(--hover);
+} */

@@ -144,27 +144,29 @@ function assemblaPalinsesto(IDs) {
         break;
     }
 
-    // console.log(ora, primaSerata);
     while (ora.isBefore(primaSerata)) {
       var isPomeriggio = ora.isAfter(mezzogiorno);
       if (isPomeriggio) {
         randomid = randomID(possibiliFilm);
-        // console.log("Ciao1");
       } else {
         randomid = randomID(possibiliSerie);
-        // console.log("Ciao2");
       }
       giornata.push({
         ora: aggiungiPubblicita(ora, 10).toString("HH:mm"),
         id: randomid.id,
       }); //crea elemento dizionario
 
+      vecchio = ora.toString("dd");
       ora.addMinutes(parseInt(randomid.runtime));
       ora = Date.today().set({
         day: parseInt(ora.toString("dd")),
         hour: ora.getHours(),
         minute: ora.getMinutes(),
       });
+
+      if (vecchio != ora.toString("dd")) {
+        mezzogiorno = mezzogiorno.addDays(1);
+      }
     }
     return giornata;
   }
