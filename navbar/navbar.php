@@ -42,6 +42,13 @@
       #div-results {
         background-color: transparent;
       }
+
+      .nav-link {
+        color: black;
+      }
+      .nav-link:hover {
+        color: black;
+      }
     </style>
     <script>
       $(document).ready(function(){
