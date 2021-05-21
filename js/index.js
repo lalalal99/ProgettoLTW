@@ -1,6 +1,29 @@
 function startup() {
+  controllaSeguiti();
   grigliaCanali();
   serata("prima");
+}
+
+function controllaSeguiti() {
+  d = document.getElementById("divID");
+  if (localStorage.getItem("lastCheck") == null || localStorage.getItem("lastCheck") != Date.today().toString("dd/MM")) {
+    comunica("email").then((data) => {
+      if (data != null) {
+        comunica("seguiti").then((data) => {
+          if (data != "-1") {
+            var idf = JSON.parse(data);
+            for (const _id in idf) {
+              const id = idf[_id].film;
+              var p = document.createElement("p");
+              p.appendChild(document.createTextNode("Il film da te seguito con titolo '" + id + "' andrà in onda oggi alle " + "CIAO" + " su " + " PIPPO"));
+              d.appendChild(p);
+            }
+          }
+        });
+      }
+    });
+    // localStorage.setItem("lastCheck", Date.today().toString("dd/MM"));
+  }
 }
 
 function grigliaCanali() {

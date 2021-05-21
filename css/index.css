@@ -69,7 +69,18 @@ body {
   left: 0;
 }
 
-
 #dropdownMenuButton {
   color: var(--background);
+}
+
+#divAvviso {
+  /* z-index: 1; */
+  /* text-align: center; */
+  background-color: var(--card);
+  top: 50%;
+  /* margin: auto !important; */
+  text-align: center;
+  /* left: 50%; */
+  /* right: auto; */
+  border: 2px solid var(--title);
 }

@@ -34,7 +34,11 @@
       </div>
       <!-- spinner end -->
     </div>
-        
+    
+    <div id="divAvviso" class="container m-auto sticky-top rounded">
+      <div id="divID"></div>
+      <button type="button" id="btnChiudiAvviso" class="btn btn-secondary">OK</button>
+    </div>
     <!-- prima serata -->
     <div class="container-fluid mt-5 d-flex" id="container-serata">    
       <div class="d-flex flex-grow flex-column p-2"> 
@@ -57,5 +61,10 @@
         <div class="row fs-2 fw-normal rounded d-flex justify-content-center align-items-center mb-3" id="header-canali">Lista Canali</div>
       </div>   
     </div>
+    <script> // Su non funziona
+      $("#btnChiudiAvviso").click(function(){
+        $("#divAvviso").remove();
+      });
+    </script>
   </body>
 </html>

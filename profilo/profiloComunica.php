@@ -17,7 +17,9 @@
     }
     if($_SERVER['REMOTE_ADDR'] == '::1'){
         if ($x == 'email')
-            echo $_SESSION['email'];
+             if ($_SESSION['email'])
+                echo $_SESSION['email'];
+             else echo "null";
         elseif ($x == 'password') 
             echo enc_dec('decrypt', $_SESSION['password']);
         elseif ($x == 'username')
