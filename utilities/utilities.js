@@ -170,17 +170,14 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
 
 function createCard(programma, order, divContainer, searchbar = false) {
   const id = programma.id,
-    ora = programma.ora;
+    ora = programma.ora,
+    poster = programma.poster;
 
   let container = document.getElementById(divContainer);
   getFilm("i", id).then((film) => {
     let card = document.createElement("div");
     card.setAttribute("class", "card mb-3");
     card.setAttribute("style", "order:" + order);
-    // if (searchbar) {
-    //   _offset = 50 + offset;
-    //   card.setAttribute("style", "position:fixed; top:" + _offset + "px");
-    // }
 
     let row = document.createElement("div");
     row.setAttribute("class", "row g-0");
@@ -233,10 +230,28 @@ function createCard(programma, order, divContainer, searchbar = false) {
     a.appendChild(h2);
     divTitoloOra.appendChild(a);
 
-    h3 = document.createElement("h3");
-    h3.setAttribute("class", "card-text");
-    h3.appendChild(document.createTextNode(ora));
-    divTitoloOra.appendChild(h3);
+    if (searchbar) {
+      div = document.createElement("div");
+      div.setAttribute(
+        "class",
+        "d-flex align-items-center justify-content-between"
+      );
+      img = document.createElement("img");
+      img.setAttribute("src", poster);
+      img.setAttribute("height", "40px");
+      img.setAttribute("class", "me-5");
+      div.appendChild(img);
+      p = document.createElement("p");
+      p.setAttribute("class", "card-text");
+      p.appendChild(document.createTextNode(ora));
+      div.appendChild(p);
+      divTitoloOra.appendChild(div);
+    } else {
+      h3 = document.createElement("h3");
+      h3.setAttribute("class", "card-text");
+      h3.appendChild(document.createTextNode(ora));
+      divTitoloOra.appendChild(h3);
+    }
 
     card_body.appendChild(divTitoloOra);
 
@@ -258,7 +273,7 @@ function cercaDaSeguire() {
   if (div.lastChild.id == "div-results") div.removeChild(div.lastChild);
   let res = document.createElement("div");
   res.setAttribute("id", "div-results");
-  res.setAttribute("class", "container w-50 ms-auto me-auto mt-5 p-2 mb-4");
+  res.setAttribute("class", "w-50 ms-auto me-auto mt-5 p-2 mb-4"); //
   res.setAttribute("style", "overflow-y: scroll;");
   if (document.getElementById("srcInput").value != null) {
     comunica("s", document.getElementById("srcInput").value).then((data) => {
@@ -270,12 +285,7 @@ function cercaDaSeguire() {
         for (const _film in idf) {
           const id = idf[_film].id;
           getFilm("i", id).then((film) => {
-            createCard(
-              { ora: "21:20", id: film.imdbID },
-              1,
-              "div-results",
-              true
-            );
+            createCard(getOraInPalinsesto(id), 1, "div-results", true);
           });
           // console.log(idf[_id].film);
         }
@@ -283,6 +293,25 @@ function cercaDaSeguire() {
     });
     div.appendChild(res);
   }
+}
+
+function getOraInPalinsesto(id) {
+  _ora = "";
+  _poster = "";
+  palinsesto = JSON.parse(localStorage.getItem("palinsesto"));
+  for (const giorno of getListaGiorni()) {
+    for (let i = 0; i < canali.length; i += 2) {
+      const canale = canali[i];
+      const urlLogo = canali[i + 1];
+      const giornata = palinsesto[giorno][canale];
+      const res = giornata.find((o) => o.id == id);
+      if (res != undefined) {
+        _ora += giorno + " " + res.ora;
+        _poster += urlLogo;
+      }
+    }
+  }
+  return { ora: _ora, id: id, poster: _poster };
 }
 
 async function comunica() {

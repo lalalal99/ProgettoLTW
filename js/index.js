@@ -85,8 +85,8 @@ async function generaEvidenza() {
 
 function generaSerata(tipoSerata, palinsesto, giorno) {
   //prima serata 0 seconda serata 1 unificata 0 e 1
-  // for (let i = 0; i < canali.length; i += 2) {
-  for (let i = 0; i < 10; i += 2) {
+  for (let i = 0; i < canali.length; i += 2) {
+    // for (let i = 0; i < 10; i += 2) {
     if (tipoSerata == "unica") {
       aggiungiElementoSerata(i, palinsesto, 0, giorno);
       aggiungiElementoSerata(i + 1, palinsesto, 1, giorno);
