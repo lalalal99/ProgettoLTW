@@ -171,7 +171,8 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
 function createCard(programma, order, divContainer, searchbar = false) {
   const id = programma.id,
     ora = programma.ora,
-    poster = programma.poster;
+    poster = programma.poster, 
+    giorno = programma.giorno;
 
   let container = document.getElementById(divContainer);
   getFilm("i", id).then((film) => {
@@ -230,7 +231,7 @@ function createCard(programma, order, divContainer, searchbar = false) {
     a.appendChild(h2);
     divTitoloOra.appendChild(a);
 
-    if (searchbar) {
+    if (searchbar && poster != '') {
       div = document.createElement("div");
       div.setAttribute(
         "class",
@@ -243,7 +244,7 @@ function createCard(programma, order, divContainer, searchbar = false) {
       div.appendChild(img);
       p = document.createElement("p");
       p.setAttribute("class", "card-text");
-      p.appendChild(document.createTextNode(ora));
+      p.innerHTML = giorno + " " + ora;
       div.appendChild(p);
       divTitoloOra.appendChild(div);
     } else {
@@ -298,6 +299,7 @@ function cercaDaSeguire() {
 function getOraInPalinsesto(id) {
   _ora = "";
   _poster = "";
+  _giorno = "";
   palinsesto = JSON.parse(localStorage.getItem("palinsesto"));
   for (const giorno of getListaGiorni()) {
     for (let i = 0; i < canali.length; i += 2) {
@@ -305,13 +307,14 @@ function getOraInPalinsesto(id) {
       const urlLogo = canali[i + 1];
       const giornata = palinsesto[giorno][canale];
       const res = giornata.find((o) => o.id == id);
-      if (res != undefined) {
-        _ora += giorno + " " + res.ora;
+      if (res != undefined && _poster == '' && _giorno == '') {
+        _ora += res.ora;
         _poster += urlLogo;
+        _giorno += giorno;
       }
     }
   }
-  return { ora: _ora, id: id, poster: _poster };
+  return { ora: _ora, id: id, poster: _poster, giorno: _giorno };
 }
 
 async function comunica() {

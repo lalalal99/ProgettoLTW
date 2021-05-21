@@ -77,10 +77,16 @@ body {
   /* z-index: 1; */
   /* text-align: center; */
   background-color: var(--card);
-  top: 50%;
+  /* top: 50%; */
+  bottom: 5%;
+  width: 800px;
   /* margin: auto !important; */
   text-align: center;
   /* left: 50%; */
   /* right: auto; */
   border: 2px solid var(--title);
+}
+
+.classe-nascosta {
+  display: none !important;
 }

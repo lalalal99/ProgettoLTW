@@ -35,9 +35,9 @@
       <!-- spinner end -->
     </div>
     
-    <div id="divAvviso" class="container m-auto sticky-top rounded">
-      <div id="divID"></div>
-      <button type="button" id="btnChiudiAvviso" class="btn btn-secondary">OK</button>
+    <div id="divAvviso" class="container m-auto fixed-bottom rounded p-2 shadow classe-nascosta">
+      <div id="divID" class="d-flex flex-column align-items-center"></div>
+      <button type="button" id="btnChiudiAvviso" class="btn btn-secondary shadow" style="color: white;">OK</button>
     </div>
     <!-- prima serata -->
     <div class="container-fluid mt-5 d-flex" id="container-serata">    
@@ -64,6 +64,7 @@
     <script> // Su non funziona
       $("#btnChiudiAvviso").click(function(){
         $("#divAvviso").remove();
+        localStorage.setItem("lastCheck", Date.today().toString("dd/MM"));
       });
     </script>
   </body>
