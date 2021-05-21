@@ -171,7 +171,7 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
 function createCard(programma, order, divContainer, searchbar = false) {
   const id = programma.id,
     ora = programma.ora,
-    poster = programma.poster, 
+    poster = programma.poster,
     giorno = programma.giorno;
 
   let container = document.getElementById(divContainer);
@@ -231,7 +231,7 @@ function createCard(programma, order, divContainer, searchbar = false) {
     a.appendChild(h2);
     divTitoloOra.appendChild(a);
 
-    if (searchbar && poster != '') {
+    if (searchbar && poster != "") {
       div = document.createElement("div");
       div.setAttribute(
         "class",
@@ -279,9 +279,10 @@ function cercaDaSeguire() {
   if (document.getElementById("srcInput").value != null) {
     comunica("s", document.getElementById("srcInput").value).then((data) => {
       document.getElementById("srcInput").value = "";
-      if (data == -1)
+      if (data == -1) {
+        res.setAttribute("style", "background-color: var(--card);");
         res.appendChild(document.createTextNode("Nessun risultato trovato..."));
-      else {
+      } else {
         var idf = JSON.parse(data).slice(0, 10);
         for (const _film in idf) {
           const id = idf[_film].id;
@@ -307,7 +308,7 @@ function getOraInPalinsesto(id) {
       const urlLogo = canali[i + 1];
       const giornata = palinsesto[giorno][canale];
       const res = giornata.find((o) => o.id == id);
-      if (res != undefined && _poster == '' && _giorno == '') {
+      if (res != undefined && _poster == "" && _giorno == "") {
         _ora += res.ora;
         _poster += urlLogo;
         _giorno += giorno;
