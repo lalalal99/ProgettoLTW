@@ -6,7 +6,10 @@ function startup() {
 
 function controllaSeguiti() {
   d = document.getElementById("divID");
-  if (localStorage.getItem("lastCheck") == null || localStorage.getItem("lastCheck") != Date.today().toString("dd/MM")) {
+  if (
+    localStorage.getItem("lastCheck") == null ||
+    localStorage.getItem("lastCheck") != Date.today().toString("dd/MM")
+  ) {
     comunica("email").then((data) => {
       if (data != null) {
         comunica("seguiti").then((data) => {
@@ -17,28 +20,37 @@ function controllaSeguiti() {
               getFilm("i", id).then((data) => {
                 var titolo = data.Title;
                 var diz = getOraInPalinsesto(id);
-                if (diz['ora'] != '' && diz['giorno'] == "Oggi") {
+                if (diz["ora"] != "" && diz["giorno"] == "Oggi") {
                   var p = document.createElement("p");
                   var d2 = document.createElement("div");
                   d2.setAttribute("class", "d-flex align-items-baseline");
                   var img = document.createElement("img");
-                  img.setAttribute("src", diz['poster']);
+                  img.setAttribute("src", diz["poster"]);
                   img.setAttribute("height", "30px");
                   img.setAttribute("class", "ms-3");
-                  p.appendChild(document.createTextNode("'" + titolo + "' andrà in onda oggi alle " + diz['ora'] + " su "));
+                  p.appendChild(
+                    document.createTextNode(
+                      "'" +
+                        titolo +
+                        "' andrà in onda oggi alle " +
+                        diz["ora"] +
+                        " su "
+                    )
+                  );
                   p.setAttribute("class", "fs-4");
                   d2.appendChild(p);
                   d2.appendChild(img);
                   d.appendChild(d2);
+                  document
+                    .getElementById("divAvviso")
+                    .classList.remove("classe-nascosta");
                 }
               });
             }
-            document.getElementById("divAvviso").classList.remove("classe-nascosta");
           }
         });
       }
     });
-    
   }
 }
 
