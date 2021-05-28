@@ -1,4 +1,4 @@
-const canali = [
+const canali = [ // lista dei canali (id canale e logo )
   "Rai 1",
   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Rai_1_-_Logo_2016.svg/1200px-Rai_1_-_Logo_2016.svg.png",
   "Rai 2",
@@ -51,7 +51,7 @@ const canali = [
   "https://www.lamiascuoladifferente.it/wp-content/uploads/2020/03/logo_rai2.png", //solo documentari
 ];
 
-function getListaGiorni() {
+function getListaGiorni() {  // ritorna una lista di giorni da Oggi - 7 a Oggi + 7
   var listaGiorni = [];
   function stringaData(data) {
     var dd = String(data.getDate()).padStart(2, "0");
@@ -73,19 +73,12 @@ function getListaGiorni() {
   return listaGiorni;
 }
 
-const OMDb_API = "9e44c172";
+const OMDb_API = "9e44c172"; // API key del sito OMDb
 // const OMDb_API = "75cb83e8";
 
 async function getFilm(key, value, fullPlot = false) {
-  //Ritorna un dizionario con le informazione del film src
-  var url =
-    "http://www.omdbapi.com/?apikey=" +
-    OMDb_API +
-    "&" +
-    key +
-    "=" +
-    value +
-    (fullPlot ? "&plot=full" : "");
+  //Ritorna un dizionario con le informazioni del film richiesto
+  var url = "http://www.omdbapi.com/?apikey=" + OMDb_API + "&" + key + "=" + value + (fullPlot ? "&plot=full" : "");
 
   var value = new Promise(function (success) {
     $.ajax(url).then(function (res) {
@@ -96,20 +89,20 @@ async function getFilm(key, value, fullPlot = false) {
   return await value;
 }
 
-function getParameterByName(name, _url) {
+function getParameterByName(name = "id", _url) {
   if (!_url) urlString = window.location.href;
   let url = new URL(urlString);
-  return url.searchParams.get("id");
+  return url.searchParams.get(name);
 }
 
-function getColoreCasuale() {
+function getColoreCasuale() { // ritorna un colore casuale 
   var letters = "0123456789ABCDEF";
   var color = "";
   for (var i = 0; i < 6; i++) color += letters[Math.floor(Math.random() * 16)];
   return color;
 }
 
-function getBrightness(colore) {
+function getBrightness(colore) { // ritorna la luminosità del colore ricevuto in input
   if (colore[0] == "#") colore = colore.substring(1);
   var rgb = parseInt(colore, 16);
   var r = (rgb >> 16) & 0xff;
@@ -118,7 +111,8 @@ function getBrightness(colore) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-function changeDropdownDay(giorno, canale = false) {
+function changeDropdownDay(giorno, canale = false) { 
+  // cambia il valore del bottone della navbar e modifica gli argomenti dei bottoni per cambiare tipo di serata
   let btn = document.getElementById("dropdownMenuButton");
   btn.innerHTML = "";
   btn.appendChild(document.createTextNode(giorno));
@@ -133,7 +127,7 @@ function changeDropdownDay(giorno, canale = false) {
   }
 }
 
-function navbarDropdown(giorno = "Oggi", canale = false) {
+function navbarDropdown(giorno = "Oggi", canale = false) { // crea il menu dropdown con la lista dei giorni nella navbar
   let div = document.getElementById("dropdown");
   div.setAttribute("style", "border: 2px solid var(--hover);");
 
@@ -158,9 +152,9 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
     li.setAttribute("class", "dropdown-item");
     li.setAttribute(
       "onclick",
-      canale
-        ? `programmi('${giorno}');changeDropdownDay('${giorno}', true);`
-        : `serata('prima', '${giorno}');changeDropdownDay('${giorno}');`
+      canale ? // a seconda di chi chiama questa funzione viene eseguita una funzione differente sull'onclick
+        `programmi('${giorno}');changeDropdownDay('${giorno}', true);` :
+        `serata('prima', '${giorno}');changeDropdownDay('${giorno}');`
     );
     li.appendChild(document.createTextNode(giorno));
     ul.appendChild(li);
@@ -169,6 +163,7 @@ function navbarDropdown(giorno = "Oggi", canale = false) {
 }
 
 function createCard(programma, order, divContainer, searchbar = false) {
+  // crea una card con le informazioni passate nel container specificato
   const id = programma.id,
     ora = programma.ora,
     poster = programma.poster,
@@ -283,12 +278,10 @@ function cercaDaSeguire() {
         res.setAttribute("style", "background-color: var(--card);");
         res.appendChild(document.createTextNode("Nessun risultato trovato..."));
       } else {
-        var idf = JSON.parse(data).slice(0, 10); //COMMENTA TU
-        for (const _film in idf) {
+        var idf = JSON.parse(data).slice(0, 10); // Prende i primi 10 risultati
+        for (const _film in idf) { // per ogni risultato crea una card nella div specificata
           const id = idf[_film].id;
-          getFilm("i", id).then((film) => {
-            createCard(getOraInPalinsesto(id), 1, "div-results", true);
-          });
+          createCard(getOraInPalinsesto(id), 1, "div-results", true);
         }
       }
     });
@@ -296,7 +289,8 @@ function cercaDaSeguire() {
   }
 }
 
-function getOraInPalinsesto(id) {
+function getOraInPalinsesto(id) { 
+  // cerca il programma con id specificato, ritorna un oggetto con ora, id, poster e giorno in cui è stato trovato
   _ora = "";
   _poster = "";
   _giorno = "";
@@ -318,7 +312,7 @@ function getOraInPalinsesto(id) {
 }
 
 /*Le due funzioni seguenti differiscono solo per il file PHP a cui fanno richieste ma il loro comportamento è molto simile:
- fanno comunicano tramite il metodo POST dei caratteri (o stringhe) affinché il server capisca cosa la funzione vuole e esaudisca la richiesta
+  comunicano tramite il metodo POST dei caratteri (o stringhe) affinché il server capisca cosa la funzione vuole e esaudisca la richiesta
 */
 async function comunica() {
   let res = new Promise((success) => {

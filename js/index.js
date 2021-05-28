@@ -1,4 +1,4 @@
-function startup() {
+function startup() { // viene chiamata al caricamento del body in index.html, inizializza tutti gli elementi nella pagina
   controllaSeguiti();
   grigliaCanali();
   serata("prima");
@@ -31,22 +31,12 @@ function controllaSeguiti() {
                   img.setAttribute("src", diz["poster"]);
                   img.setAttribute("height", "30px");
                   img.setAttribute("class", "ms-3");
-                  p.appendChild(
-                    document.createTextNode(
-                      "'" +
-                        titolo +
-                        "' andrà in onda oggi alle " +
-                        diz["ora"] +
-                        " su "
-                    )
-                  );
+                  p.appendChild(document.createTextNode("'" + titolo + "' andrà in onda oggi alle " + diz["ora"] + " su "));
                   p.setAttribute("class", "fs-4");
                   d2.appendChild(p);
                   d2.appendChild(img);
                   d.appendChild(d2);
-                  document
-                    .getElementById("divAvviso")
-                    .classList.remove("classe-nascosta"); //Rimuove classe-nascosta così da renderlo visibile
+                  document.getElementById("divAvviso").classList.remove("classe-nascosta"); //Rimuove classe-nascosta così da renderlo visibile
                 }
               });
             }
@@ -57,23 +47,17 @@ function controllaSeguiti() {
   }
 }
 
-function grigliaCanali() {
+function grigliaCanali() { //crea la griglia dei canali sulla destra della pagina principale del sito
   let container = document.getElementById("container-griglia-canali");
   let row = document.createElement("div");
   row.setAttribute("class", "row row-cols-3 justify-content-start g-3");
 
-  for (let i = 1; i < canali.length; i += 2) {
+  for (let i = 1; i < canali.length; i += 2) { //per ogni logo di canale viene creata un'immagine e inserita nella griglia
     let col = document.createElement("div");
-    col.setAttribute(
-      "class",
-      "col p-2 d-flex justify-content-center align-items-center shadow-sm rounded"
-    );
+    col.setAttribute("class", "col p-2 d-flex justify-content-center align-items-center shadow-sm rounded");
 
-    let a = document.createElement("a");
-    a.setAttribute(
-      "href",
-      "../dettaglioCanale/canale.html?id=" + canali[i - 1]
-    );
+    let a = document.createElement("a"); //crea link alla pagina del canale
+    a.setAttribute("href", "../dettaglioCanale/canale.html?id=" + canali[i - 1]);
 
     let img = document.createElement("img");
     img.setAttribute("src", canali[i]);
@@ -83,46 +67,44 @@ function grigliaCanali() {
     col.appendChild(a);
     row.appendChild(col);
   }
-
   container.appendChild(row);
 }
 
-function serata(tipoSerata, giorno = "Oggi") {
+function serata(tipoSerata, giorno = "Oggi") { //viene reperito il palinsesto e poi utilizzato
   generaPalinsesto().then(function (palinsesto) {
-    console.log(palinsesto);
-    document.getElementById("serata-lista").innerHTML = "";
+    document.getElementById("serata-lista").innerHTML = ""; //svuota il contenuto della div contenente la serata
     document.getElementById("div-evidenza").innerHTML =
-      '<div class="spinner-border text-info" role="status"><span class="visually-hidden">Loading...</span></div>';
-    generaSerata(tipoSerata, palinsesto, giorno);
-    generaEvidenza();
+      '<div class="spinner-border text-info" role="status"><span class="visually-hidden">Loading...</span></div>';  //mostra uno spinner finchè non carica la serata
+    generaSerata(tipoSerata, palinsesto, giorno); //crea le card nella div serata
+    generaEvidenza(); //crea le locandine nella sezione evidenza
   });
 }
 
-async function generaEvidenza() {
+async function generaEvidenza() { //crea le locandine nella sezione evidenza
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  await sleep(1500);
+  await sleep(1500); // attende 1.5 secondi per far caricare tutte le card della serata
 
   let div = document.getElementById("div-evidenza");
-  div.innerHTML = "";
+  div.innerHTML = ""; //svuota l'eventuale vecchia serata
 
   let _best = [];
 
-  let ratings = document.getElementsByName("rating");
-  let imgs = document.getElementsByName("card-img");
+  let ratings = document.getElementsByName("rating"); //prende tutte le valutazione delle card presenti nella serata
+  let imgs = document.getElementsByName("card-img"); //prende tutte le immagini delle card presenti nella serata
 
   for (let i = 0; i < ratings.length; i++) {
     let obj = {
       id: imgs[i].alt,
       rating: ratings[i].innerHTML != "N/A" ? ratings[i].innerHTML : "0",
       poster: imgs[i].src,
-    };
-    _best.push(obj);
+    }; //crea un oggetto contenente id del programma, eventuale rating e poster
+    _best.push(obj); // mette in un array l'oggetto creato 
   }
-  let best = _best.sort((a, b) => b.rating - a.rating).slice(0, 5);
+  let best = _best.sort((a, b) => b.rating - a.rating).slice(0, 5); //l'array viene ordinato per valutazione decrescente e vengono presi solo i migliori 5
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++) { //per ogni elemento viene creato un poster con link alla sua scheda nella sezione evidenza
     let a = document.createElement("a");
     a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + best[i].id);
     let img = document.createElement("img");
@@ -134,9 +116,9 @@ async function generaEvidenza() {
   }
 }
 
-function generaSerata(tipoSerata, palinsesto, giorno) {
+function generaSerata(tipoSerata, palinsesto, giorno) { // crea la sezione serata
   //prima serata 0 seconda serata 1 unificata 0 e 1
-  for (let i = 0; i < canali.length; i += 2) {
+  for (let i = 0; i < canali.length; i += 2) { //per ogni canale viene inserita una card a seconda della serata richiesta
     // for (let i = 0; i < 10; i += 2) {
     if (tipoSerata == "unica") {
       aggiungiElementoSerata(i, palinsesto, 0, giorno);
@@ -149,16 +131,8 @@ function generaSerata(tipoSerata, palinsesto, giorno) {
   }
 }
 
-function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
-  // palinsesto[dataDaIndexPhpSelezioneMultipla][canale][isPrimaSerata ? "21:20" : "quelloDopo"];
-  getFilm(
-    "i",
-    palinsesto[giorno][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][
-      serata
-    ]["id"],
-    false
-  ).then((film) => {
-    // console.log(film);
+function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) { //crea tutti gli elementi necessari e appende una card alla serata
+  getFilm("i", palinsesto[giorno][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][serata]["id"], false).then((film) => { //richiede le informazioni del film
     let container = document.getElementById("serata-lista");
     let card = document.createElement("div");
     card.setAttribute("class", "card mb-3");
@@ -169,26 +143,19 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
     let a = document.createElement("a");
     a.setAttribute(
       "href",
-      "dettaglioCanale/canale.html?id=" +
-        canali[serata == 0 ? indiceCanale : indiceCanale - 1]
+      "dettaglioCanale/canale.html?id=" + canali[serata == 0 ? indiceCanale : indiceCanale - 1]
     );
     let img = document.createElement("img");
     Object.assign(img, {
       src: canali[serata == 0 ? indiceCanale + 1 : indiceCanale],
-      style: "max-width: 4rem;",
+      style: "max-height: 50px;",
     });
     a.appendChild(img);
     card_header.appendChild(a);
 
     let ora = document.createElement("h3");
     ora.setAttribute("class", "card-text ms-auto");
-    ora.appendChild(
-      document.createTextNode(
-        palinsesto[giorno][
-          canali[serata == 0 ? indiceCanale : indiceCanale - 1]
-        ][serata]["ora"]
-      )
-    );
+    ora.appendChild(document.createTextNode(palinsesto[giorno][canali[serata == 0 ? indiceCanale : indiceCanale - 1]][serata]["ora"]));
     card_header.appendChild(ora);
 
     card.appendChild(card_header);
@@ -205,15 +172,13 @@ function aggiungiElementoSerata(indiceCanale, palinsesto, serata, giorno) {
     a.setAttribute("href", "../dettaglioFilm/dettaglio.html?id=" + film.imdbID);
     img = document.createElement("img");
     Object.assign(img, {
-      src:
-        film["Poster"] != "N/A"
-          ? film["Poster"]
-          : "https://via.placeholder.com/300x500/FFFFFF/000000?text=" +
-            film.Title.replace(/ /g, "+"),
-      // : "https://ih1.redbubble.net/image.512138487.5983/fposter,small,wall_texture,product,750x1000.u3.jpg",
+      src: 
+        film["Poster"] != "N/A" ? 
+          film["Poster"] : 
+          "https://via.placeholder.com/300x500/FFFFFF/000000?text=" + film.Title.replace(/ /g, "+"), //immagine personalizzata da placeholder.com se un poster non è disponibile
       class: "card-img",
       alt: film.imdbID,
-      style: "overflow:cover;", //width : 250px; height : 350px",
+      style: "overflow:cover;",
       name: "card-img",
     });
     a.appendChild(img);

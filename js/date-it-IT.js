@@ -6,6 +6,9 @@
  * @license: Licensed under The MIT License. See license.txt and http://www.datejs.com/license/.
  * @website: http://www.datejs.com/
  */
+
+// libreria necessaria all'uso della data e ora
+
 Date.CultureInfo = {
   name: "it-IT",
   englishName: "Italian (Italy)",

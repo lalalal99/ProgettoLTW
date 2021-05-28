@@ -1,18 +1,14 @@
-// var fs = require("fs");
-
-async function generaPalinsesto() {
-  if (
-    localStorage.getItem("palinsesto") != null &&
-    Date.today().toString("dd/MM") == localStorage.getItem("giorno")
-  ) {
-    return JSON.parse(localStorage.getItem("palinsesto"));
+async function generaPalinsesto() { // viene generato il palinsesto o reperito dal local storage se disponibile 
+  if (localStorage.getItem("palinsesto") != null && Date.today().toString("dd/MM") == localStorage.getItem("giorno")) { 
+    // se è presente un palinsesto nel local storage e il giorno in cui è stato creato è uguale a oggi
+    return JSON.parse(localStorage.getItem("palinsesto")); //torna il palinsesto del local storage
   }
-  let res = new Promise(function (success) {
+  let res = new Promise(function (success) { //creazione palinsesto
     queries = [];
     let IDs = {};
 
-    async function query(type, genre) {
-      let myPromise = new Promise(function (myResolve, err) {
+    async function query(type, genre) {  //funzione locale per reperire programmi dal database e inserirli in un dizionario 
+      let myPromise = new Promise(function (myResolve) { 
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
@@ -20,15 +16,15 @@ async function generaPalinsesto() {
           }
         };
 
-        xmlhttp.open("POST", "../query.php", true);
+        xmlhttp.open("POST", "../query.php", true); 
         xmlhttp.setRequestHeader(
           "Content-type",
           "application/x-www-form-urlencoded"
         );
-        xmlhttp.send("type=" + type + "&genre=" + genre);
+        xmlhttp.send("type=" + type + "&genre=" + genre); // invia tramite post gli argomenti necessari alla query
       }).catch((error) => alert(error.message));
 
-      if (genre == "-") {
+      if (genre == "-") { //inserisce nel dizionario i programmi ricevuti
         IDs[type] = {};
         IDs[type]["tutti"] = await myPromise;
       } else {
@@ -37,7 +33,7 @@ async function generaPalinsesto() {
       // console.log("finito", type, genre);
     }
 
-    queries.push(
+    queries.push( // chiama la funzione query per ogni tipo e genere necessario
       query("movie", "-"),
       query("movie", "Documentary"),
       query("movie", "Crime"),
@@ -52,18 +48,17 @@ async function generaPalinsesto() {
       query("tvSeries", "2000")
     );
 
-    Promise.allSettled(queries).then(function () {
-      palinsesto = assemblaPalinsesto(IDs);
-      writeOnLocalStorage(palinsesto);
-      success(palinsesto);
+    Promise.allSettled(queries).then(function () { // attende che abbiano finito tutte le query e esegue le prossime funzioni 
+      palinsesto = assemblaPalinsesto(IDs); // con i risultati delle query crea le varie giornate
+      writeOnLocalStorage(palinsesto); // scrive su local storage  il palinsesto
+      success(palinsesto); // viene restituito alla promise il palinsesto
     });
   });
   return await res;
 }
 
-function aggiungiPubblicita(ora, intervallo = 5) {
+function aggiungiPubblicita(ora, intervallo = 5) { // riceve in input un orario e lo ritorna arrotondato al multiplo piu vicino di "intervallo"
   if (ora.getMinutes() % intervallo != 0) {
-    //torna i minuti se non è multiplo di 5 aggiungi pubblicita fino ad arrivarci
     pubblicità = 0;
     for (let minuto = 1; minuto < intervallo; minuto++) {
       if ((ora.getMinutes() + minuto) % intervallo == 0) {
@@ -76,20 +71,17 @@ function aggiungiPubblicita(ora, intervallo = 5) {
   return ora;
 }
 
-function randomID(lista) {
-  // console.log(lista[Math.floor(Math.random() * lista.length)]);
+function randomID(lista) { // data una lista torna un elemento casuale di quest'ultima
   return lista[Math.floor(Math.random() * lista.length)];
 }
 
-function assemblaPalinsesto(IDs) {
-  //serie di mattina film di sera, primi 6 canali film dal 2000 in poi, film non ripetuti, su canali specializzati programmi specializzati
+function assemblaPalinsesto(IDs) { //crea il palinsesto con i programmi presenti in "IDs"
   var palinsesto = {};
   var giorni = getListaGiorni();
 
-  function getGiornata(canale) {
-    // console.log(IDs, canale);
-    // console.log(IDs.movie["Animation"]);
-    var giornata = []; //giornata["00-01": filmID]
+  function getGiornata(canale) { // funzione locale per creare la singola giornata ([{id: ..., ora: ...}, {...}, ...])
+    // inizializzazione ore necessarie
+    var giornata = [];
     var mezzogiorno = Date.today().clearTime().at("12:30");
     var primaSerata = Date.today().clearTime().at("21:20");
     var ora = Date.today().at(primaSerata.toString("HH:mm"));
@@ -98,7 +90,7 @@ function assemblaPalinsesto(IDs) {
     var possibiliFilm = [];
     var possibiliSerie = [];
 
-    switch (canale) {
+    switch (canale) { // a seconda del canale vengono scelti determinati tipi di film
       case "Rai Movie":
       case "Paramount Network":
         //prendi solo film
@@ -144,9 +136,9 @@ function assemblaPalinsesto(IDs) {
         break;
     }
 
-    while (ora.isBefore(primaSerata)) {
+    while (ora.isBefore(primaSerata)) { // finchè non viene completata la giornata aggiunge un nuovo programma
       var isPomeriggio = ora.isAfter(mezzogiorno);
-      if (isPomeriggio) {
+      if (isPomeriggio) { // se è pomeriggio viene scelto un film a caso, altrimenti una serie tv
         randomid = randomID(possibiliFilm);
       } else {
         randomid = randomID(possibiliSerie);
@@ -154,8 +146,9 @@ function assemblaPalinsesto(IDs) {
       giornata.push({
         ora: aggiungiPubblicita(ora, 10).toString("HH:mm"),
         id: randomid.id,
-      }); //crea elemento dizionario
+      }); // viene inserito il programma nell'array giornata con l'orario arrotondato
 
+      // aggiorna l'ora a "ora precedente + durata del film"
       vecchio = ora.toString("dd");
       ora.addMinutes(parseInt(randomid.runtime));
       ora = Date.today().set({
@@ -183,7 +176,7 @@ function assemblaPalinsesto(IDs) {
 }
 
 function writeOnLocalStorage(dizionario) {
-  //scrivi il palinsesto su localstorage
+  //scrivi il palinsesto e il giorno in cui è creato su localstorage
   localStorage.setItem("giorno", Date.today().toString("dd/MM"));
   localStorage.setItem("palinsesto", JSON.stringify(dizionario));
 }

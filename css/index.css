@@ -1,4 +1,5 @@
 :root {
+  /* variabili utili */
   --background: #14213d;
   --card: #e5e5e5;
   --title: #fca311;
@@ -51,7 +52,6 @@ body {
 }
 
 #header-canali {
-  /* border: 2px solid var(--title); */
   background-color: var(--title);
   margin: 5px 10px 5px 10px;
 }
@@ -74,16 +74,10 @@ body {
 }
 
 #divAvviso {
-  /* z-index: 1; */
-  /* text-align: center; */
   background-color: var(--card);
-  /* top: 50%; */
   bottom: 5%;
   width: 800px;
-  /* margin: auto !important; */
   text-align: center;
-  /* left: 50%; */
-  /* right: auto; */
   border: 2px solid var(--title);
 }
 
