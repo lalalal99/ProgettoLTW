@@ -28,54 +28,20 @@
     <section class="container-fluid">
       <section class="row justify-content-center">
         <section class="col-12 col-sm-6 col-md-4">
-          <form
-            class="form-container"
-            action="registrazione.php"
-            method="POST"
-            onsubmit="return validaForm()"
-          >
-            <!-- TODO: aggiungere logo  -->
+          <form class="form-container" action="registrazione.php" method="POST" onsubmit="return validaForm()">
             <div class="form-group">
               <h2 class="login-title">Nuova Iscrizione</h2>
-              <label class="form-control-label" for="txtEmailReg"
-                >Indirizzo Email</label
-              >
-              <input
-                type="email"
-                id="txtEmailReg"
-                name="txtEmailReg"
-                class="form-control"
-                size="40"
-                maxlength="40"
-                pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              />
+              <label class="form-control-label" for="txtEmailReg">Indirizzo Email</label>
+              <input type="email" id="txtEmailReg" name="txtEmailReg" class="form-control" size="40" maxlength="40" pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
             </div>
             <div class="form-group">
-              <label class="form-control-label" for="txtUserReg"
-                >Username</label
-              >
-              <input
-                type="text"
-                id="txtUserReg"
-                name="txtUserReg"
-                class="form-control"
-                size="40"
-                maxlength="40"
-              />
+              <label class="form-control-label" for="txtUserReg">Username</label>
+              <input type="text" id="txtUserReg" name="txtUserReg" class="form-control" size="40" maxlength="40"/>
             </div>
             <div class="form-group">
-              <label class="form-control-label" for="txtPasswordReg1"
-                >Password</label
-              >
-              <input
-                type="password"
-                id="txtPasswordReg1"
-                name="txtPasswordReg1"
-                class="form-control"
-                maxlength="40"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola"
-              />
+              <label class="form-control-label" for="txtPasswordReg1">Password</label>
+              <input type="password" id="txtPasswordReg1" name="txtPasswordReg1" class="form-control" maxlength="40" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Deve contenere almeno 8 caratteri di cui almeno: un numero, una lettera maiuscola e una minuscola"/>
             </div>
             <div class="form-group">
               <label class="form-control-label" for="txtPasswordReg2">Conferma Password</label>
@@ -83,13 +49,7 @@
             </div>
             <div id="errore" class="alert-danger rounded-3 ps-2" role="alert"></div>
             <div class="div-submit">
-              <button
-                type="submit"
-                class="btn btn-primary btn-block btn-outline-light"
-                name="btnIscrizione"
-              >
-                Iscriviti
-              </button>
+              <button type="submit" class="btn btn-primary btn-block btn-outline-light" name="btnIscrizione">Iscriviti</button>
             </div>
           </form>
         </section>

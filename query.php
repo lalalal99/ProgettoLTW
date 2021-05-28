@@ -3,7 +3,7 @@
 $type = $_POST['type'];
 $genre = $_POST['genre'];
 
-$dbconn = mysqli_connect('localhost', 'root', '', 'GuidaTV_DB');
+$dbconn = mysqli_connect('localhost', 'root', '', 'GuidaTV_DB'); //Connessione
 if(!$dbconn)
     die("Connection failed: " . mysqli_connect_error());
 
@@ -29,7 +29,5 @@ while($row = mysqli_fetch_assoc($res)) {
     array_push($lista,$row);
 }
 echo json_encode($lista);
-
-        
 
 ?>

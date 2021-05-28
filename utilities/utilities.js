@@ -271,25 +271,24 @@ function createCard(programma, order, divContainer, searchbar = false) {
 
 function cercaDaSeguire() {
   let div = document.getElementById("search-screen");
-  if (div.lastChild.id == "div-results") div.removeChild(div.lastChild);
+  if (div.lastChild.id == "div-results") div.removeChild(div.lastChild); //Rimuove eventuali risultati residui dell'ultima ricerca
   let res = document.createElement("div");
   res.setAttribute("id", "div-results");
   res.setAttribute("class", "w-50 ms-auto me-auto mt-5 p-2 mb-4"); //
-  res.setAttribute("style", "overflow-y: scroll;");
-  if (document.getElementById("srcInput").value != null) {
-    comunica("s", document.getElementById("srcInput").value).then((data) => {
+  res.setAttribute("style", "overflow-y: scroll;"); //Permette lo scroll dei risultati
+  if (document.getElementById("srcInput").value != null) { //Se nell'input text è stato scritto qualcosa (impedisce query vuote)
+    comunica("s", document.getElementById("srcInput").value).then((data) => { //Cerca programmi da seguire (si veda profiloCOmunica.php)
       document.getElementById("srcInput").value = "";
       if (data == -1) {
         res.setAttribute("style", "background-color: var(--card);");
         res.appendChild(document.createTextNode("Nessun risultato trovato..."));
       } else {
-        var idf = JSON.parse(data).slice(0, 10);
+        var idf = JSON.parse(data).slice(0, 10); //COMMENTA TU
         for (const _film in idf) {
           const id = idf[_film].id;
           getFilm("i", id).then((film) => {
             createCard(getOraInPalinsesto(id), 1, "div-results", true);
           });
-          // console.log(idf[_id].film);
         }
       }
     });
@@ -318,13 +317,15 @@ function getOraInPalinsesto(id) {
   return { ora: _ora, id: id, poster: _poster, giorno: _giorno };
 }
 
+/*Le due funzioni seguenti differiscono solo per il file PHP a cui fanno richieste ma il loro comportamento è molto simile:
+ fanno comunicano tramite il metodo POST dei caratteri (o stringhe) affinché il server capisca cosa la funzione vuole e esaudisca la richiesta
+*/
 async function comunica() {
   let res = new Promise((success) => {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         success(this.responseText);
-        // document.getElementById("txtEmailProf").value = this.responseText;
       }
     };
     xmlhttp.open("POST", "../profilo/profiloComunica.php", true);

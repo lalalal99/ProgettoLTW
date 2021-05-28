@@ -16,7 +16,7 @@
     <title>GuidaTV | Profilo</title>
     <?php
       session_start();
-      if (!$_SESSION['email'] && !$_COOKIE['email']){
+      if (!$_SESSION['email'] && !$_COOKIE['email']){ //Rende la pagina non accessibile da chi non è loggato
         header("Location: ../index.php");
       }
     ?>
@@ -34,12 +34,12 @@
           });   
       });
       $(document).ready(function(){
-        // Add Active Class
+        // Se clicca sull'icona di ricerca nella navbar apre la search screen
         $("#btnCercaDaSeguire").click(function(){
             $(".search-screen").addClass("active");
         });
 
-        // Remove Active Class
+        // Se si chiude la search screen si rimuove la classe active
         $(".close-icon").click(function(){
             $(".search-screen").removeClass("active");
         });
@@ -59,6 +59,9 @@
             />
           </div>
           <div class="d-flex justify-content-center align-items-center mt-4">
+            <!-- I div hanno la stessa struttura: label, text input disabilitata/e che mostra l'attuale valore di quell'attributo, l'icona di una matita
+                  che se cliccata abilita la modifica (passando un argomento per capire quale modifica dev'essere abilitata) e due pulsanti, una per confermare la
+                  modifica e un altro per annullare -->
             <label for="txtUsernameProf" class="form-label">Username: </label>
             <input type="text" id="txtUsernameProf" class="form-control w-50" maxlength="40" disabled/>
             <img src="../imgs/pencil.png" id="imgUsername" width="16" height="16" class="ms-2 btn-icon" onclick="abilitaModifica('username')"/>
@@ -198,6 +201,8 @@
     </div>
     <div class="container rounded-3 mt-5 p-3">
       <div id="topSecondo" class="d-flex p-1">
+        <!-- Questo div contiene i programmi seguiti dall'utente (aggiunti tramite js), ha un bottone attraverso il quale cercare e aggiungere nuovi programmi e
+              un immagine di un punto interrogativo su cui, passando con il mouse, compare un suggerimento  -->
         <p class="fs-4 mt-2">Programmi seguiti</p>
         <img src="../imgs/hint.png" class="ms-1 mt-2" id="imgHint" height="16" data-toggle="popover" data-placement="right" data-bs-content="Qui puoi trovare tutti i programmi da te inseriti nella lista dei seguiti">
         <button id="btnCercaDaSeguire" class="btn btn-secondary fs-2 d-flex align-items-center justify-content-center ms-auto mt-2" style="color:white;"><b>+</b></button>

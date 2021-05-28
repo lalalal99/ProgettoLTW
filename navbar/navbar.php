@@ -6,6 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <style>
+      /* Stile relativo alla schermata di ricerca */
       .search-screen {
         height: 0;
         background-color: rgba(20, 33, 61, 0.5);
@@ -16,9 +17,9 @@
         overflow-y: scroll;
       }
 
-      body.has-overlay{overflow: hidden;}
+      body.has-overlay{overflow: hidden;} /* Impedisce lo scroll del body quando la schermata è aperta*/
 
-      .close-icon {
+      .close-icon { /* Pone l'icona per chiudere la schermata in alto a destra */
         position: absolute;
         top: 80px;
         right: 40px;
@@ -31,19 +32,19 @@
         height: 100vh;
       }
 
-      .btn-icon:hover {
+      .btn-icon:hover { /* Trasforma il cursore in una "manina" quando passa sulle icone di chiusura e di ricerca */
         cursor: pointer;
       }
 
-      #div-results::-webkit-scrollbar {
+      #div-results::-webkit-scrollbar { /* Il div con i risultati è scrollabile ma non viene mostrata la scrollbar */
         display: none;
       }
 
-      #div-results {
+      #div-results { /* Prende come sfondo quello della search screen */
         background-color: transparent;
       }
 
-      .nav-link {
+      .nav-link { /* I link nella navbar non sono blu ma neri */
         color: black;
       }
       .nav-link:hover {
@@ -52,21 +53,17 @@
     </style>
     <script>
       $(document).ready(function(){
-        // Add Active Class
+        // Aggiunge la classe active e al body aggiunge la classe has-overlay necessaria per la corretta visualizzazione della search screen
         $("#imgSearchNav").click(function(){
             $(".search-screen").addClass("active");
-            // $("#search-screen").setAttribute('aria-hidden', true);
-            // body.classList.toggle('noscroll', true);
             $(document.body).addClass("has-overlay");
         });
 
-        // Remove Active Class
+        // Remove le classi active e has-overlay
         $(".close-icon").click(function(){
             $(".search-screen").removeClass("active");
             $(document.body).removeClass("has-overlay");
-            // document.getElementById("div-results").innerHTML = "";
-            // $("#div-results").html('');
-            $("#div-results").remove();
+            $("#div-results").remove(); //Distrugge il div con i risultati così non ricompariranno alla  successiva apertura della search screen
         });
       });
     </script>
@@ -75,42 +72,32 @@
       <div class="dropdown ms-auto shadow-sm rounded" id="dropdown"></div>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item d-flex align-items-center me-2">
-          <img id='imgSearchNav' src='../imgs/search.png' class='btn-icon' height='35px'/>
+          <img id='imgSearchNav' src='../imgs/search.png' class='btn-icon' height='35px'/> <!-- Permette di aprire la search-screen -->
         </li>
         <?php
         session_start();
         
-        if(!($_SESSION['email'] ?? null)){
-          if($_COOKIE['email'] ?? null){
-              $_SESSION['email'] = $_COOKIE['email'];
-              $_SESSION['username'] = $_COOKIE['username'];
-              $_SESSION['password'] = $_COOKIE['password'];
+        if(!($_SESSION['email'] ?? null)){ //Controlla se la sessione è già salvata
+          if($_COOKIE['email'] ?? null){ //Se non lo è ma lo sono i cookies
+            //Allora inizializza le variabili di sessione con le informazioni salvate nei cookies
+            $_SESSION['email'] = $_COOKIE['email'];
+            $_SESSION['username'] = $_COOKIE['username'];
+            $_SESSION['password'] = $_COOKIE['password'];
           }
         }
-        if(isset($_SESSION['username'])){
-          // echo "<li>
-          //         <img id='imgSearchNav' src='../imgs/search.png' width='40px'/>
-          //       </li>";
+        if(isset($_SESSION['username'])){ //Se l'utente è loggato e ha uno username mette l'immagine di profilo con l'iniziale dello username
           echo "<li class='nav-item'>
                   <a class='nav-link' href='../profilo/profilo.php'>
                     <img id='imgProfNav' src='' class='rounded-circle shadow' style='border: 2px solid #e5e5e5;' width='50px' alt='".$_SESSION["username"]."'/>
                   </a>
                 </li>";
-          // echo "<li class='nav-item'>
-          //         <a id='aId' class='nav-link fs-4' href='../profilo/profilo.php'>".$_SESSION['username']."</a>
-          //       </li>";
         }
-        // elseif(isset($_COOKIE['username']))
-        //   echo "<li class='nav-item'>
-        //           <a class='nav-link fs-4' href='../profilo/profilo.php'>".$_COOKIE['username']."</a>
-        //         </li>";
-
-        if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){
+        if(($_SESSION['email'] ?? null) || ($_COOKIE['email'] ?? null)){ //Se l'utente è loggato scrive 'logout' per dare la possibilità di disconnettersi
           echo "<li class='nav-item d-flex align-items-center'>
                   <a class='nav-link fs-4' href='../login/logout.php'>Logout</a>
                 </li>";
         }
-        else
+        else //Altrimenti scrive login affinché l'utente possa entrare
           echo "<li class='nav-item d-flex align-items-center'>
                   <a class='nav-link fs-4' href='../login/login.html'id='linkLogin'>Login</a>
                 </li>";
@@ -118,6 +105,7 @@
       </ul>
     </div>
   </div>
+  <!-- Qui inizia la parte inizialmente nascosta della search screen contentente: la barra di ricerca e l'icona per cercare oltre all'icona X per chiudere la schermata  -->
   <div id="search-screen" class="search-screen w-100 d-flex flex-column align-items-center justify-content-center position-fixed overflow-hidden top-50">
       <div class=" w-100 d-flex justify-content-center align-items-center">
         <i class="close-icon fas fa-times btn-icon"></i>
@@ -126,22 +114,23 @@
       </div>
     </div>
   <script>
+    // Questo script serve a generare l'immagine di profilo con un colore di sfondo casuale e a seconda della luminosità del colore di sfondo sceglie il colore del testo
     var col = getColoreCasuale();
     var colScritta;
-    if (getBrightness(col) < 128)
-      colScritta = 'ffffff';
+    if (getBrightness(col) < 128) //A seconda della luminosità dello sfondo
+      colScritta = 'ffffff'; //Scritta in bianco
     else
-        colScritta = '000000';
+      colScritta = '000000'; //Scritta in nero
 
-    if(document.getElementById("imgProfNav") != null)
+    if(document.getElementById("imgProfNav") != null) //Crea immagine con viaplaceholder passando la prima lettera dello username in maiuscolo come testo
       document.getElementById("imgProfNav").setAttribute("src", "https://via.placeholder.com/200x200/" + col + "/" + colScritta + "?text=" + $("#imgProfNav").attr('alt')[0].toUpperCase());
         
     document.getElementById("srcInput").addEventListener("keyup", function(event) {
+      //Questa funzione serve a permettere all'utente di cercare un programma anche senza cliccare sull'icona della ricerca ma semplicemente premendo invio
       if (event.keyCode == 13) {
-        event.preventDefault();
-        document.getElementById("imgSearch").click();
+        event.preventDefault(); //Rimuove gli eventi associati di default all'azione
+        document.getElementById("imgSearch").click(); //"Triggera" l'evento click sull'icona della ricerca (lente d'ingrandimenro accanto alla input text)
       }
     });
   </script>
 </nav>
-<!-- document.getElementById("imgProfilo").setAttribute("src", "https://via.placeholder.com/200x200/" + getColoreCasuale() + "/000000?text=" + data[0].toUpperCase()); -->

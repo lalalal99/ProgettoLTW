@@ -1,4 +1,5 @@
 :root {
+  /* Dichiarazione variabili */
   --background: #14213d;
   --card: #e5e5e5;
   --title: #fca311;
@@ -54,10 +55,12 @@ body {
 }
 
 #divSegui:hover {
+  /* Fa diventare il cursore "una manina" nel momento in cui passa sopra al div */
   cursor: pointer;
 }
 
 #pCast {
+  /* Uniforma lo stile dei nomi del cast al resto del sito*/
   letter-spacing: 1px;
   font-weight: bold;
 }

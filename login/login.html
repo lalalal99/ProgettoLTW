@@ -23,63 +23,26 @@
     <section class="container-fluid">
       <section class="row justify-content-center">
         <section class="col-12 col-sm-6 col-md-4">
-          <form
-            class="form-container"
-            action="login.php"
-            id="loginForm"
-            name="loginForm"
-            method="POST"
-            onsubmit="return validaForm()"
-          >
-            <!-- TODO: aggiungere logo  -->
+          <form class="form-container" action="login.php" id="loginForm" name="loginForm" method="POST" onsubmit="return validaForm()"> <!-- Form per il login -->
             <div class="form-group">
               <h2 class="login-title">Login</h2>
-              <label class="form-control-label" for="txtEmail"
-                >Indirizzo Email</label
-              >
-              <input
-                type="email"
-                id="txtEmail"
-                name="txtEmail"
-                class="form-control"
-                size="40"
-                maxlength="40"
-                pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                autofocus
-              />
+              <label class="form-control-label" for="txtEmail">Indirizzo Email</label>
+              <input type="email" id="txtEmail" name="txtEmail" class="form-control" size="40" maxlength="40"pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                autofocus/> <!-- pattern fa si che l'email sia nel formato classico e che non si inseriscano finte email-->
+            </div>
+            <div class="form-group"> <!-- I div hanno tutti la stessa struttura: label e input text-->
+              <label class="form-control-label" for="txtPassword">Password</label>
+              <input type="password" id="txtPassword" name="txtPassword" class="form-control" maxlength="40"/>
             </div>
             <div class="form-group">
-              <label class="form-control-label" for="txtPassword"
-                >Password</label
-              >
-              <input
-                type="password"
-                id="txtPassword"
-                name="txtPassword"
-                class="form-control"
-                maxlength="40"
-              />
-            </div>
-            <div class="form-group">
-              <input type="checkbox" id="chkRicordami" name="chkRicordami" />
-              <label class="form-control-label" for="chkRicordami"
-                >Ricordami</label
-              >
+              <input type="checkbox" id="chkRicordami" name="chkRicordami"/>
+              <label class="form-control-label" for="chkRicordami">Ricordami</label> <!-- Se spuntata attraverso i cookies si ricorda l'utente per gli accessi successivi-->
             </div>
             <div class="div-submit">
-              <button
-                type="submit"
-                name="btnLogin"
-                class="btn btn-primary btn-block btn-outline-light"
-              >
-                Login
-              </button>
+              <button type="submit" name="btnLogin" class="btn btn-primary btn-block btn-outline-light">Login</button>
             </div>
             <div class="form-footer">
-              <p>
-                Non hai un account?
-                <a href="../registrazione/registrazione.html">Iscriviti ora!</a>
-              </p>
+              <p>Non hai un account?<a href="../registrazione/registrazione.html">Iscriviti ora!</a></p> <!-- Link che porta nella pagina di registrazione-->
             </div>
           </form>
         </section>

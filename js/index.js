@@ -5,22 +5,25 @@ function startup() {
 }
 
 function controllaSeguiti() {
+  //Controlla se oggi andrà in onda un programma tra quelli seguiti dall'utente, se si crea un avviso da mostrare nel fondo al centro della pagina
+  //che conterrà nome del programma, ora e canale su cui andrà in onda
   d = document.getElementById("divID");
-  if (
+  if ( //Controlla la variabile lastCheck nel localStorage, essenziale per far si che l'alert compaia una sola volta al giorno e non ogni volta che si va sll'index
+    //nello specifico esegue il controllo se non è stato ancora memorizzato lastCheck oppure se la data non è quella di oggi
     localStorage.getItem("lastCheck") == null ||
     localStorage.getItem("lastCheck") != Date.today().toString("dd/MM")
   ) {
-    comunica("email").then((data) => {
+    comunica("email").then((data) => { //Controlla che l'utente sia loggato
       if (data != null) {
-        comunica("seguiti").then((data) => {
-          if (data != "-1") {
+        comunica("seguiti").then((data) => { //Per capire il significato di questa funzione si rimanda a utilities.js e a profiloComunica.php
+          if (data != "-1") { //Se l'utente segue almeno un programma
             var idf = JSON.parse(data);
             for (const _id in idf) {
               const id = idf[_id].film;
-              getFilm("i", id).then((data) => {
+              getFilm("i", id).then((data) => { //Recupera le info sul programma dato il suo id
                 var titolo = data.Title;
                 var diz = getOraInPalinsesto(id);
-                if (diz["ora"] != "" && diz["giorno"] == "Oggi") {
+                if (diz["ora"] != "" && diz["giorno"] == "Oggi") { //Se il programma si trova nella programmazione tv di oggi crea l'avviso
                   var p = document.createElement("p");
                   var d2 = document.createElement("div");
                   d2.setAttribute("class", "d-flex align-items-baseline");
@@ -43,7 +46,7 @@ function controllaSeguiti() {
                   d.appendChild(d2);
                   document
                     .getElementById("divAvviso")
-                    .classList.remove("classe-nascosta");
+                    .classList.remove("classe-nascosta"); //Rimuove classe-nascosta così da renderlo visibile
                 }
               });
             }
@@ -74,7 +77,6 @@ function grigliaCanali() {
 
     let img = document.createElement("img");
     img.setAttribute("src", canali[i]);
-    // img.setAttribute("width", 50);
     img.setAttribute("height", 40);
 
     a.appendChild(img);
@@ -88,7 +90,6 @@ function grigliaCanali() {
 function serata(tipoSerata, giorno = "Oggi") {
   generaPalinsesto().then(function (palinsesto) {
     console.log(palinsesto);
-    // $("#serata-lista").html = "";
     document.getElementById("serata-lista").innerHTML = "";
     document.getElementById("div-evidenza").innerHTML =
       '<div class="spinner-border text-info" role="status"><span class="visually-hidden">Loading...</span></div>';
@@ -106,8 +107,7 @@ async function generaEvidenza() {
   let div = document.getElementById("div-evidenza");
   div.innerHTML = "";
 
-  //metti iconcina caricamento
-  let _best = []; //{id: "", poster: "", rating: ""}
+  let _best = [];
 
   let ratings = document.getElementsByName("rating");
   let imgs = document.getElementsByName("card-img");

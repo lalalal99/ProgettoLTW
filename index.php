@@ -35,6 +35,7 @@
       <!-- spinner end -->
     </div>
     
+    <!-- Inzio del div per l'avviso sui seguiti in onda oggi: contiene un bottone e un div che conterrà i programmi con l'ora e il canale in cui andranno in onda -->
     <div id="divAvviso" class="container m-auto fixed-bottom rounded p-2 shadow classe-nascosta">
       <div id="divID" class="d-flex flex-column align-items-center"></div>
       <button type="button" id="btnChiudiAvviso" class="btn btn-secondary shadow" style="color: white;">OK</button>
@@ -62,9 +63,9 @@
       </div>   
     </div>
     <script> // Su non funziona
-      $("#btnChiudiAvviso").click(function(){
-        $("#divAvviso").remove();
-        localStorage.setItem("lastCheck", Date.today().toString("dd/MM"));
+      $("#btnChiudiAvviso").click(function(){ //Questa funzione viene eseguita quando si clicca sul bottone OK dell'avviso
+        $("#divAvviso").remove(); //Rimuove l'avviso (il div più esterno e di conseguenza anche il bottone e il div con i seguiti in onda oggi)
+        localStorage.setItem("lastCheck", Date.today().toString("dd/MM")); //Setta la var lastCheck nel localStorage alla data di oggi
       });
     </script>
   </body>
